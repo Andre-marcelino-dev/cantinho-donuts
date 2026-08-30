@@ -5,6 +5,7 @@
 
 
         @include('site.home.slider')
+        @include('site.home.evento')
         @include('site.home.about')
         @include('site.home.fluid')
         @include('site.home.portifilio')

@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\DashController;
 use App\Http\Controllers\admin\CategoriaController;
 use App\Http\Controllers\admin\ProdutoController;
 use App\Http\Controllers\admin\ClienteController;
+use App\Http\Controllers\admin\EventoController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -57,6 +58,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
         Route::patch('/cliente/{id}/status', [ClienteController::class, 'status'])->name('cliente.status');
         Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+
+        Route::get('/evento', [EventoController::class, 'index'])->name('evento');
+        Route::post('/evento', [EventoController::class, 'store'])->name('evento.store');
+        Route::put('/evento/{id}', [EventoController::class, 'update'])->name('evento.update');
+        Route::patch('/evento/{id}/status', [EventoController::class, 'alterarStatus'])->name('evento.status');
+        Route::delete('/evento/{id}', [EventoController::class, 'destroy'])->name('evento.destroy');
 
     });
 

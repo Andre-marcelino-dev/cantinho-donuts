@@ -322,6 +322,13 @@
               </li>
 
               <li class="nav-item">
+                <a href="{{ route('admin.evento') }}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>Feira Livre / Eventos</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-circle"></i>
                   <p>Mensagens de contato</p>

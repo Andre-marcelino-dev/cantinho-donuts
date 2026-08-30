@@ -4,6 +4,7 @@ namespace App\Http\Controllers\site;
 use App\Models\Categoria;
 use App\Models\Produto;
 use App\Models\Banner;
+use App\Models\Evento;
 use App\Models\Kits;
 use App\Http\Controllers\Controller;
 
@@ -40,13 +41,17 @@ class HomeController extends Controller
         ->get();
 
          $kitis = Kits::with('ProdutosKit.produto')
-        
+
         ->get();
 
         // dd($kitis  );
 
-        
+        $listaEvento = Evento::where('status_evento', 'ATIVO')
+        ->orderBy('data_evento')
+        ->orderBy('ordem_evento')
+        ->get();
+        //dd($listaEvento);
 
-        return view('site.home.home', compact('filtroCategoria','listaProduto', 'listaBanner','kitis'));
+        return view('site.home.home', compact('filtroCategoria','listaProduto', 'listaBanner','kitis','listaEvento'));
     }
 }
