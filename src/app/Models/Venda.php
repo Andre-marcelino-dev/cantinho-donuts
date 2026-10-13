@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Cliente;
 use App\Models\Cupom;
 use App\Models\ItemVenda;
 
@@ -34,6 +35,12 @@ class Venda extends Model
     public function itens()
     {
         return $this->hasMany(ItemVenda::class, 'id_venda', 'id_venda');
+    }
+
+    // Relacionamento: a venda pertence a um cliente
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'id_cliente', 'id_cliente');
     }
 
     // Relacionamento: a venda pode ter um cupom

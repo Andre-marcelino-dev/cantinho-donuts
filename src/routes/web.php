@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\CategoriaController;
 use App\Http\Controllers\admin\ProdutoController;
 use App\Http\Controllers\admin\ClienteController;
 use App\Http\Controllers\admin\EventoController;
+use App\Http\Controllers\admin\PedidoController as AdminPedidoController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -61,6 +62,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
         Route::patch('/cliente/{id}/status', [ClienteController::class, 'status'])->name('cliente.status');
         Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+
+        Route::get('/pedido', [AdminPedidoController::class, 'index'])->name('pedido');
+        Route::patch('/pedido/{id}/status', [AdminPedidoController::class, 'alterarStatus'])->name('pedido.status');
 
         Route::get('/evento', [EventoController::class, 'index'])->name('evento');
         Route::post('/evento', [EventoController::class, 'store'])->name('evento.store');
