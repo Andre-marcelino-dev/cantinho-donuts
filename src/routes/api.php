@@ -48,6 +48,7 @@ Route::prefix('v1')->group(function () {
 
         // Pedidos do cliente logado
         Route::get('/pedidos', [PedidoController::class, 'index']);
+        Route::post('/pedidos', [PedidoController::class, 'store']);
         Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
     });
  

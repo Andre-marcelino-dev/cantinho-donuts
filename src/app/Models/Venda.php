@@ -11,13 +11,13 @@ class Venda extends Model
     protected $table = 'tbl_vendas';
     protected $primaryKey = 'id_venda';
 
-    public $timestamps = true;
-
-    const CREATED_AT = 'data_venda';
-    const UPDATED_AT = 'atualizado_em_venda';
+    // data_venda é preenchida pelo PedidoController (horário de Brasília)
+    // e atualizado_em_venda pelo próprio banco
+    public $timestamps = false;
 
     protected $fillable = [
         'id_cliente',
+        'data_venda',
         'id_usuario',
         'id_endereco',
         'id_cupom',
