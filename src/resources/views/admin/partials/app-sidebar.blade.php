@@ -96,6 +96,13 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="{{ route('admin.cupom') }}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>Cupons</p>
+                </a>
+              </li>
+
             </ul>
           </li>
 

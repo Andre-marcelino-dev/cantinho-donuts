@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\V1\ClienteController;
 use App\Http\Controllers\Api\V1\SacolaController;
 use App\Http\Controllers\Api\V1\PedidoController;
 use App\Http\Controllers\Api\V1\EnderecoController;
+use App\Http\Controllers\Api\V1\CupomController;
  
 Route::prefix('v1')->group(function () {
  
@@ -51,6 +52,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/pedidos', [PedidoController::class, 'index']);
         Route::post('/pedidos', [PedidoController::class, 'store']);
         Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
+
+        // Validar cupom de desconto (o desconto é aplicado no POST /pedidos)
+        Route::get('/cupons/{codigo}', [CupomController::class, 'show']);
 
         // Endereços de entrega do cliente logado
         Route::get('/enderecos', [EnderecoController::class, 'index']);

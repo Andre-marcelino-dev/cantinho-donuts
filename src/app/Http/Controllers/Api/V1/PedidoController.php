@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cupom;
 use App\Models\EnderecoCliente;
 use App\Models\Sacola;
 use App\Models\Venda;
@@ -45,6 +46,7 @@ class PedidoController extends Controller
             'entrega'         => 'required|boolean',
             'forma_pagamento' => 'required|in:pix,cartao,dinheiro',
             'observacao'      => 'nullable|string|max:500',
+            'cupom'           => 'nullable|string|max:20',
         ]);
 
         $cliente = $request->user();
@@ -66,6 +68,19 @@ class PedidoController extends Controller
         $subtotal = $itensSacola->sum(fn ($item) => $item->produto->valor_produto * $item->qtde_sacola);
         $taxaEntrega = $dados['entrega'] ? self::TAXA_ENTREGA : 0;
 
+        // Cupom: porcentagem de desconto sobre os produtos (não sobre a entrega)
+        $cupom = null;
+        if (!empty($dados['cupom'])) {
+            $cupom = Cupom::validoHoje($dados['cupom']);
+            if (!$cupom) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Cupom inválido ou expirado. Remova o cupom ou use outro.',
+                ], 422);
+            }
+        }
+        $desconto = $cupom ? $cupom->descontoSobre($subtotal) : 0;
+
         // Na entrega, usa o endereço principal do cliente (se ele tiver cadastrado algum)
         $idEndereco = $dados['entrega']
             ? EnderecoCliente::where('id_cliente', $cliente->id_cliente)
@@ -74,18 +89,19 @@ class PedidoController extends Controller
                 ->value('id_endereco')
             : null;
 
-        $pedido = DB::transaction(function () use ($cliente, $dados, $itensSacola, $subtotal, $taxaEntrega, $idEndereco) {
+        $pedido = DB::transaction(function () use ($cliente, $dados, $itensSacola, $subtotal, $taxaEntrega, $idEndereco, $cupom, $desconto) {
             $pedido = Venda::create([
                 'id_cliente'            => $cliente->id_cliente,
                 'id_endereco'           => $idEndereco,
+                'id_cupom'              => $cupom?->id_cupom,
                 // Horário de Brasília (o Laravel está em UTC)
                 'data_venda'            => now('America/Sao_Paulo')->format('Y-m-d H:i:s'),
-                'valor_venda'           => round($subtotal + $taxaEntrega, 2),
+                'valor_venda'           => round($subtotal + $taxaEntrega - $desconto, 2),
                 'status_venda'          => 'EM ANDAMENTO',
                 'forma_pagamento_venda' => self::FORMAS_PAGAMENTO[$dados['forma_pagamento']],
                 'entrega_venda'         => $dados['entrega'] ? 'SIM' : 'NAO',
                 'observacao_venda'      => $dados['observacao'] ?? null,
-                'valor_desconto_venda'  => 0,
+                'valor_desconto_venda'  => $desconto,
             ]);
 
             foreach ($itensSacola as $item) {
