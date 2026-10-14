@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ClienteController;
 use App\Http\Controllers\Api\V1\SacolaController;
 use App\Http\Controllers\Api\V1\PedidoController;
+use App\Http\Controllers\Api\V1\EnderecoController;
  
 Route::prefix('v1')->group(function () {
  
@@ -50,6 +51,15 @@ Route::prefix('v1')->group(function () {
         Route::get('/pedidos', [PedidoController::class, 'index']);
         Route::post('/pedidos', [PedidoController::class, 'store']);
         Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
+
+        // Endereços de entrega do cliente logado
+        Route::get('/enderecos', [EnderecoController::class, 'index']);
+        Route::post('/enderecos', [EnderecoController::class, 'store']);
+        Route::get('/enderecos/{id}', [EnderecoController::class, 'show']);
+        Route::put('/enderecos/{id}', [EnderecoController::class, 'update']);
+        Route::patch('/enderecos/{id}', [EnderecoController::class, 'update']);
+        Route::patch('/enderecos/{id}/principal', [EnderecoController::class, 'principal']);
+        Route::delete('/enderecos/{id}', [EnderecoController::class, 'destroy']);
     });
  
 });

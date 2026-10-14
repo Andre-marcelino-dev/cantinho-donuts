@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\EnderecoCliente;
 use App\Models\Sacola;
 use App\Models\Venda;
 use Illuminate\Http\Request;
@@ -65,9 +66,18 @@ class PedidoController extends Controller
         $subtotal = $itensSacola->sum(fn ($item) => $item->produto->valor_produto * $item->qtde_sacola);
         $taxaEntrega = $dados['entrega'] ? self::TAXA_ENTREGA : 0;
 
-        $pedido = DB::transaction(function () use ($cliente, $dados, $itensSacola, $subtotal, $taxaEntrega) {
+        // Na entrega, usa o endereço principal do cliente (se ele tiver cadastrado algum)
+        $idEndereco = $dados['entrega']
+            ? EnderecoCliente::where('id_cliente', $cliente->id_cliente)
+                ->where('status_endereco', 'ATIVO')
+                ->where('principal_endereco', 'SIM')
+                ->value('id_endereco')
+            : null;
+
+        $pedido = DB::transaction(function () use ($cliente, $dados, $itensSacola, $subtotal, $taxaEntrega, $idEndereco) {
             $pedido = Venda::create([
                 'id_cliente'            => $cliente->id_cliente,
+                'id_endereco'           => $idEndereco,
                 // Horário de Brasília (o Laravel está em UTC)
                 'data_venda'            => now('America/Sao_Paulo')->format('Y-m-d H:i:s'),
                 'valor_venda'           => round($subtotal + $taxaEntrega, 2),

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Cliente;
 use App\Models\Cupom;
+use App\Models\EnderecoCliente;
 use App\Models\ItemVenda;
 
 class Venda extends Model
@@ -41,6 +42,12 @@ class Venda extends Model
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'id_cliente', 'id_cliente');
+    }
+
+    // Relacionamento: endereço de entrega escolhido no app (pode ser nulo)
+    public function endereco()
+    {
+        return $this->belongsTo(EnderecoCliente::class, 'id_endereco', 'id_endereco');
     }
 
     // Relacionamento: a venda pode ter um cupom

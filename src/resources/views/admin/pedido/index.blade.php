@@ -145,8 +145,18 @@
                             E-mail: {{ $cliente->email_cliente ?? '-' }}
                         </p>
 
-                        @if ($linha->entrega_venda === 'SIM' && $cliente)
-                            <h6>Endereço de entrega</h6>
+                        @if ($linha->entrega_venda === 'SIM' && $linha->endereco)
+                            @php $end = $linha->endereco; @endphp
+                            <h6>Endereço de entrega ({{ $end->nome_endereco }})</h6>
+                            <p class="mb-3">
+                                {{ $end->endereco }}, {{ $end->numero }}
+                                {{ $end->complemento ? '- ' . $end->complemento : '' }}<br>
+                                {{ $end->bairro }} - {{ $end->cidade }}/{{ $end->uf }}
+                                - CEP {{ $end->cep }}
+                            </p>
+                        @elseif ($linha->entrega_venda === 'SIM' && $cliente)
+                            {{-- Pedido sem endereço escolhido: usa o endereço do cadastro --}}
+                            <h6>Endereço de entrega (cadastro)</h6>
                             <p class="mb-3">
                                 {{ $cliente->endereco_cliente }}, {{ $cliente->numero_cliente }}
                                 {{ $cliente->complemento_cliente ? '- ' . $cliente->complemento_cliente : '' }}<br>
