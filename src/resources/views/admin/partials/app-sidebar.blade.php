@@ -166,7 +166,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.contato') }}" class="nav-link">
                   <i class="nav-icon bi bi-circle"></i>
                   <p>Mensagens de contato</p>
                 </a>

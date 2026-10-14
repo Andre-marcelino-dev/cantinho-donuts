@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\ProdutoController;
 use App\Http\Controllers\admin\ClienteController;
 use App\Http\Controllers\admin\EventoController;
 use App\Http\Controllers\admin\PedidoController as AdminPedidoController;
+use App\Http\Controllers\admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -28,6 +29,8 @@ Route::get('/pedidos', [PedidosController::class, 'pedidos'])->name('pedidos');
 Route::get('/regiao', [RegiaoController::class, 'regiao'])->name('regiao.index');
 Route::get('/regiao/area/{id}', [RegiaoController::class, 'show'])->name('regiao.area');
 Route::get('/contato', [ContatoController::class, 'contato'])->name('contato');
+// Limite de 5 envios por minuto para evitar spam
+Route::post('/contato', [ContatoController::class, 'enviar'])->middleware('throttle:5,1')->name('contato.enviar');
 
 
 Route::view('/api/documentacao', 'api.documentacao')->name('api.documentacao');
@@ -65,6 +68,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/pedido', [AdminPedidoController::class, 'index'])->name('pedido');
         Route::patch('/pedido/{id}/status', [AdminPedidoController::class, 'alterarStatus'])->name('pedido.status');
+
+        Route::get('/contato', [AdminContatoController::class, 'index'])->name('contato');
+        Route::patch('/contato/{id}/status', [AdminContatoController::class, 'alterarStatus'])->name('contato.status');
 
         Route::get('/evento', [EventoController::class, 'index'])->name('evento');
         Route::post('/evento', [EventoController::class, 'store'])->name('evento.store');
