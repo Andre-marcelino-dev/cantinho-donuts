@@ -40,8 +40,7 @@
                     @endif
 
                     <p class="text-secondary mx-3 mt-3 mb-2">
-                        Só os banners <strong>ativos</strong> aparecem. No app, seguem o campo "Ordem" (menor primeiro);
-                        na Home do site, aparecem em ordem aleatória.
+                        Só os banners <strong>ativos</strong> aparecem, no site e no app, na ordem do campo "Ordem" (menor primeiro).
                         Tamanho ideal da imagem: <strong>1920 × 800 px</strong>, até <strong>2 MB</strong>
                         (imagens grandes deixam o site e o app lentos).
                     </p>

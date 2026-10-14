@@ -36,8 +36,10 @@ class HomeController extends Controller
         ->get();
 
 
+        // Mesma ordem do app: campo "Ordem" do painel (menor primeiro)
         $listaBanner = Banner::where('status_banner', 'ATIVO')
-        ->inRandomOrder()
+        ->orderBy('ordem_banner')
+        ->orderBy('id_banner')
         ->get();
 
          $kitis = Kits::with('ProdutosKit.produto')
