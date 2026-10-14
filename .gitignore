@@ -25,3 +25,7 @@ Homestead.yaml
 Thumbs.db
 *:Zone.Identifier
 /backup/
+
+# Backups e dumps do banco (têm dados de clientes, não versionar)
+/*.sql
+/*.zip
