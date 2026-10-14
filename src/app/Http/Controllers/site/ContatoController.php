@@ -5,7 +5,10 @@ namespace App\Http\Controllers\site;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NovaMensagemContato;
 use App\Models\Contato;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class ContatoController extends Controller
@@ -43,7 +46,17 @@ class ContatoController extends Controller
             'mensagem_contato' => 'mensagem',
         ]);
 
-        Contato::create($dados + ['status_contato' => 'ENVIADO']);
+        $contato = Contato::create($dados + ['status_contato' => 'ENVIADO']);
+
+        // Avisa a loja por e-mail. Se o envio falhar, a mensagem continua salva no painel.
+        $destino = config('mail.contato_destino');
+        if ($destino) {
+            try {
+                Mail::to($destino)->send(new NovaMensagemContato($contato));
+            } catch (\Throwable $erro) {
+                Log::error('Falha ao enviar o aviso de contato por e-mail: ' . $erro->getMessage());
+            }
+        }
 
         return redirect()->back()
             ->with("sucesso_{$origem}", 'Mensagem enviada! Em breve entraremos em contato.');

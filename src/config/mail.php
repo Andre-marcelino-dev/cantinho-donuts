@@ -115,4 +115,17 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Aviso de mensagem de contato
+    |--------------------------------------------------------------------------
+    |
+    | E-mail que recebe um aviso a cada mensagem enviada pelo formulário de
+    | contato do site. Vazio = não envia aviso (a mensagem fica só no painel).
+    | Fica no .env para o e-mail não ir para o repositório.
+    |
+    */
+
+    'contato_destino' => env('MAIL_CONTATO_DESTINO'),
+
 ];
