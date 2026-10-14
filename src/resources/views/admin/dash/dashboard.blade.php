@@ -55,7 +55,7 @@
             <div class="col-lg-3 col-6">
                 <div class="small-box text-bg-success">
                     <div class="inner">
-                        <h3 style="font-size: 1.9rem">{{ $formatarValor($resumo['faturamentoMes']) }}</h3>
+                        <h3>{{ $formatarValor($resumo['faturamentoMes']) }}</h3>
                         <p>Faturamento do mês</p>
                     </div>
                     <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -86,7 +86,7 @@
 
         <div class="row">
             {{-- Gráfico de vendas --}}
-            <div class="col-lg-7">
+            <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header">
                         <h3 class="card-title">Vendas dos últimos 6 meses</h3>
@@ -98,7 +98,7 @@
             </div>
 
             {{-- Últimos pedidos --}}
-            <div class="col-lg-5">
+            <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header">
                         <h3 class="card-title">Últimos pedidos</h3>
