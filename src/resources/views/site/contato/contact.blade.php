@@ -30,11 +30,15 @@
                             <h4>Nossos contatos</h4>
                         </div>
 
-                        {{-- TODO: trocar pelo endereço, telefone e e-mail reais da confeitaria --}}
+                        {{-- Dados da loja: config/services.php ('loja') --}}
                         <ul class="contact-info">
-                            <li>785 Carriage Drive, Jacksonville Beach, FL</li>
-                            <li><a href="tel:12032842818">+1 203-284-2818</a><br><a href="tel:12032842919">+1 203-284-2919</a></li>
-                            <li><a href="mailto:info@your-site.com">info@your-site.com</a><br> <a href="mailto:sales@your-site.com">sales@your-site.com</a></li>
+                            <li>{{ $loja['endereco'] }}<br>{{ $loja['bairro'] }}<br>{{ $loja['cidade'] }} - CEP {{ $loja['cep'] }}</li>
+                            <li>
+                                <a href="https://wa.me/{{ $loja['whatsapp'] }}" target="_blank" rel="noopener">
+                                    <i class="fab fa-whatsapp"></i> {{ $loja['telefone'] }}
+                                </a>
+                            </li>
+                            <li><a href="mailto:{{ $loja['email'] }}" style="word-break: break-all">{{ $loja['email'] }}</a></li>
                         </ul>
                     </div>
                 </div>

@@ -35,10 +35,15 @@ return [
         ],
     ],
 
-    // Contatos da loja usados na página "Faça seu pedido" do site
+    // Dados da loja mostrados no site (página Contato, rodapé, mapa e "Faça seu pedido")
     'loja' => [
         'whatsapp' => env('LOJA_WHATSAPP', '5511988161211'), // só números, com 55 e DDD
         'app_url'  => env('LOJA_APP_URL', 'https://thegust-app.expo.app'),
+        'email'    => env('LOJA_EMAIL', 'contato_confeitaria@ctrlaltdev.tipi5.smpsistema.com.br'),
+        'endereco' => env('LOJA_ENDERECO', 'Rua Augusto Fiordelice, 310'),
+        'bairro'   => env('LOJA_BAIRRO', 'Parque Santa Rita - Itaim Paulista'),
+        'cidade'   => env('LOJA_CIDADE', 'São Paulo - SP'),
+        'cep'      => env('LOJA_CEP', '08161-540'),
     ],
 
 ];
