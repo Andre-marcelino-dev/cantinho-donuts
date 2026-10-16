@@ -118,7 +118,7 @@ JSON,
                     'descricao' => 'Atualiza os dados do cliente logado. Também aceita PATCH. Todos os campos são opcionais: só muda o que for enviado.',
                     'envio' => [
                         'nome_cliente' => 'até 50 caracteres',
-                        'telefone_cliente' => 'até 15 caracteres',
+                        'telefone_cliente' => 'até 14 caracteres, ex.: (11)98888-7777',
                         'data_nasc_cliente' => 'data no formato aaaa-mm-dd',
                         'endereco_cliente, numero_cliente, complemento_cliente, bairro_cliente, cidade_cliente, uf_cliente, cep_cliente' => 'endereço do cadastro',
                     ],
