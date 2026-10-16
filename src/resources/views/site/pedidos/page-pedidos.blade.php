@@ -5,10 +5,10 @@
     @endphp
     <section class="page-title" style="background-image:url('{{ $bannerPedidos}}');">
         <div class="auto-container">
-            <h1>Shop</h1>
+            <h1>Faça seu pedido</h1>
             <ul class="page-breadcrumb">
-                <li><a href="index.html">home</a></li>
-                <li>Shop</li>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li>Pedidos</li>
             </ul>
         </div>
     </section>

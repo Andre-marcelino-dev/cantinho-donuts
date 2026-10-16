@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    // Contatos da loja usados na página "Faça seu pedido" do site
+    'loja' => [
+        'whatsapp' => env('LOJA_WHATSAPP', '5511988161211'), // só números, com 55 e DDD
+        'app_url'  => env('LOJA_APP_URL', 'https://thegust-app.expo.app'),
+    ],
+
 ];
