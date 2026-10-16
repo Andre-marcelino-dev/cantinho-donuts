@@ -20,6 +20,7 @@ use App\Http\Controllers\admin\BannerController as AdminBannerController;
 use App\Http\Controllers\admin\CupomController as AdminCupomController;
 use App\Http\Controllers\admin\ConfiguracaoController as AdminConfiguracaoController;
 use App\Http\Controllers\admin\KitController as AdminKitController;
+use App\Http\Controllers\admin\PerfilController as AdminPerfilController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -72,6 +73,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/pedido', [AdminPedidoController::class, 'index'])->name('pedido');
         Route::patch('/pedido/{id}/status', [AdminPedidoController::class, 'alterarStatus'])->name('pedido.status');
+
+        Route::get('/perfil', [AdminPerfilController::class, 'index'])->name('perfil');
+        Route::put('/perfil', [AdminPerfilController::class, 'update'])->name('perfil.update');
+        Route::put('/perfil/senha', [AdminPerfilController::class, 'updateSenha'])->name('perfil.senha');
 
         Route::get('/kit', [AdminKitController::class, 'index'])->name('kit');
         Route::post('/kit', [AdminKitController::class, 'store'])->name('kit.store');

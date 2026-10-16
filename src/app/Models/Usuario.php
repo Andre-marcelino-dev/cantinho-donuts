@@ -40,6 +40,16 @@ class Usuario extends Authenticatable
         return $this->senha_usuario;
     }
 
+    // Endereço da foto (as fotos ficam em public/dash/assets/img/usuario)
+    public function urlFoto(): string
+    {
+        $foto = $this->foto_usuario;
+        if ($foto && $foto !== 'default.png' && is_file(public_path('dash/assets/img/' . $foto))) {
+            return asset('dash/assets/img/' . $foto);
+        }
+        return asset('dash/assets/img/user/user.png');
+    }
+
     // Perfis disponíveis
     public static function perfis(): array
     {

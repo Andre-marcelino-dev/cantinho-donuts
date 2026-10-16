@@ -36,8 +36,8 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome_usuario'   => 'required|string|max:255',
-            'email_usuario'  => 'required|email|unique:tbl_usuarios,email_usuario',
+            'nome_usuario'   => 'required|string|max:50',
+            'email_usuario'  => 'required|email|max:80|unique:tbl_usuarios,email_usuario',
             'senha_usuario'  => 'required|string|min:6|confirmed',
             'perfil_usuario' => 'required|in:' . implode(',', Usuario::perfis()),
             'status_usuario' => 'required|in:ATIVO,INATIVO',
@@ -56,8 +56,9 @@ class UsuarioController extends Controller
         // Upload da foto
         if ($request->hasFile('foto_usuario')) {
             $foto = $request->file('foto_usuario');
-            $nome = \Str::slug($request->nome_usuario) . '.' . $foto->getClientOriginalExtension();
-           $foto->move(public_path('dash/assets/img/usuario'), $nome);
+            // foto_usuario aceita só 30 caracteres: nome curto em vez do nome da pessoa
+            $nome = 'u_' . base_convert((string) time(), 10, 36) . '.' . $foto->extension();
+            $foto->move(public_path('dash/assets/img/usuario'), $nome);
             $dados['foto_usuario'] = 'usuario/' . $nome;
         } else {
             $dados['foto_usuario'] = 'default.png';
@@ -94,8 +95,8 @@ class UsuarioController extends Controller
     public function update(Request $request, Usuario $usuario)
     {
         $request->validate([
-            'nome_usuario'   => 'required|string|max:255',
-            'email_usuario'  => 'required|email|unique:tbl_usuarios,email_usuario,' . $usuario->id_usuario . ',id_usuario',
+            'nome_usuario'   => 'required|string|max:50',
+            'email_usuario'  => 'required|email|max:80|unique:tbl_usuarios,email_usuario,' . $usuario->id_usuario . ',id_usuario',
             'senha_usuario'  => 'nullable|string|min:6|confirmed',
             'perfil_usuario' => 'required|in:' . implode(',', Usuario::perfis()),
             'status_usuario' => 'required|in:ATIVO,INATIVO',
@@ -115,23 +116,26 @@ class UsuarioController extends Controller
         }
 
         // Upload da nova foto
+        $fotoAtual = null;
         if ($request->hasFile('foto_usuario')) {
-            // Remove foto antiga (exceto default)
             $fotoAtual = $usuario->foto_usuario;
-            if ($fotoAtual && $fotoAtual !== 'default.png') {
-                $caminho = public_path('dash/assets/img/' . $fotoAtual);
-                if (file_exists($caminho)) {
-                    unlink($caminho);
-                }
-            }
 
             $foto = $request->file('foto_usuario');
-            $nome = \Str::slug($request->nome_usuario) . '.' . $foto->getClientOriginalExtension();
+            // foto_usuario aceita só 30 caracteres: nome curto em vez do nome da pessoa
+            $nome = 'u' . $usuario->id_usuario . '_' . base_convert((string) time(), 10, 36) . '.' . $foto->extension();
             $foto->move(public_path('dash/assets/img/usuario'), $nome);
             $dados['foto_usuario'] = 'usuario/' . $nome;
         }
 
         $usuario->update($dados);
+
+        // Remove a foto antiga (exceto default) só depois que o banco salvou a nova
+        if ($fotoAtual && $fotoAtual !== 'default.png' && $fotoAtual !== $usuario->foto_usuario) {
+            $caminho = public_path('dash/assets/img/' . $fotoAtual);
+            if (file_exists($caminho)) {
+                unlink($caminho);
+            }
+        }
 
         return redirect()->route('admin.usuarios.index')
             ->with('success', 'Usuário atualizado com sucesso!');
