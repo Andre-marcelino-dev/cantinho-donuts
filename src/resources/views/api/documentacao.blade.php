@@ -24,6 +24,16 @@
 JSON,
                 ],
                 [
+                    'metodo' => 'GET', 'caminho' => '/configuracoes', 'login' => false,
+                    'descricao' => 'Taxa de entrega (em reais) e previsão de entrega, definidas no painel admin em Sistema → Configurações da loja. A retirada não paga a taxa.',
+                    'resposta' => <<<'JSON'
+{
+    "success": true,
+    "data": { "taxa_entrega": 6, "previsao_entrega": "45 - 60 min" }
+}
+JSON,
+                ],
+                [
                     'metodo' => 'GET', 'caminho' => '/banners', 'login' => false,
                     'descricao' => 'Banners ativos, na ordem do campo "ordem_banner". A imagem fica em /davilla/images/banner/{foto_banner}.',
                     'resposta' => <<<'JSON'
@@ -183,7 +193,7 @@ JSON,
                 ],
                 [
                     'metodo' => 'POST', 'caminho' => '/pedidos', 'login' => true,
-                    'descricao' => 'Transforma a sacola em um pedido e esvazia a sacola. Os preços e o desconto são calculados no servidor. Na entrega, usa o endereço principal do cliente e cobra a taxa de entrega. Retorna 422 se a sacola estiver vazia ou o cupom for inválido.',
+                    'descricao' => 'Transforma a sacola em um pedido e esvazia a sacola. Os preços e o desconto são calculados no servidor. Na entrega, usa o endereço principal do cliente e cobra a taxa de entrega configurada (GET /configuracoes). Retorna 422 se a sacola estiver vazia ou o cupom for inválido.',
                     'envio' => [
                         'entrega' => 'true para entrega, false para retirada (obrigatório)',
                         'forma_pagamento' => 'pix, cartao ou dinheiro (obrigatório)',

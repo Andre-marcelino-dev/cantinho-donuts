@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\PedidoController as AdminPedidoController;
 use App\Http\Controllers\admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\admin\BannerController as AdminBannerController;
 use App\Http\Controllers\admin\CupomController as AdminCupomController;
+use App\Http\Controllers\admin\ConfiguracaoController as AdminConfiguracaoController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -70,6 +71,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/pedido', [AdminPedidoController::class, 'index'])->name('pedido');
         Route::patch('/pedido/{id}/status', [AdminPedidoController::class, 'alterarStatus'])->name('pedido.status');
+
+        Route::get('/configuracao', [AdminConfiguracaoController::class, 'index'])->name('configuracao');
+        Route::put('/configuracao', [AdminConfiguracaoController::class, 'update'])->name('configuracao.update');
 
         Route::get('/cupom', [AdminCupomController::class, 'index'])->name('cupom');
         Route::post('/cupom', [AdminCupomController::class, 'store'])->name('cupom.store');

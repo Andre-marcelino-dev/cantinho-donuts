@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Configuracao;
 use App\Models\Cupom;
 use App\Models\EnderecoCliente;
 use App\Models\Sacola;
@@ -12,9 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
-    // Mesmo valor mostrado no app
-    const TAXA_ENTREGA = 6.0;
-
     const FORMAS_PAGAMENTO = [
         'pix'      => 'Pix',
         'cartao'   => 'Cartão',
@@ -66,7 +64,8 @@ class PedidoController extends Controller
         }
 
         $subtotal = $itensSacola->sum(fn ($item) => $item->produto->valor_produto * $item->qtde_sacola);
-        $taxaEntrega = $dados['entrega'] ? self::TAXA_ENTREGA : 0;
+        // Taxa definida no painel (Sistema → Configurações da loja)
+        $taxaEntrega = $dados['entrega'] ? Configuracao::taxaEntrega() : 0;
 
         // Cupom: porcentagem de desconto sobre os produtos (não sobre a entrega)
         $cupom = null;

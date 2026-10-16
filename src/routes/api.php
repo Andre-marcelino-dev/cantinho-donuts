@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\SacolaController;
 use App\Http\Controllers\Api\V1\PedidoController;
 use App\Http\Controllers\Api\V1\EnderecoController;
 use App\Http\Controllers\Api\V1\CupomController;
+use App\Http\Controllers\Api\V1\ConfiguracaoController;
  
 Route::prefix('v1')->group(function () {
  
@@ -29,6 +30,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/produtos', [ProdutoController::class, 'index']);
     Route::get('/produtos/{slug}', [ProdutoController::class, 'show']);
  
+    // Taxa e previsão de entrega (definidas no painel)
+    Route::get('/configuracoes', [ConfiguracaoController::class, 'index']);
+
     // LOGIN - rota pública
     Route::post('/auth/login', [AuthController::class, 'login']);
  
