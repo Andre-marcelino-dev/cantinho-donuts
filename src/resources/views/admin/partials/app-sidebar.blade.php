@@ -65,6 +65,13 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="{{ route('admin.kit') }}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>Kits</p>
+                </a>
+              </li>
+
             </ul>
           </li>
 

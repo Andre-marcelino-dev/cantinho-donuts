@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\admin\BannerController as AdminBannerController;
 use App\Http\Controllers\admin\CupomController as AdminCupomController;
 use App\Http\Controllers\admin\ConfiguracaoController as AdminConfiguracaoController;
+use App\Http\Controllers\admin\KitController as AdminKitController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -71,6 +72,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/pedido', [AdminPedidoController::class, 'index'])->name('pedido');
         Route::patch('/pedido/{id}/status', [AdminPedidoController::class, 'alterarStatus'])->name('pedido.status');
+
+        Route::get('/kit', [AdminKitController::class, 'index'])->name('kit');
+        Route::post('/kit', [AdminKitController::class, 'store'])->name('kit.store');
+        Route::put('/kit/{id}', [AdminKitController::class, 'update'])->name('kit.update');
+        Route::delete('/kit/{id}', [AdminKitController::class, 'destroy'])->name('kit.destroy');
 
         Route::get('/configuracao', [AdminConfiguracaoController::class, 'index'])->name('configuracao');
         Route::put('/configuracao', [AdminConfiguracaoController::class, 'update'])->name('configuracao.update');
