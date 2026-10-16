@@ -128,21 +128,21 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.materia') }}" class="nav-link">
                   <i class="nav-icon bi bi-circle"></i>
                   <p>Matérias-primas</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.movimentacao') }}" class="nav-link">
                   <i class="nav-icon bi bi-circle"></i>
                   <p>Movimentações de estoque</p>
                 </a>
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.fornecedor') }}" class="nav-link">
                   <i class="nav-icon bi bi-circle"></i>
                   <p>Fornecedores</p>
                 </a>

@@ -21,6 +21,9 @@ use App\Http\Controllers\admin\CupomController as AdminCupomController;
 use App\Http\Controllers\admin\ConfiguracaoController as AdminConfiguracaoController;
 use App\Http\Controllers\admin\KitController as AdminKitController;
 use App\Http\Controllers\admin\PerfilController as AdminPerfilController;
+use App\Http\Controllers\admin\FornecedorController as AdminFornecedorController;
+use App\Http\Controllers\admin\MateriaPrimaController as AdminMateriaPrimaController;
+use App\Http\Controllers\admin\MovimentacaoController as AdminMovimentacaoController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -73,6 +76,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/pedido', [AdminPedidoController::class, 'index'])->name('pedido');
         Route::patch('/pedido/{id}/status', [AdminPedidoController::class, 'alterarStatus'])->name('pedido.status');
+
+        // Estoque
+        Route::get('/fornecedor', [AdminFornecedorController::class, 'index'])->name('fornecedor');
+        Route::post('/fornecedor', [AdminFornecedorController::class, 'store'])->name('fornecedor.store');
+        Route::put('/fornecedor/{id}', [AdminFornecedorController::class, 'update'])->name('fornecedor.update');
+        Route::patch('/fornecedor/{id}/status', [AdminFornecedorController::class, 'alterarStatus'])->name('fornecedor.status');
+
+        Route::get('/materia', [AdminMateriaPrimaController::class, 'index'])->name('materia');
+        Route::post('/materia', [AdminMateriaPrimaController::class, 'store'])->name('materia.store');
+        Route::put('/materia/{id}', [AdminMateriaPrimaController::class, 'update'])->name('materia.update');
+        Route::delete('/materia/{id}', [AdminMateriaPrimaController::class, 'destroy'])->name('materia.destroy');
+
+        Route::get('/movimentacao', [AdminMovimentacaoController::class, 'index'])->name('movimentacao');
+        Route::post('/movimentacao', [AdminMovimentacaoController::class, 'store'])->name('movimentacao.store');
 
         Route::get('/perfil', [AdminPerfilController::class, 'index'])->name('perfil');
         Route::put('/perfil', [AdminPerfilController::class, 'update'])->name('perfil.update');
