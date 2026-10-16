@@ -119,6 +119,7 @@ JSON,
                     'envio' => [
                         'nome_cliente' => 'até 50 caracteres',
                         'telefone_cliente' => 'até 14 caracteres, ex.: (11)98888-7777',
+                        'novidades_cliente' => 'SIM ou NAO: se aceita receber novidades e promoções',
                         'data_nasc_cliente' => 'data no formato aaaa-mm-dd',
                         'endereco_cliente, numero_cliente, complemento_cliente, bairro_cliente, cidade_cliente, uf_cliente, cep_cliente' => 'endereço do cadastro',
                     ],

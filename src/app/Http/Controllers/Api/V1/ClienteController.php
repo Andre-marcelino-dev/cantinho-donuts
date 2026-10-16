@@ -32,6 +32,7 @@ class ClienteController extends Controller
             'uf_cliente'          => 'sometimes|required|string|size:2',
             'cep_cliente'         => 'sometimes|required|string|max:9',
             'telefone_cliente'    => 'sometimes|required|string|max:14', // limite da coluna
+            'novidades_cliente'   => 'sometimes|required|in:SIM,NAO',     // aceita receber novidades e promoções
         ]);
  
         $cliente = $request->user();

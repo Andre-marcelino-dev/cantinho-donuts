@@ -47,5 +47,6 @@ class Cliente extends Authenticatable
         'telefone_cliente',
         'foto_cliente',
         'status_cliente',
+        'novidades_cliente',
     ];
 }
