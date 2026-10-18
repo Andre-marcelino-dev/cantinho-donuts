@@ -7,10 +7,10 @@
              <h2>Seja Bem-Vindo a</h2>
          </div>
          <div class="content-box">
-             <h1>Confeitaria Davilla</h1>
+             <h1>Esse Doce é para você</h1>
              <span class="devider_icon_one"></span>
              <p>
-                 Na <strong>Confeitaria Davilla</strong>, cada detalhe é pensado para transformar simples momentos em experiências inesquecíveis.
+                 Na <strong>Esse Doce é para você</strong>, cada detalhe é pensado para transformar simples momentos em experiências inesquecíveis.
                  Nossos bolos e doces são preparados com ingredientes selecionados, combinando sabor, qualidade e um toque especial de carinho em cada receita.<br><br>
 
                  Mais do que uma confeitaria, somos um lugar onde aromas encantam, sabores surpreendem e memórias são criadas.

@@ -63,26 +63,11 @@
                             </a>
                         </div>
 
-                        <!-- Carrinho -->
+                        <!-- Faça seu pedido (o site não tem carrinho: o pedido é pelo app ou WhatsApp) -->
                         <div class="cart-btn">
-                            <a href="shopping-cart.html">
+                            <a href="{{ route('pedidos') }}" title="Faça seu pedido">
                                 <i class="icon flaticon-commerce"></i>
-                                <span class="count">2</span>
                             </a>
-
-                            <div class="shopping-cart">
-                                <ul class="shopping-cart-items">
-                                </ul>
-
-                                <div class="cart-footer">
-                                    <div class="shopping-cart-total">
-                                        <strong>Subtotal:</strong> $97.00
-                                    </div>
-
-                                    <a href="cart.html" class="theme-btn">View Cart</a>
-                                    <a href="checkout.html" class="theme-btn">Checkout</a>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Busca -->

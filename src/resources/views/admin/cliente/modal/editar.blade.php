@@ -68,7 +68,7 @@
                         <div class="col-md-6">
                             <label class="form-label">Data de Nascimento</label>
                             <input type="date" class="form-control" name="data_nasc_cliente"
-                                value="{{ $linha->data_nasc_cliente }}">
+                                value="{{ $linha->data_nasc_cliente?->format('Y-m-d') }}">
                         </div>
 
                         {{-- E-mail (Máx 80) --}}

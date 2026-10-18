@@ -158,8 +158,8 @@
             @php
             
             $usuarioLogado = auth('admin')->user();
-            $fotoUser = $usuarioLogado && $usuarioLogado->foto ? asset('dash/assets/img/user/' . $usuarioLogado->foto_usuario) : 
-            asset('dash/assets/img/user/user.png');
+            // Foto real do usuário (ou o boneco padrão)
+            $fotoUser = $usuarioLogado ? $usuarioLogado->urlFoto() : asset('dash/assets/img/user/user.png');
 
             @endphp
 
@@ -179,9 +179,10 @@
                 <!--begin::User Image-->
                 <li class="user-header text-bg-primary">
                   <img
-                    src="{{ asset('dash/assets/img/user/user.png') }}"
+                    src="{{ $fotoUser }}"
                     class="rounded-circle shadow"
-                    alt="User Image"
+                    style="object-fit: cover;"
+                    alt="{{ $usuarioLogado->nome_usuario }}"
                   />
                   <p>
                     {{ $usuarioLogado->nome_usuario}}
@@ -230,7 +231,7 @@
                alt="{{ $usuarioLogado->nome_usuario }}">
         </div>
         <h5 class="fw-semibold mb-0">{{ $usuarioLogado->nome_usuario }}</h5>
-        <p class="text-muted small mb-3">Administrador</p>
+        <p class="text-muted small mb-3">{{ $usuarioLogado->perfil_usuario }}</p>
 
         <ul class="list-group list-group-flush text-start">
           <li class="list-group-item d-flex align-items-center gap-2">
@@ -258,6 +259,9 @@
       </div>
 
       <div class="modal-footer border-0">
+        <a href="{{ route('admin.perfil') }}" class="btn btn-primary btn-sm">
+          <i class="bi bi-pencil"></i> Editar meu perfil
+        </a>
         <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
       </div>
 

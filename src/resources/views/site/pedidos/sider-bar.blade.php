@@ -1,3 +1,33 @@
+  @php
+      $formatarValor = fn ($valor) => 'R$ ' . number_format($valor, 2, ',', '.');
+      // Link do WhatsApp da loja já com a mensagem pronta
+      $linkWhatsapp = fn ($texto) => 'https://wa.me/' . $whatsapp . '?text=' . rawurlencode($texto);
+  @endphp
+
+  <style>
+      .passos-pedido { margin-bottom: 40px; }
+      .passos-pedido .passo {
+          background: #fff;
+          border: 1px solid #f1e6dd;
+          border-radius: 10px;
+          padding: 22px 20px;
+          height: 100%;
+          text-align: center;
+      }
+      .passos-pedido .numero {
+          display: inline-block;
+          width: 42px; height: 42px; line-height: 42px;
+          border-radius: 50%;
+          background: #e8932e; color: #fff;
+          font-weight: 700; font-size: 18px;
+          margin-bottom: 12px;
+      }
+      .passos-pedido h4 { margin-bottom: 8px; }
+      .passos-pedido p { margin-bottom: 14px; }
+      .shop-item .lower-content .categoria { color: #999; font-size: 14px; margin-bottom: 4px; }
+      .sidebar-widget .texto-widget { margin-bottom: 14px; }
+  </style>
+
   <!--Sidebar Page Container-->
   <div class="sidebar-page-container">
       <div class="auto-container">
@@ -5,206 +35,78 @@
 
               <!--Content Side-->
               <div class="content-side col-lg-9 col-md-12 col-sm-12">
-                  <div class="our-shop">
-                      <div class="shop-upper-box clearfix">
-                          <div class="items-label">Exibindo todos os 12 resultados</div>
-                          <div class="orderby">
-                              <select name="orderby" class="sortby-select select2-offscreen">
-                                  <option value="popularity">Ordenar por popularidade</option>
-                                  <option value="rating">Sort by average rating</option>
-                                  <option value="date">Sort by newness</option>
-                                  <option value="price">Sort by price: low to high</option>
-                                  <option value="price-desc">Sort by price: high to low</option>
-                              </select>
-                          </div>
+
+                  {{-- Como pedir --}}
+                  <div class="passos-pedido">
+                      <div class="sec-title">
+                          <h2>Como fazer seu pedido</h2>
                       </div>
 
                       <div class="row clearfix">
-
-                          <!-- Shop Item -->
-
-
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <div class="sale-tag">sale!</div>
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/12.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Authentic Macaroons</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price"><del>$29.00</del> $25.00</div>
-                                  </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
+                              <div class="passo">
+                                  <span class="numero">1</span>
+                                  <h4>Pelo app</h4>
+                                  <p>Monte sua sacola, use cupons, escolha entrega ou retirada e acompanhe o pedido.</p>
+                                  <a href="{{ $linkApp }}" target="_blank" rel="noopener" class="theme-btn">Abrir o app</a>
                               </div>
                           </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/10.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Birthday Cake</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$84.00</div>
-                                  </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
+                              <div class="passo">
+                                  <span class="numero">2</span>
+                                  <h4>Pelo WhatsApp</h4>
+                                  <p>Escolha um produto abaixo e toque em "Pedir pelo WhatsApp", ou fale direto com a gente.</p>
+                                  <a href="{{ $linkWhatsapp('Olá! Gostaria de fazer um pedido.') }}" target="_blank" rel="noopener" class="theme-btn">Chamar no WhatsApp</a>
                               </div>
                           </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/5.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Candy Lollipop</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span><span class="fa fa-star light"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$15.00</div>
-                                  </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
+                              <div class="passo">
+                                  <span class="numero">3</span>
+                                  <h4>Encomendas</h4>
+                                  <p>Bolos para festas, kits e quantidades maiores: conte o que precisa e mandamos o orçamento.</p>
+                                  <a href="{{ route('contato') }}#fale-conosco" class="theme-btn">Pedir orçamento</a>
                               </div>
                           </div>
+                      </div>
+                  </div>
 
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/4.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Classic Macaroon</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$22.00</div>
+                  {{-- Produtos --}}
+                  <div class="our-shop">
+                      <div class="shop-upper-box clearfix">
+                          <div class="items-label">Mais pedidos — veja todos no <a href="{{ route('cardapio.index') }}">Cardápio</a></div>
+                      </div>
+
+                      <div class="row clearfix">
+                          @forelse ($produtos as $produto)
+                              <!-- Shop Item -->
+                              <div class="shop-item col-lg-4 col-md-6 col-sm-12">
+                                  <div class="inner-box">
+                                      <div class="image-box">
+                                          @if ($produto->destaque_produto === 'SIM')
+                                              <div class="sale-tag">destaque</div>
+                                          @endif
+                                          <figure class="image">
+                                              <a href="{{ route('cardapio.produto', $produto->slug_produto) }}">
+                                                  <img src="{{ asset('davilla/images/' . $produto->foto_produto) }}" alt="{{ $produto->nome_produto }}">
+                                              </a>
+                                          </figure>
+                                          <div class="btn-box">
+                                              <a href="{{ $linkWhatsapp('Olá! Quero pedir: ' . $produto->nome_produto . ' (' . $formatarValor($produto->valor_produto) . ').') }}"
+                                                  target="_blank" rel="noopener">Pedir pelo WhatsApp</a>
+                                          </div>
+                                      </div>
+                                      <div class="lower-content">
+                                          <div class="categoria">{{ $produto->CategoriaProduto->nome_categoria ?? '' }}</div>
+                                          <h4 class="name"><a href="{{ route('cardapio.produto', $produto->slug_produto) }}">{{ $produto->nome_produto }}</a></h4>
+                                          <div class="price">{{ $formatarValor($produto->valor_produto) }}</div>
+                                      </div>
                                   </div>
                               </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/8.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Coffee Cake</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span><span class="fa fa-star light"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$39.00</div>
-                                  </div>
+                          @empty
+                              <div class="col-12">
+                                  <p>Nenhum produto disponível no momento.</p>
                               </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <div class="sale-tag">sale!</div>
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/3.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">French Macaroon</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$17.00</div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/6.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Happy Ninja</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$35.00</div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/7.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Hearts Lollipop</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$17.00</div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/9.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Lemon Lollipop</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$35.00</div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/11.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Limo Lollipop</a></h4>
-                                      <div class="rating"></div>
-                                      <div class="price">$32.00</div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <div class="sale-tag">sale!</div>
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/2.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Premium Lollipop</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span><span class="fa fa-star light"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price"><del>$15.00</del> $9.00</div>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Shop Item -->
-                          <div class="shop-item col-lg-4 col-md-6 col-sm-12">
-                              <div class="inner-box">
-                                  <div class="image-box">
-                                      <figure class="image"><a href="shop-single.html"><img src="{{asset('davilla/produtos/1.jpg')}}" alt=""></a></figure>
-                                      <div class="btn-box"><a href="shopping-cart.html">Add to cart</a></div>
-                                  </div>
-                                  <div class="lower-content">
-                                      <h4 class="name"><a href="shop-single.html">Yami Makaroons</a></h4>
-                                      <div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star light"></span></div>
-                                      <div class="price">$17.00</div>
-                                  </div>
-                              </div>
-                          </div>
+                          @endforelse
                       </div>
                   </div>
               </div>
@@ -213,66 +115,22 @@
               <div class="sidebar-side sticky-container col-lg-3 col-md-12 col-sm-12">
                   <aside class="sidebar theiaStickySidebar">
                       <div class="sticky-sidebar">
-                          <!-- Search Widget -->
-                          <div class="sidebar-widget search-widget">
-                              <form method="post" action="contact.html">
-                                  <div class="form-group">
-                                      <input type="search" name="search-field" value="" placeholder="Search products…" required>
-                                      <button type="submit"><span class="icon fa fa-search"></span></button>
-                                  </div>
-                              </form>
-                          </div>
 
-                          <!-- Cart Widget -->
-                          <div class="sidebar-widget cart-widget">
+                          <!-- App -->
+                          <div class="sidebar-widget">
                               <div class="widget-content">
-                                  <h3 class="widget-title">Cart</h3>
-
-                                  <div class="shopping-cart">
-                                      <ul class="shopping-cart-items">
-                                          <li class="cart-item">
-                                              <img src="{{asset('davilla/produtos/10.jpg')}}" alt="#" class="thumb" />
-                                              <span class="item-name">Birthday Cake</span>
-                                              <span class="item-quantity">1 x <span class="item-amount">$84.00</span></span>
-                                              <a href="shop-single.html" class="product-detail"></a>
-                                              <button class="remove-item"><span class="fa fa-times"></span></button>
-                                          </li>
-
-                                          <li class="cart-item">
-                                              <img src="{{asset('davilla/produtos/5.jpg')}}" alt="#" class="thumb" />
-                                              <span class="item-name">French Macaroon</span>
-                                              <span class="item-quantity">1 x <span class="item-amount">$13.00</span></span>
-                                              <a href="shop-single.html" class="product-detail"></a>
-                                              <button class="remove-item"><span class="fa fa-times"></span></button>
-                                          </li>
-                                      </ul>
-
-                                      <div class="cart-footer">
-                                          <div class="shopping-cart-total"><strong>Subtotal:</strong> $97.00</div>
-                                          <a href="cart.html" class="theme-btn">View Cart</a>
-                                          <a href="checkout.html" class="theme-btn">Checkout</a>
-                                      </div>
-                                  </div> <!--end shopping-cart -->
+                                  <h3 class="widget-title">Peça pelo app</h3>
+                                  <p class="texto-widget">Peça em poucos toques, use cupons de desconto e acompanhe cada etapa do seu pedido.</p>
+                                  <a href="{{ $linkApp }}" target="_blank" rel="noopener" class="theme-btn">Abrir o app</a>
                               </div>
                           </div>
 
-                          <!-- Range Slider Widget -->
-                          <div class="sidebar-widget rangeslider-widget">
+                          <!-- WhatsApp -->
+                          <div class="sidebar-widget">
                               <div class="widget-content">
-                                  <h3 class="widget-title">Price Filter</h3>
-
-                                  <div class="range-slider-one clearfix">
-                                      <div class="price-range-slider"></div>
-                                      <div class="clearfix">
-                                          <div class="pull-left input-box">
-                                              <div class="title">Price:</div>
-                                              <div class="input"><input type="text" class="property-amount" name="field-name" readonly></div>
-                                          </div>
-                                          <div class="pull-right btn-box">
-                                              <a href="#" class="theme-btn"><span class="btn-title">Filtter</span></a>
-                                          </div>
-                                      </div>
-                                  </div>
+                                  <h3 class="widget-title">Fale no WhatsApp</h3>
+                                  <p class="texto-widget">Tire dúvidas sobre sabores, prazos e entregas.</p>
+                                  <a href="{{ $linkWhatsapp('Olá! Tenho uma dúvida sobre os produtos.') }}" target="_blank" rel="noopener" class="theme-btn">Chamar no WhatsApp</a>
                               </div>
                           </div>
 
@@ -281,7 +139,7 @@
                               <h3 class="widget-title">Categorias</h3>
 
                               <ul class="tag-list clearfix">
-                                  @foreach($filtroCategoria as $categoria)
+                                  @foreach($filtroCategoria->where('status_categoria', 'ATIVO') as $categoria)
                                   <li>
                                       <a href="{{ route('cardapio.categoria', $categoria->id_categoria) }}">
                                           {{ $categoria->nome_categoria }}

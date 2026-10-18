@@ -1,5 +1,7 @@
 <!-- Map Section -->
     <section class="map-section">
-        <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+        {{-- Mapa do endereço da loja (config/services.php → loja) --}}
+        <iframe id="gmap_canvas" title="Mapa da confeitaria" loading="lazy"
+            src="https://maps.google.com/maps?q={{ rawurlencode($loja['mapa']) }}&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
     </section>
     <!-- End Map Section -->

@@ -34,6 +34,17 @@
                         </div>
                     @endif
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $erro)
+                                    <li>{{ $erro }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -201,7 +212,7 @@
                                                                     <label class="form-label">Data de Nascimento</label>
                                                                     <input type="date" class="form-control"
                                                                         name="data_nasc_cliente"
-                                                                        value="{{ $linha->data_nasc_cliente }}">
+                                                                        value="{{ $linha->data_nasc_cliente?->format('Y-m-d') }}">
                                                                 </div>
 
                                                                 <div class="col-md-6">

@@ -14,6 +14,16 @@ use App\Http\Controllers\admin\CategoriaController;
 use App\Http\Controllers\admin\ProdutoController;
 use App\Http\Controllers\admin\ClienteController;
 use App\Http\Controllers\admin\EventoController;
+use App\Http\Controllers\admin\PedidoController as AdminPedidoController;
+use App\Http\Controllers\admin\ContatoController as AdminContatoController;
+use App\Http\Controllers\admin\BannerController as AdminBannerController;
+use App\Http\Controllers\admin\CupomController as AdminCupomController;
+use App\Http\Controllers\admin\ConfiguracaoController as AdminConfiguracaoController;
+use App\Http\Controllers\admin\KitController as AdminKitController;
+use App\Http\Controllers\admin\PerfilController as AdminPerfilController;
+use App\Http\Controllers\admin\FornecedorController as AdminFornecedorController;
+use App\Http\Controllers\admin\MateriaPrimaController as AdminMateriaPrimaController;
+use App\Http\Controllers\admin\MovimentacaoController as AdminMovimentacaoController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -27,6 +37,11 @@ Route::get('/pedidos', [PedidosController::class, 'pedidos'])->name('pedidos');
 Route::get('/regiao', [RegiaoController::class, 'regiao'])->name('regiao.index');
 Route::get('/regiao/area/{id}', [RegiaoController::class, 'show'])->name('regiao.area');
 Route::get('/contato', [ContatoController::class, 'contato'])->name('contato');
+// Limite de 5 envios por minuto para evitar spam
+Route::post('/contato', [ContatoController::class, 'enviar'])->middleware('throttle:5,1')->name('contato.enviar');
+
+
+Route::view('/api/documentacao', 'api.documentacao')->name('api.documentacao');
 
 // Rotas do admin
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -58,6 +73,50 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.update');
         Route::patch('/cliente/{id}/status', [ClienteController::class, 'status'])->name('cliente.status');
         Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
+
+        Route::get('/pedido', [AdminPedidoController::class, 'index'])->name('pedido');
+        Route::patch('/pedido/{id}/status', [AdminPedidoController::class, 'alterarStatus'])->name('pedido.status');
+
+        // Estoque
+        Route::get('/fornecedor', [AdminFornecedorController::class, 'index'])->name('fornecedor');
+        Route::post('/fornecedor', [AdminFornecedorController::class, 'store'])->name('fornecedor.store');
+        Route::put('/fornecedor/{id}', [AdminFornecedorController::class, 'update'])->name('fornecedor.update');
+        Route::patch('/fornecedor/{id}/status', [AdminFornecedorController::class, 'alterarStatus'])->name('fornecedor.status');
+
+        Route::get('/materia', [AdminMateriaPrimaController::class, 'index'])->name('materia');
+        Route::post('/materia', [AdminMateriaPrimaController::class, 'store'])->name('materia.store');
+        Route::put('/materia/{id}', [AdminMateriaPrimaController::class, 'update'])->name('materia.update');
+        Route::delete('/materia/{id}', [AdminMateriaPrimaController::class, 'destroy'])->name('materia.destroy');
+
+        Route::get('/movimentacao', [AdminMovimentacaoController::class, 'index'])->name('movimentacao');
+        Route::post('/movimentacao', [AdminMovimentacaoController::class, 'store'])->name('movimentacao.store');
+
+        Route::get('/perfil', [AdminPerfilController::class, 'index'])->name('perfil');
+        Route::put('/perfil', [AdminPerfilController::class, 'update'])->name('perfil.update');
+        Route::put('/perfil/senha', [AdminPerfilController::class, 'updateSenha'])->name('perfil.senha');
+
+        Route::get('/kit', [AdminKitController::class, 'index'])->name('kit');
+        Route::post('/kit', [AdminKitController::class, 'store'])->name('kit.store');
+        Route::put('/kit/{id}', [AdminKitController::class, 'update'])->name('kit.update');
+        Route::delete('/kit/{id}', [AdminKitController::class, 'destroy'])->name('kit.destroy');
+
+        Route::get('/configuracao', [AdminConfiguracaoController::class, 'index'])->name('configuracao');
+        Route::put('/configuracao', [AdminConfiguracaoController::class, 'update'])->name('configuracao.update');
+
+        Route::get('/cupom', [AdminCupomController::class, 'index'])->name('cupom');
+        Route::post('/cupom', [AdminCupomController::class, 'store'])->name('cupom.store');
+        Route::put('/cupom/{id}', [AdminCupomController::class, 'update'])->name('cupom.update');
+        Route::patch('/cupom/{id}/status', [AdminCupomController::class, 'alterarStatus'])->name('cupom.status');
+        Route::delete('/cupom/{id}', [AdminCupomController::class, 'destroy'])->name('cupom.destroy');
+
+        Route::get('/banner', [AdminBannerController::class, 'index'])->name('banner');
+        Route::post('/banner', [AdminBannerController::class, 'store'])->name('banner.store');
+        Route::put('/banner/{id}', [AdminBannerController::class, 'update'])->name('banner.update');
+        Route::patch('/banner/{id}/status', [AdminBannerController::class, 'alterarStatus'])->name('banner.status');
+        Route::delete('/banner/{id}', [AdminBannerController::class, 'destroy'])->name('banner.destroy');
+
+        Route::get('/contato', [AdminContatoController::class, 'index'])->name('contato');
+        Route::patch('/contato/{id}/status', [AdminContatoController::class, 'alterarStatus'])->name('contato.status');
 
         Route::get('/evento', [EventoController::class, 'index'])->name('evento');
         Route::post('/evento', [EventoController::class, 'store'])->name('evento.store');
