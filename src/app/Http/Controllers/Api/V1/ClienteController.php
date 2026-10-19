@@ -23,7 +23,7 @@ class ClienteController extends Controller
         // "sometimes" = só valida se o campo vier (permite atualização parcial)
         $dados = $request->validate([
             'nome_cliente'        => 'sometimes|required|string|max:50',
-            'data_nasc_cliente'   => 'sometimes|required|date',
+            'data_nasc_cliente'   => 'sometimes|required|date|after_or_equal:1900-01-01|before_or_equal:today',
             'endereco_cliente'    => 'sometimes|required|string|max:40',
             'numero_cliente'      => 'sometimes|required|string|max:6',
             'complemento_cliente' => 'sometimes|nullable|string|max:50',
@@ -33,6 +33,10 @@ class ClienteController extends Controller
             'cep_cliente'         => 'sometimes|required|string|max:9',
             'telefone_cliente'    => 'sometimes|required|string|max:14', // limite da coluna
             'novidades_cliente'   => 'sometimes|required|in:SIM,NAO',     // aceita receber novidades e promoções
+        ], [
+            'data_nasc_cliente.date'            => 'Informe uma data de nascimento válida.',
+            'data_nasc_cliente.after_or_equal'  => 'Informe uma data de nascimento válida.',
+            'data_nasc_cliente.before_or_equal' => 'A data de nascimento não pode ser no futuro.',
         ]);
  
         $cliente = $request->user();
