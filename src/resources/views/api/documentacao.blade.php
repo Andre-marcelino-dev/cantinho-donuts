@@ -306,6 +306,41 @@ JSON,
                 ],
             ],
         ],
+        [
+            'id' => 'depoimentos',
+            'titulo' => 'Depoimentos',
+            'rotas' => [
+                [
+                    'metodo' => 'GET', 'caminho' => '/depoimentos', 'login' => true,
+                    'descricao' => 'Depoimentos do cliente logado, do mais novo para o mais antigo. "status" é PENDENTE (Em análise), APROVADO (Publicado) ou RECUSADO (Não publicado).',
+                    'resposta' => <<<'JSON'
+{
+    "success": true,
+    "data": [
+        { "id": 3, "nota": 5, "texto": "Bolo maravilhoso!", "status": "PENDENTE",
+          "situacao": "Em análise", "criado_em": "2026-10-19 14:20:00" }
+    ]
+}
+JSON,
+                ],
+                [
+                    'metodo' => 'POST', 'caminho' => '/depoimentos', 'login' => true,
+                    'descricao' => 'Envia um depoimento. Ele entra como PENDENTE e é aprovado ou recusado no painel em Conteúdo do Site → Depoimentos. Limite de 5 por minuto.',
+                    'envio' => [
+                        'nota' => 'obrigatório, de 1 a 5 estrelas',
+                        'texto' => 'obrigatório, de 5 a 1000 caracteres',
+                    ],
+                    'resposta' => <<<'JSON'
+{
+    "success": true,
+    "message": "Obrigado! Seu depoimento foi enviado e será publicado após a análise.",
+    "data": { "id": 3, "nota": 5, "texto": "Bolo maravilhoso!", "status": "PENDENTE",
+              "situacao": "Em análise", "criado_em": "2026-10-19 14:20:00" }
+}
+JSON,
+                ],
+            ],
+        ],
     ];
 
     $totalRotas = collect($grupos)->sum(fn ($g) => count($g['rotas']));

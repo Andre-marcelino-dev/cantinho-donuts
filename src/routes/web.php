@@ -25,6 +25,7 @@ use App\Http\Controllers\admin\FornecedorController as AdminFornecedorController
 use App\Http\Controllers\admin\MateriaPrimaController as AdminMateriaPrimaController;
 use App\Http\Controllers\admin\MovimentacaoController as AdminMovimentacaoController;
 use App\Http\Controllers\admin\NovidadesController as AdminNovidadesController;
+use App\Http\Controllers\admin\DepoimentoController as AdminDepoimentoController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -121,6 +122,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/contato', [AdminContatoController::class, 'index'])->name('contato');
         Route::patch('/contato/{id}/status', [AdminContatoController::class, 'alterarStatus'])->name('contato.status');
+
+        Route::get('/depoimento', [AdminDepoimentoController::class, 'index'])->name('depoimento');
+        Route::patch('/depoimento/{id}/status', [AdminDepoimentoController::class, 'alterarStatus'])->name('depoimento.status');
+        Route::delete('/depoimento/{id}', [AdminDepoimentoController::class, 'destroy'])->name('depoimento.destroy');
 
         Route::get('/evento', [EventoController::class, 'index'])->name('evento');
         Route::post('/evento', [EventoController::class, 'store'])->name('evento.store');

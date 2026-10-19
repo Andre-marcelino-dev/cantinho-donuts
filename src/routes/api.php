@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\EnderecoController;
 use App\Http\Controllers\Api\V1\CupomController;
 use App\Http\Controllers\Api\V1\ConfiguracaoController;
 use App\Http\Controllers\Api\V1\ContatoController;
+use App\Http\Controllers\Api\V1\DepoimentoController;
  
 Route::prefix('v1')->group(function () {
  
@@ -63,6 +64,10 @@ Route::prefix('v1')->group(function () {
 
         // Fale conosco do app (no máximo 5 mensagens por minuto)
         Route::post('/contato', [ContatoController::class, 'store'])->middleware('throttle:5,1');
+
+        // Depoimentos do cliente logado (só aparecem no site depois de aprovados no painel)
+        Route::get('/depoimentos', [DepoimentoController::class, 'index']);
+        Route::post('/depoimentos', [DepoimentoController::class, 'store'])->middleware('throttle:5,1');
 
         // Endereços de entrega do cliente logado
         Route::get('/enderecos', [EnderecoController::class, 'index']);
