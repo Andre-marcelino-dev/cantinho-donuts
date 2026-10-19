@@ -110,6 +110,13 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="{{ route('admin.novidades') }}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>Novidades e promoções</p>
+                </a>
+              </li>
+
             </ul>
           </li>
 

@@ -24,6 +24,7 @@ use App\Http\Controllers\admin\PerfilController as AdminPerfilController;
 use App\Http\Controllers\admin\FornecedorController as AdminFornecedorController;
 use App\Http\Controllers\admin\MateriaPrimaController as AdminMateriaPrimaController;
 use App\Http\Controllers\admin\MovimentacaoController as AdminMovimentacaoController;
+use App\Http\Controllers\admin\NovidadesController as AdminNovidadesController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -108,6 +109,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/cupom/{id}', [AdminCupomController::class, 'update'])->name('cupom.update');
         Route::patch('/cupom/{id}/status', [AdminCupomController::class, 'alterarStatus'])->name('cupom.status');
         Route::delete('/cupom/{id}', [AdminCupomController::class, 'destroy'])->name('cupom.destroy');
+
+        Route::get('/novidades', [AdminNovidadesController::class, 'index'])->name('novidades');
+        Route::get('/novidades/exportar', [AdminNovidadesController::class, 'exportar'])->name('novidades.exportar');
 
         Route::get('/banner', [AdminBannerController::class, 'index'])->name('banner');
         Route::post('/banner', [AdminBannerController::class, 'store'])->name('banner.store');
