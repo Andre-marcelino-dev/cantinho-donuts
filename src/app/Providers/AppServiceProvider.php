@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Categoria;
+use App\Models\Depoimento;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 // use Illuminate\View\View;
@@ -38,6 +39,16 @@ class AppServiceProvider extends ServiceProvider
                 : $numero;
             $loja['mapa'] = "{$loja['endereco']}, {$loja['cep']}, {$loja['cidade']}";
             $view->with('loja', $loja);
+        });
+
+        // Depoimentos aprovados no painel, para a seção de depoimentos da Home e da página Sobre
+        View::composer('partials.depoimentos', function ($view) {
+            $view->with('depoimentosSite', Depoimento::with('cliente')
+                ->where('status_depoimento', 'APROVADO')
+                ->whereHas('cliente')
+                ->orderByDesc('criado_em_depoimento')
+                ->limit(10)
+                ->get());
         });
     }
 }
