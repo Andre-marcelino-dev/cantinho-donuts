@@ -29,3 +29,7 @@ Thumbs.db
 # Backups e dumps do banco (têm dados de clientes, não versionar)
 /*.sql
 /*.zip
+
+# Dependências e build do front (ficam só no computador; o site no ar não usa)
+/src/node_modules/
+/src/public/build/
