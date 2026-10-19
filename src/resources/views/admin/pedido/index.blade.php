@@ -189,16 +189,50 @@
                             </tbody>
                         </table>
 
-                        <p class="mb-1">Pagamento: <strong>{{ $linha->forma_pagamento_venda ?? '-' }}</strong></p>
-                        @if ($linha->valor_desconto_venda > 0)
-                            <p class="mb-1">Desconto: {{ $formatarValor($linha->valor_desconto_venda) }}</p>
-                        @endif
-                        <p class="mb-3">Total: <strong>{{ $formatarValor($linha->valor_venda) }}</strong></p>
+                        @php
+                            // A taxa de entrega não fica gravada separada: é o que sobra do total
+                            $subtotalItens = $linha->itens->sum(fn ($item) => $item->valor_unit_item * $item->qtde_item);
+                            $descontoPedido = (float) $linha->valor_desconto_venda;
+                            $taxaPedido = max(0, round((float) $linha->valor_venda + $descontoPedido - $subtotalItens, 2));
+                        @endphp
+
+                        <table class="table table-sm w-auto ms-auto mb-3">
+                            <tr><td>Subtotal dos produtos</td><td class="text-end">{{ $formatarValor($subtotalItens) }}</td></tr>
+                            <tr>
+                                <td>Taxa de entrega</td>
+                                <td class="text-end">
+                                    {{ $linha->entrega_venda === 'SIM' ? $formatarValor($taxaPedido) : 'Retirada (sem taxa)' }}
+                                </td>
+                            </tr>
+                            @if ($descontoPedido > 0)
+                                <tr class="text-success">
+                                    <td>Desconto{{ $linha->cupom ? ' (cupom ' . $linha->cupom->codigo_cupom . ')' : '' }}</td>
+                                    <td class="text-end">− {{ $formatarValor($descontoPedido) }}</td>
+                                </tr>
+                            @endif
+                            <tr class="fw-bold"><td>Total</td><td class="text-end">{{ $formatarValor($linha->valor_venda) }}</td></tr>
+                        </table>
+
+                        <p class="mb-3">Pagamento: <strong>{{ $linha->forma_pagamento_venda ?? '-' }}</strong></p>
 
                         <h6>Observação</h6>
                         <p class="mb-0">{{ $linha->observacao_venda ?: 'Nenhuma observação.' }}</p>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer justify-content-between">
+                        {{-- Trocar o status sem fechar a janela --}}
+                        <form action="{{ route('admin.pedido.status', $linha->id_venda) }}" method="POST" class="d-flex gap-2 align-items-center">
+                            @csrf
+                            @method('PATCH')
+                            <label class="text-secondary small mb-0">Status:</label>
+                            <select name="status_venda" class="form-select form-select-sm" style="width: auto">
+                                @foreach ($statusPedido as $valor => $rotulo)
+                                    <option value="{{ $valor }}" {{ $linha->status_venda === $valor ? 'selected' : '' }}>{{ $rotulo }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="bi bi-check-lg"></i> Salvar status
+                            </button>
+                        </form>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>

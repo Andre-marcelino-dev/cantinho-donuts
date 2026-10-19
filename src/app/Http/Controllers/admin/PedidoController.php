@@ -24,7 +24,7 @@ class PedidoController extends Controller
             $filtro = null;
         }
 
-        $pedidos = Venda::with(['cliente', 'endereco', 'itens.produto'])
+        $pedidos = Venda::with(['cliente', 'endereco', 'cupom', 'itens.produto'])
             ->when($filtro, function ($query) use ($filtro) {
                 $query->where('status_venda', $filtro);
             })
