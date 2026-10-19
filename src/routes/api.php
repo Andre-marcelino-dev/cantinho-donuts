@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\PedidoController;
 use App\Http\Controllers\Api\V1\EnderecoController;
 use App\Http\Controllers\Api\V1\CupomController;
 use App\Http\Controllers\Api\V1\ConfiguracaoController;
+use App\Http\Controllers\Api\V1\ContatoController;
  
 Route::prefix('v1')->group(function () {
  
@@ -59,6 +60,9 @@ Route::prefix('v1')->group(function () {
 
         // Validar cupom de desconto (o desconto é aplicado no POST /pedidos)
         Route::get('/cupons/{codigo}', [CupomController::class, 'show']);
+
+        // Fale conosco do app (no máximo 5 mensagens por minuto)
+        Route::post('/contato', [ContatoController::class, 'store'])->middleware('throttle:5,1');
 
         // Endereços de entrega do cliente logado
         Route::get('/enderecos', [EnderecoController::class, 'index']);

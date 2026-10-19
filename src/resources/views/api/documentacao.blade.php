@@ -25,11 +25,12 @@ JSON,
                 ],
                 [
                     'metodo' => 'GET', 'caminho' => '/configuracoes', 'login' => false,
-                    'descricao' => 'Taxa de entrega (em reais) e previsão de entrega, definidas no painel admin em Sistema → Configurações da loja. A retirada não paga a taxa.',
+                    'descricao' => 'Taxa de entrega (em reais) e previsão de entrega, definidas no painel admin em Sistema → Configurações da loja. A retirada não paga a taxa. Também traz o WhatsApp (só números, com 55) e o e-mail da loja.',
                     'resposta' => <<<'JSON'
 {
     "success": true,
-    "data": { "taxa_entrega": 6, "previsao_entrega": "45 - 60 min" }
+    "data": { "taxa_entrega": 6, "previsao_entrega": "45 - 60 min",
+              "whatsapp": "5511988161211", "email": "contato_confeitaria@ctrlaltdev.tipi5.smpsistema.com.br" }
 }
 JSON,
                 ],
@@ -280,6 +281,26 @@ JSON,
 {
     "success": true,
     "data": { "codigo": "THEGUSTA10", "percentual": 10, "valido_ate": "2026-11-30" }
+}
+JSON,
+                ],
+            ],
+        ],
+        [
+            'id' => 'contato',
+            'titulo' => 'Fale conosco',
+            'rotas' => [
+                [
+                    'metodo' => 'POST', 'caminho' => '/contato', 'login' => true,
+                    'descricao' => 'Envia uma mensagem para a loja. Nome, e-mail e telefone vêm do cadastro do cliente logado. A mensagem aparece no painel em Conteúdo do Site → Mensagens de contato e a loja recebe um aviso por e-mail. Limite de 5 mensagens por minuto.',
+                    'envio' => [
+                        'assunto' => 'obrigatório, até 30 caracteres',
+                        'mensagem' => 'obrigatório, até 2000 caracteres',
+                    ],
+                    'resposta' => <<<'JSON'
+{
+    "success": true,
+    "message": "Mensagem enviada! Em breve entraremos em contato."
 }
 JSON,
                 ],
