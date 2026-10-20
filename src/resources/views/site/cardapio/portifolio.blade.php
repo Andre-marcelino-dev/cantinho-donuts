@@ -1,90 +1,319 @@
-    <!-- Portfolio Sections -->
-    <section class="portfolio-section alternate2 portfolio-with-filter">
-        <div class="container-fluid">
+<!-- Cardápio com filtro (redesign animado) -->
+@php
+    // Categoria que já vem selecionada ('all' ou '.categoria-ID'), igual ao código anterior
+    $filtroInicial = $categoriaAtiva ?? 'all';
+    $whatsLoja = isset($loja['whatsapp']) ? preg_replace('/\D/', '', $loja['whatsapp']) : null;
+    $porPagina = 12; // quantos produtos aparecem antes do botão "Ver mais"
+@endphp
 
-            <!--MixitUp Galery-->
-            <div class="mixitup-gallery">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-                <!-- INICIO Filter-->
-                <div class="filters clearfix">
-                    <ul class="filter-tabs filter-btns clearfix">
-                 
-                        <li class="filter {{ $categoriaAtiva == 'all' ? 'active' : '' }}" data-role="button" data-filter="all">Todos
-                            <div class="filter_shape"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 850.4 217">
-                                    <path d="M820.3,96.5c-33.3-20.8-83.5-4.6-118,7.6c-79.5,28.2-150.5,57.8-236.9,44.3C317.8,125.3,122.3-11.8,0,132 c26.4,33.4,64.5-8.1,92.5-18.4c37.9-14,78-14.8,117-5c85.2,21.6,154.1,81.5,242,99.4c43,8.8,93.1,13.5,135.9,1.4 c40.6-11.5,70-41.1,102.9-65.9c22.9-17.3,44-36.9,71.6-23.7c14.9,7.1,20.7,28.6,34.6,37.8c14.7,9.7,34.7,10.1,51,16 C852.6,138,854.8,118.1,820.3,96.5z M494.7,81.7c34.5,4.3,141.9,1.9,134.9-60.3C626.8-3.2,594.7-4.5,577.9,7 c-20.8,14.4-14.3,27.9-44.8,29c-71.9,2.6-145.4-21.3-218.1-21.3C310.4,53.5,463.4,77.9,494.7,81.7z"></path>
-                                </svg></div>
-                        </li>
+<style>
+.fcd{--cream:#fdf6ee;--paper:#fffaf4;--choco:#2a1710;--choco-2:#4a2a1d;--rose:#e07a85;--rose-2:#b94e5c;--gold:#d9b06c;--gold-2:#f3d9a4;--text:#6e5a50;--muted:#a08d7d;--line:#ecdccb;--wa:#25d366;--wa-2:#128c4a;
+  position:relative;padding:40px 0 120px;background:var(--cream);font-family:'Poppins',sans-serif;color:var(--choco);overflow:hidden;isolation:isolate}
+.fcd *{box-sizing:border-box}
+.fcd__blob{position:absolute;border-radius:50%;filter:blur(90px);z-index:-1;animation:fcdBlob 22s ease-in-out infinite}
+.fcd__blob--1{width:460px;height:460px;background:rgba(224,122,133,.18);top:200px;right:-160px}
+.fcd__blob--2{width:420px;height:420px;background:rgba(217,176,108,.18);bottom:100px;left:-160px;animation-delay:-10s}
+@keyframes fcdBlob{50%{transform:translate(-50px,50px) scale(1.12)}}
 
+/* Barra de ferramentas */
+.fcd__bar{position:sticky;top:0;z-index:20;max-width:1320px;margin:0 auto 40px;padding:14px 20px}
+.fcd__bar-in{display:flex;flex-direction:column;gap:16px;padding:18px;border-radius:26px;background:rgba(255,250,244,.82);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);box-shadow:0 24px 50px -32px rgba(74,42,29,.5)}
+.fcd__top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.fcd__search{position:relative;flex:1 1 280px}
+.fcd__search svg{position:absolute;left:18px;top:50%;width:19px;height:19px;margin-top:-9.5px;color:var(--muted);pointer-events:none;transition:color .3s}
+.fcd__search input{width:100%;height:52px;padding:0 46px 0 50px;border-radius:50px;border:1px solid var(--line);background:#fff;font-family:inherit;font-size:15px;color:var(--choco);
+  outline:none;transition:border-color .3s,box-shadow .3s}
+.fcd__search input::placeholder{color:var(--muted)}
+.fcd__search input:focus{border-color:var(--rose);box-shadow:0 0 0 4px rgba(224,122,133,.15)}
+.fcd__search input:focus~svg{color:var(--rose-2)}
+.fcd__clear{position:absolute;right:10px;top:50%;width:32px;height:32px;margin-top:-16px;border:0;border-radius:50%;background:rgba(224,122,133,.12);color:var(--rose-2);
+  cursor:pointer;display:none;place-items:center}
+.fcd__clear svg{position:static;width:14px;height:14px;margin:0;color:inherit}
+.fcd__search.has-text .fcd__clear{display:grid}
+.fcd__info{font-size:13.5px;color:var(--text);white-space:nowrap}
+.fcd__info b{color:var(--rose-2);font-weight:600}
 
-                        @foreach ($filtroCategoria as $linha)
-                        
-                        <li class="filter {{ $categoriaAtiva == '.categoria-' . $linha->id_categoria ? 'active' : '' }}"
-                            data-role="button" data-filter=".categoria-{{ $linha->id_categoria }}">
+.fcd__filters{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 14px;margin-bottom:-10px;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,#000 92%,transparent)}
+.fcd__filters::-webkit-scrollbar{display:none}
+.fcd__filter{position:relative;flex:none;border:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:500;color:var(--choco-2);padding:10px 18px;border-radius:50px;
+  background:#fff;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;isolation:isolate;transition:color .35s,transform .35s cubic-bezier(.3,1.6,.5,1),box-shadow .35s}
+.fcd__filter::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(135deg,var(--rose),var(--rose-2));transform:scale(0);
+  transition:transform .45s cubic-bezier(.3,1.3,.5,1)}
+.fcd__filter:hover{transform:translateY(-2px)}
+.fcd__filter.is-active{color:#fff;box-shadow:0 12px 24px -12px rgba(185,78,92,.7)}
+.fcd__filter.is-active::before{transform:scale(1)}
+.fcd__filter span{display:inline-grid;place-items:center;min-width:22px;height:22px;margin-left:8px;padding:0 6px;border-radius:20px;font-size:11px;font-weight:600;
+  background:rgba(224,122,133,.14);color:var(--rose-2);transition:background .35s,color .35s}
+.fcd__filter.is-active span{background:rgba(255,255,255,.25);color:#fff}
 
-                            {{ $linha->nome_categoria }}
-                            <div class="filter_shape"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 850.4 217">
-                                    <path d="M820.3,96.5c-33.3-20.8-83.5-4.6-118,7.6c-79.5,28.2-150.5,57.8-236.9,44.3C317.8,125.3,122.3-11.8,0,132 c26.4,33.4,64.5-8.1,92.5-18.4c37.9-14,78-14.8,117-5c85.2,21.6,154.1,81.5,242,99.4c43,8.8,93.1,13.5,135.9,1.4 c40.6-11.5,70-41.1,102.9-65.9c22.9-17.3,44-36.9,71.6-23.7c14.9,7.1,20.7,28.6,34.6,37.8c14.7,9.7,34.7,10.1,51,16 C852.6,138,854.8,118.1,820.3,96.5z M494.7,81.7c34.5,4.3,141.9,1.9,134.9-60.3C626.8-3.2,594.7-4.5,577.9,7 c-20.8,14.4-14.3,27.9-44.8,29c-71.9,2.6-145.4-21.3-218.1-21.3C310.4,53.5,463.4,77.9,494.7,81.7z"></path>
-                                </svg></div>
+/* Grade */
+.fcd__grid{max-width:1320px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.fcd__item{transition:opacity .45s ease,transform .55s cubic-bezier(.3,1.3,.5,1)}
+.fcd__item.is-hidden{display:none}
+#fcd .fcd__item.is-out{opacity:0;transform:scale(.9) translateY(20px)}
 
-                        </li>
-                        @endforeach
+.fcd__card{position:relative;height:100%;display:flex;flex-direction:column;background:var(--paper);border-radius:28px;overflow:hidden;
+  box-shadow:0 26px 50px -32px rgba(74,42,29,.5);transition:transform .55s cubic-bezier(.3,1.4,.5,1),box-shadow .5s}
+.fcd__card:hover{transform:translateY(-10px);box-shadow:0 40px 70px -32px rgba(74,42,29,.62)}
+.fcd__media{position:relative;display:block;text-decoration:none;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(135deg,#f3c6c9,#f3d9a4)}
+.fcd__media img{width:100%;height:100%;object-fit:cover;display:block;color:transparent;transition:transform 1.1s cubic-bezier(.2,.7,.2,1),filter .8s}
+.fcd__card:hover .fcd__media img{transform:scale(1.12) rotate(1deg);filter:saturate(1.1)}
+.fcd__media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(42,23,16,.4));opacity:.7;transition:opacity .5s}
+.fcd__card:hover .fcd__media::after{opacity:1}
+.fcd__view{position:absolute;z-index:2;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;display:grid;place-items:center;
+  opacity:0;transform:scale(.4) rotate(-90deg);transition:opacity .5s,transform .8s cubic-bezier(.3,1.5,.5,1)}
+.fcd__card:hover .fcd__view{opacity:1;transform:none}
+.fcd__view svg.ring{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--gold-2);stroke-width:2;stroke-dasharray:6 7;animation:fcdSpin 12s linear infinite}
+.fcd__view span{width:58px;height:58px;border-radius:50%;background:#fff;color:var(--rose-2);display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+.fcd__view span svg{width:24px;height:24px}
+@keyframes fcdSpin{to{transform:rotate(360deg)}}
+.fcd__cat{position:absolute;z-index:2;left:14px;top:14px;padding:6px 12px;border-radius:30px;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;background:rgba(42,23,16,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25)}
 
-                    </ul>
-                </div>
-                <!-- FIM Filter-->
+.fcd__body{display:flex;flex-direction:column;flex:1;padding:22px 24px 24px}
+.fcd__name{font-family:'Playfair Display',serif;font-weight:700;font-size:23px;line-height:1.25;margin:0 0 8px}
+.fcd__name a{color:var(--choco);text-decoration:none;background:linear-gradient(var(--rose),var(--rose)) 0 100%/0 2px no-repeat;transition:background-size .5s,color .3s}
+.fcd__name a:hover{color:var(--rose-2);background-size:100% 2px}
+.fcd__desc{font-size:14px;line-height:1.65;color:var(--text);margin:0 0 20px}
+.fcd__foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:16px;border-top:1.5px dashed var(--line)}
+.fcd__price{display:flex;align-items:flex-start;gap:3px;font-family:'Playfair Display',serif;font-weight:800;line-height:1;color:var(--rose-2)}
+.fcd__price small{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;margin-top:4px}
+.fcd__price b{font-size:30px;font-weight:800}
+.fcd__price--ask{font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;color:var(--muted)}
+.fcd__actions{display:flex;gap:8px}
+.fcd__btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;text-decoration:none;transition:transform .35s cubic-bezier(.3,1.6,.5,1),box-shadow .35s,background .3s,color .3s}
+.fcd__btn svg{width:20px;height:20px}
+.fcd__btn--wa{color:#fff;background:linear-gradient(135deg,var(--wa),var(--wa-2));box-shadow:0 10px 20px -10px rgba(18,140,74,.8)}
+.fcd__btn--wa:hover{color:#fff;transform:translateY(-3px) rotate(-10deg)}
+.fcd__btn--go{color:var(--choco);background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.fcd__btn--go:hover{color:#fff;background:var(--rose-2);box-shadow:none;transform:translateY(-3px)}
+.fcd__btn--go:hover svg{animation:fcdNudge .6s ease}
+@keyframes fcdNudge{50%{transform:translateX(4px)}}
 
+/* Vazio e Ver mais */
+.fcd__empty{display:none;max-width:480px;margin:20px auto 0;text-align:center;padding:40px 24px;border-radius:26px;border:1.5px dashed var(--line);background:rgba(255,255,255,.6)}
+.fcd__empty.is-on{display:block;animation:fcdPop .6s cubic-bezier(.3,1.5,.5,1)}
+.fcd__empty svg{width:54px;height:54px;color:var(--rose);margin-bottom:12px;animation:fcdBob 3s ease-in-out infinite}
+.fcd__empty h3{font-family:'Playfair Display',serif;font-size:22px;margin:0 0 6px}
+.fcd__empty p{margin:0;font-size:14.5px;color:var(--text)}
+@keyframes fcdPop{from{opacity:0;transform:scale(.9)}}
+@keyframes fcdBob{50%{transform:translateY(-8px)}}
+.fcd__more-wrap{text-align:center;margin-top:56px}
+.fcd__more{position:relative;display:inline-flex;align-items:center;gap:12px;padding:17px 34px;border:0;border-radius:60px;cursor:pointer;overflow:hidden;
+  font-family:inherit;font-size:15px;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--choco-2),var(--choco));box-shadow:0 18px 40px -14px rgba(42,23,16,.7);
+  transition:transform .35s cubic-bezier(.3,1.6,.5,1),box-shadow .35s}
+.fcd__more:hover{transform:translateY(-3px);box-shadow:0 24px 50px -14px rgba(42,23,16,.85)}
+.fcd__more svg{width:18px;height:18px;transition:transform .4s}
+.fcd__more:hover svg{transform:translateY(3px)}
+.fcd__more small{font-weight:400;opacity:.7}
+.fcd__more[hidden]{display:none}
 
+/* Revelar */
+.fcd--js [data-reveal]{opacity:0;transform:translateY(50px) scale(.96);transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+.fcd--js [data-reveal].is-in{opacity:1;transform:none}
 
-                <div class="filter-list row">
+@media (max-width:1100px){.fcd__grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){
+  .fcd{padding:20px 0 90px}
+  .fcd__bar{padding:10px 12px;margin-bottom:28px}
+  .fcd__bar-in{padding:14px;border-radius:22px}
+  .fcd__info{width:100%;text-align:center}
+  .fcd__grid{grid-template-columns:1fr;padding:0 16px;gap:22px}
+}
+@media (hover:none){.fcd__view{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .fcd *,.fcd *::before,.fcd *::after{animation:none!important;transition:none!important}
+  .fcd--js [data-reveal]{opacity:1;transform:none}
+}
+</style>
 
-                    @foreach ($listaProduto as $linha)
-                    <!-- Portfolio Block Four -->
-                    <div class="portfolio-block-four all mix categoria-{{ $linha->id_categoria }} col-lg-4 col-md-6 col-sm-12">
-                        <div class="inner-box">
-                            <div class="image-box">
+<section class="fcd" id="fcd" data-start="{{ $filtroInicial }}" data-per-page="{{ $porPagina }}">
+    <div class="fcd__blob fcd__blob--1"></div>
+    <div class="fcd__blob fcd__blob--2"></div>
 
-
-                                <figure class="image"><img src="{{asset('davilla/images/'. $linha->foto_produto)}}" alt=""></figure>
-
-                                <div class="hover-effect">
-                                    <svg x="0px" y="0px" viewBox="79 -202.7 1000 1000">
-                                        <path d="M5459-1110.4L579.1-202.7c10.7,0,21.6,1.5,32.5,4.4c22.3,6,41.3,17,58,26.6c11.9,6.9,23,13.3,31.1,15.5 c6.8,1.8,19.4,1.8,26.2,1.8h12.9c27.5,0,59.4,1.4,89.3,18.7c32.8,19,50.2,49.3,64.1,73.7c6.2,10.9,12.6,22.1,17.8,27.3 c5.9,5.9,17.1,12.3,28.9,19.1c24,13.8,53.8,31,72.2,63c18.6,32.3,18.5,67,18.4,94.8c0,13.5-0.1,26.1,2,33.7 c2.1,7.7,8.4,18.7,15.2,30.3c14,24.1,31.4,54.1,31.4,91.3c0,36.8-17.2,66.6-31,90.6c-6.9,11.9-13.3,23-15.5,31.1 c-1.6,6.1-1.9,16.3-1.9,26.9c5.5,35.9-0.9,71-18.5,101.6c-18.9,32.7-49.1,50-73.4,63.9c-11.4,6.5-22.5,12.9-27.8,18.2 c-5.9,5.9-12.3,17-19,28.7c-14,24.2-31.1,54.1-63.1,72.5c-29.5,17-60.5,18.5-89.7,18.5h-10.3c-10.6,0-21.6,0.2-28.4,2 c-7.6,2-18.5,6.5-30.1,13.2c-24.1,14-54,29.6-91.3,29.6H579c-36.8,0-66.6-15.3-90.6-29.2c-11.8-6.8-22.9-12.3-31-14.4 c-6-1.6-16.1-1.4-26.1-1.4l-12.8,0.3c-17.5,0-37.9-0.3-58.4-5.8c-11.2-3-21.4-7.1-31-12.7c-33-19.1-50.3-49.4-64.3-73.8 c-6.2-10.8-12.6-22-17.8-27.2c-5.9-5.9-17-12.3-28.8-19.1c-24-13.8-53.8-31-72.3-63c-18.6-32.3-18.5-67-18.4-94.9 c0-13.4,0.1-26.1-2-33.7c-2-7.7-8.4-18.6-15.2-30.2c-14-24.1-31.4-54-31.4-91.3c0-36.8,17.2-66.7,31.1-90.7 c6.8-11.8,13.3-22.9,15.4-31c1.9-7.2,1.9-20.1,1.8-32.6c-0.1-28.1-0.2-63.1,18.8-95.9c19-32.9,49.3-50.2,73.6-64.2 c10.9-6.2,22.1-12.7,27.3-17.9c5.9-5.9,12.3-17.1,19.2-28.9c13.8-24,31-53.8,62.9-72.2c29.5-17,60.3-18.5,89.3-18.5h11 c10,0,21.3-0.2,28.2-2c7.6-2.1,18.6-8.4,30.1-15.1c24.3-14.1,54.3-31.5,91.4-31.6l4856-83.7l64-2888l-12016,96l-16,7000l7344,32 l4760,96L5459-1110.4z M909.2,106.8c-10.2-17.7-28.5-28.3-46.3-38.5c-12.2-7.1-23.8-13.7-32.4-22.3c-8.1-8.1-14.5-19.3-21.3-31.2 C798.8-3.3,788.1-22,769.7-32.7s-40-10.6-60.8-10.5c-13.7,0.1-26.6,0.1-37.7-2.9c-11.8-3.2-23.3-9.8-35.6-16.9 C623-70.3,610-77.8,596.2-81.5c-5.6-1.5-11.3-2.4-17.1-2.4c-20.7,0-39.2,10.8-57,21.1c-12.1,7-23.5,13.7-35,16.8s-24.7,3-38.6,3 c-20.6-0.1-42-0.1-59.9,10.3c-17.7,10.2-28.3,28.6-38.5,46.3c-7.1,12.3-13.7,23.8-22.3,32.5c-8.1,8.1-19.4,14.6-31.2,21.4 c-18.1,10.4-36.8,21.1-47.4,39.5c-10.7,18.5-10.6,40-10.5,60.9c0,13.7,0.1,26.6-2.9,37.8c-3.2,11.8-9.8,23.3-16.9,35.5 C208.6,259,198,277.4,198,297.8c0,20.8,10.7,39.2,21.1,57.1c7,12.1,13.6,23.5,16.7,35c3.1,11.5,3,24.6,3,38.6 c-0.1,20.7-0.1,42,10.2,60.1c10.2,17.7,28.5,28.3,46.3,38.5c12.2,7.1,23.8,13.7,32.4,22.3c8.1,8.1,14.5,19.3,21.3,31.2 c10.4,18.2,21.1,36.9,39.5,47.5c5.1,2.9,10.6,5.2,16.7,6.8c14.1,3.8,29.3,3.7,44,3.7c13.8-0.1,26.7-0.1,37.8,2.9 c11.8,3.2,23.3,9.8,35.5,16.9c17.8,10.3,36.1,20.9,56.6,20.9c20.8,0,39.2-10.8,57-21.2c12.1-7,23.5-13.7,35-16.7 c11.5-3.1,24.6-3,38.6-3c20.7,0,42.1,0.1,60.1-10.3c17.7-10.2,28.4-28.6,38.6-46.3c7.1-12.3,13.9-23.8,22.5-32.4 c8.1-8.1,19.6-14.5,31.5-21.3c18.2-10.4,37.7-21.1,48.4-39.6c10.6-18.5,8.9-87.6,11.9-98.7c3.2-11.8,9.8-23.3,16.9-35.6 c10.3-17.8,20.9-36.1,20.9-56.6c0-20.8-10.7-39.2-21.1-57.1c-7-12.1-13.6-23.5-16.7-35c-3.1-11.5-3-24.7-3-38.7 C919.5,146.2,919.5,124.8,909.2,106.8z"></path>
-                                    </svg>
-
-                                    <a href="#" class="link"></a>
-
-                                    <a href="{{ route('cardapio.produto',$linha->slug_produto)}}" class="link"></a>
-
-                                </div>
-                            </div>
-
-
-                            <div class="lower-content">
-                                <div class="title-box">
-
-
-                                    <h3><a href="{{ route('cardapio.produto',$linha->slug_produto) }}"><svg class="div_left" viewBox="0 0 152 51">
-                                                <path d="M18,13.7c-2.3,0.6-11.9,3.9-8.4,0s11.9-2.2,16.2-1.6c10.8,1.7,20.2,6.1,29.7,11.2c10.6,5.8,21.3,11.1,31.4,17.7 c8.6,5.6,18.3,9.5,28.7,9.9c15.8,0.6,31.9-11.4,35.8-26.8c2-8-0.7-16.8-7.7-21.6c-10.6-7.3-14.3,2.7-16.2,11.6 c2.4-0.1,5.8-1.1,8-0.5c3,0.9,2.1,0.9,3.6,4.1c1.5,3.3,1.8,7,0.9,10.5c-2.5,9.4-13,15.2-22.1,15.9c-20.2,1.6-39.5-16.8-55.5-26.7 C48.8,9.2,22.4-8.4,6.6,4.7c-5.4,4.5-10,15.8-3.3,21.2C12.6,33.3,16.8,20.1,18,13.7z"></path>
-                                            </svg>{{ $linha->nome_produto }}<svg class="div_right" viewBox="0 0 152 51">
-                                                <path d="M134,13.7c2.3.55,11.86,3.93,8.38,0s-11.87-2.21-16.21-1.55C115.4,13.8,106,18.23,96.5,23.38,85.88,29.16,75.2,34.5,65.07,41.12c-8.57,5.6-18.31,9.45-28.66,9.86C20.56,51.61,4.49,39.55.64,24.17c-2-8,.72-16.81,7.74-21.63C19-4.73,22.65,5.27,24.55,14.15c-2.37-.14-5.8-1.11-8-.46-3,.87-2.06.91-3.64,4.11A16,16,0,0,0,12,28.29c2.45,9.4,13,15.18,22.12,15.89,20.17,1.56,39.46-16.81,55.54-26.67,13.57-8.32,40-25.86,55.71-12.86,5.44,4.5,10,15.83,3.29,21.24C139.41,33.33,135.18,20.06,134,13.7Z" transform="translate(0)"></path>
-                                            </svg></a></h3>
-
-                                </div>
-                                <div class="text">{{illuminate\Support\Str::limit($linha->descricao_produto, 100)}}</div>
-                                <div class="price-box">{{ number_format($linha->valor_produto, 2, '.', ',') }}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @endforeach
-
-
-                </div>
+    <!-- Busca e filtros -->
+    <div class="fcd__bar">
+        <div class="fcd__bar-in">
+            <div class="fcd__top">
+                <label class="fcd__search">
+                    <input type="search" placeholder="Buscar doce pelo nome..." aria-label="Buscar no cardápio" autocomplete="off">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                    <button type="button" class="fcd__clear" aria-label="Limpar busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                </label>
+                <span class="fcd__info" aria-live="polite"><b class="fcd__count">{{ $listaProduto->count() }}</b> doces no cardápio</span>
             </div>
-
-            <div class="btn-box text-center">
-                <a href="#" class="theme-btn btn-style-two large "><span></span>Load More<span></span></a>
+            <div class="fcd__filters" role="tablist" aria-label="Filtrar por categoria">
+                <button type="button" class="fcd__filter" data-filter="all">Todos<span>{{ $listaProduto->count() }}</span></button>
+                @foreach ($filtroCategoria as $linha)
+                    <button type="button" class="fcd__filter" data-filter=".categoria-{{ $linha->id_categoria }}">
+                        {{ $linha->nome_categoria }}<span>{{ $listaProduto->where('id_categoria', $linha->id_categoria)->count() }}</span>
+                    </button>
+                @endforeach
             </div>
         </div>
-    </section>
-    <!--End Projects Sections -->
+    </div>
+
+    <!-- Produtos -->
+    <div class="fcd__grid">
+        @foreach ($listaProduto as $linha)
+            @php
+                $linkProduto = route('cardapio.produto', $linha->slug_produto);
+                $valor = (float) $linha->valor_produto;
+                $categoriaProduto = $filtroCategoria->firstWhere('id_categoria', $linha->id_categoria)->nome_categoria ?? null;
+            @endphp
+            <div class="fcd__item categoria-{{ $linha->id_categoria }}" data-cat=".categoria-{{ $linha->id_categoria }}"
+                data-name="{{ \Illuminate\Support\Str::lower(\Illuminate\Support\Str::ascii($linha->nome_produto . ' ' . $categoriaProduto)) }}"
+                data-reveal style="--d:{{ ($loop->index % 3) * 0.1 }}s">
+                <article class="fcd__card">
+                    <a href="{{ $linkProduto }}" class="fcd__media" aria-label="Ver {{ $linha->nome_produto }}">
+                        <img src="{{ asset('davilla/images/' . $linha->foto_produto) }}" alt="{{ $linha->nome_produto }}" loading="lazy">
+                        @if ($categoriaProduto)
+                            <span class="fcd__cat">{{ $categoriaProduto }}</span>
+                        @endif
+                        <span class="fcd__view" aria-hidden="true">
+                            <svg class="ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47"/></svg>
+                            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+                        </span>
+                    </a>
+                    <div class="fcd__body">
+                        <h3 class="fcd__name"><a href="{{ $linkProduto }}">{{ $linha->nome_produto }}</a></h3>
+                        @if ($linha->descricao_produto)
+                            <p class="fcd__desc">{{ \Illuminate\Support\Str::limit($linha->descricao_produto, 100) }}</p>
+                        @endif
+                        <div class="fcd__foot">
+                            @if ($valor > 0)
+                                <span class="fcd__price"><small>R$</small><b>{{ number_format($valor, 2, ',', '.') }}</b></span>
+                            @else
+                                <span class="fcd__price--ask">Preço sob consulta</span>
+                            @endif
+                            <span class="fcd__actions">
+                                @if ($whatsLoja)
+                                    <a href="https://wa.me/{{ $whatsLoja }}?text={{ rawurlencode('Olá! Gostaria de encomendar: ' . $linha->nome_produto) }}"
+                                        target="_blank" rel="noopener" class="fcd__btn fcd__btn--wa" aria-label="Encomendar {{ $linha->nome_produto }} pelo WhatsApp">
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
+                                    </a>
+                                @endif
+                                <a href="{{ $linkProduto }}" class="fcd__btn fcd__btn--go" aria-label="Ver detalhes de {{ $linha->nome_produto }}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        @endforeach
+    </div>
+
+    <div class="fcd__empty" role="status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M8.5 11h5"/></svg>
+        <h3>Nenhum doce encontrado</h3>
+        <p>Tente outro nome ou escolha outra categoria.</p>
+    </div>
+
+    <div class="fcd__more-wrap">
+        <button type="button" class="fcd__more" hidden>
+            Ver mais doces <small class="fcd__left"></small>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </button>
+    </div>
+</section>
+
+<script>
+(function () {
+    var root = document.getElementById('fcd');
+    if (!root) return;
+    root.classList.add('fcd--js');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = Array.prototype.slice.call(root.querySelectorAll('.fcd__item'));
+    var filters = root.querySelectorAll('.fcd__filter');
+    var input = root.querySelector('.fcd__search input');
+    var searchBox = root.querySelector('.fcd__search');
+    var countEl = root.querySelector('.fcd__count');
+    var info = root.querySelector('.fcd__info');
+    var empty = root.querySelector('.fcd__empty');
+    var more = root.querySelector('.fcd__more');
+    var left = root.querySelector('.fcd__left');
+    var perPage = parseInt(root.dataset.perPage, 10) || 12;
+
+    var state = { filter: root.dataset.start || 'all', q: '', limit: perPage };
+    if (!root.querySelector('.fcd__filter[data-filter="' + state.filter + '"]')) state.filter = 'all';
+
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+
+    function norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+
+    function apply(animate) {
+        filters.forEach(function (f) { f.classList.toggle('is-active', f.dataset.filter === state.filter); });
+        var q = norm(state.q.trim());
+        var matches = items.filter(function (it) {
+            return (state.filter === 'all' || it.dataset.cat === state.filter) && (!q || it.dataset.name.indexOf(q) !== -1);
+        });
+
+        function render() {
+            var shown = 0;
+            items.forEach(function (it) {
+                var idx = matches.indexOf(it);
+                var visible = idx !== -1 && idx < state.limit;
+                it.classList.toggle('is-hidden', !visible);
+                if (visible) {
+                    if (animate && !reduce) { it.classList.add('is-in', 'is-out'); it.style.transitionDelay = (shown % perPage) * 0.05 + 's'; }
+                    else io.observe(it);
+                    shown++;
+                }
+            });
+            if (animate && !reduce) {
+                requestAnimationFrame(function () { requestAnimationFrame(function () {
+                    items.forEach(function (it) { it.classList.remove('is-out'); });
+                    setTimeout(function () { items.forEach(function (it) { it.style.transitionDelay = ''; }); }, 900);
+                }); });
+            }
+            countEl.textContent = matches.length;
+            info.lastChild.textContent = matches.length === 1 ? ' doce encontrado' : (q || state.filter !== 'all' ? ' doces encontrados' : ' doces no cardápio');
+            empty.classList.toggle('is-on', matches.length === 0);
+            var rest = matches.length - state.limit;
+            more.hidden = rest <= 0;
+            if (rest > 0) left.textContent = '(+' + rest + ')';
+        }
+
+        if (animate && !reduce) {
+            items.forEach(function (it) { if (!it.classList.contains('is-hidden')) it.classList.add('is-out'); });
+            setTimeout(render, 320);
+        } else render();
+    }
+
+    filters.forEach(function (f) {
+        f.addEventListener('click', function () {
+            if (state.filter === f.dataset.filter) return;
+            state.filter = f.dataset.filter; state.limit = perPage;
+            f.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+            apply(true);
+        });
+    });
+
+    var t;
+    input.addEventListener('input', function () {
+        searchBox.classList.toggle('has-text', !!input.value);
+        clearTimeout(t);
+        t = setTimeout(function () { state.q = input.value; state.limit = perPage; apply(true); }, 250);
+    });
+    root.querySelector('.fcd__clear').addEventListener('click', function () {
+        input.value = ''; searchBox.classList.remove('has-text'); state.q = ''; apply(true); input.focus();
+    });
+
+    more.addEventListener('click', function () {
+        var before = state.limit;
+        state.limit += perPage;
+        apply(false);
+        var firstNew = items.filter(function (it) { return !it.classList.contains('is-hidden'); })[before];
+        if (firstNew) firstNew.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    });
+
+    apply(false);
+})();
+</script>
+<!-- End Cardápio -->
