@@ -4,18 +4,24 @@
     @include('admin.partials.head')
     <link rel="stylesheet" href="{{ asset('xyzcode/login.css') }}">
     <style>
+        /* Os dois forms ocupam a mesma célula do grid: o wrapper
+           cresce até a altura do maior, sem cortar o botão */
         .forms-wrapper {
-            position: relative;
+            display: grid;
             overflow: hidden;
-            min-height: 220px;
         }
 
         .form-painel {
-            position: absolute;
+            grid-area: 1 / 1;
             width: 100%;
-            top: 0;
-            left: 0;
+            pointer-events: none;
             transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.5s ease;
+        }
+
+        /* Só o form visível recebe cliques */
+        #form-admin:not(.saiu),
+        #form-cliente.entrou {
+            pointer-events: auto;
         }
 
         /* Admin começa visível (posição 0) */
@@ -187,7 +193,6 @@
         const btnAdmin    = document.getElementById('btn-admin');
         const btnCliente  = document.getElementById('btn-cliente');
         const subtitulo   = document.getElementById('subtitulo');
-        const wrapper     = document.querySelector('.forms-wrapper');
 
         if (aba === 'cliente') {
             formAdmin.classList.add('saiu');
@@ -197,7 +202,6 @@
             btnAdmin.classList.remove('ativo');
             btnCliente.classList.add('ativo');
             subtitulo.textContent = 'Área do Cliente';
-            setTimeout(() => { wrapper.style.minHeight = formCliente.offsetHeight + 'px'; }, 100);
 
         } else {
             formCliente.classList.remove('entrou', 'ativo'); // ← bloqueia cliente
@@ -207,7 +211,6 @@
             btnCliente.classList.remove('ativo');
             btnAdmin.classList.add('ativo');
             subtitulo.textContent = 'Painel Administrativo';
-            setTimeout(() => { wrapper.style.minHeight = formAdmin.offsetHeight + 'px'; }, 100);
         }
 
         abaAtual = aba;
