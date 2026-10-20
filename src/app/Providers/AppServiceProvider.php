@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Categoria;
+use App\Models\Contato;
 use App\Models\Depoimento;
+use App\Models\MateriaPrima;
+use App\Models\Venda;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 // use Illuminate\View\View;
@@ -39,6 +42,39 @@ class AppServiceProvider extends ServiceProvider
                 : $numero;
             $loja['mapa'] = "{$loja['endereco']}, {$loja['cep']}, {$loja['cidade']}";
             $view->with('loja', $loja);
+        });
+
+        // Mensagens e notificações do topo do painel (só roda no cabeçalho do admin)
+        View::composer('admin.partials.app-header', function ($view) {
+            $mensagensNovas = Contato::where('status_contato', 'ENVIADO');
+
+            $notificacoes = collect([
+                [
+                    'icone' => 'bi-receipt',
+                    'texto' => 'pedido(s) em preparo',
+                    'total' => Venda::where('status_venda', 'EM ANDAMENTO')->count(),
+                    'link'  => route('admin.pedido', ['status' => 'EM ANDAMENTO']),
+                ],
+                [
+                    'icone' => 'bi-star-fill',
+                    'texto' => 'depoimento(s) para aprovar',
+                    'total' => Depoimento::where('status_depoimento', 'PENDENTE')->count(),
+                    'link'  => route('admin.depoimento', ['status' => 'PENDENTE']),
+                ],
+                [
+                    'icone' => 'bi-box-seam',
+                    'texto' => 'matéria(s)-prima(s) sem estoque',
+                    'total' => MateriaPrima::where('qtde_atual_materia_prima', '<=', 0)->count(),
+                    'link'  => route('admin.materia'),
+                ],
+            ])->where('total', '>', 0)->values();
+
+            $view->with([
+                'totalMensagensNovas' => (clone $mensagensNovas)->count(),
+                'ultimasMensagens'    => $mensagensNovas->orderByDesc('criado_em_contato')->limit(5)->get(),
+                'notificacoes'        => $notificacoes,
+                'totalNotificacoes'   => $notificacoes->sum('total'),
+            ]);
         });
 
         // Depoimentos aprovados no painel, para a seção de depoimentos da Home e da página Sobre

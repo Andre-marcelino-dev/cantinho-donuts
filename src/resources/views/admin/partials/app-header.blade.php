@@ -27,119 +27,56 @@
 
             <!--begin::Messages Dropdown Menu-->
             <li class="nav-item dropdown">
-              <a class="nav-link" data-bs-toggle="dropdown" href="#">
+              <a class="nav-link" data-bs-toggle="dropdown" href="#" title="Mensagens do Fale Conosco">
                 <i class="bi bi-chat-text"></i>
-                <span class="navbar-badge badge text-bg-danger">3</span>
+                @if ($totalMensagensNovas > 0)
+                  <span class="navbar-badge badge text-bg-danger">{{ $totalMensagensNovas }}</span>
+                @endif
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                <a href="#" class="dropdown-item">
-                  <!--begin::Message-->
-                  <div class="d-flex">
-                    <div class="flex-shrink-0">
-                      <img
-                        src="{{ asset('dash/assets/img/user1-128x128.jpg') }}"
-                        alt="User Avatar"
-                        class="img-size-50 rounded-circle me-3"
-                      />
-                    </div>
-                    <div class="flex-grow-1">
-                      <h3 class="dropdown-item-title">
-                        Brad Diesel
-                        <span class="float-end fs-7 text-danger"
-                          ><i class="bi bi-star-fill"></i
-                        ></span>
-                      </h3>
-                      <p class="fs-7">Call me whenever you can...</p>
-                      <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                      </p>
-                    </div>
-                  </div>
-                  <!--end::Message-->
-                </a>
+                <span class="dropdown-item dropdown-header">
+                  {{ $totalMensagensNovas }} mensagem(ns) nova(s)
+                </span>
+                @forelse ($ultimasMensagens as $mensagem)
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ route('admin.contato', ['status' => 'ENVIADO']) }}" class="dropdown-item">
+                    <h3 class="dropdown-item-title">{{ $mensagem->nome_contato }}</h3>
+                    <p class="fs-7 mb-0 text-truncate">{{ $mensagem->assunto_contato ?: $mensagem->mensagem_contato }}</p>
+                    <p class="fs-7 text-secondary mb-0">
+                      <i class="bi bi-clock-fill me-1"></i>
+                      {{ \Carbon\Carbon::parse($mensagem->criado_em_contato)->format('d/m/Y H:i') }}
+                    </p>
+                  </a>
+                @empty
+                  <div class="dropdown-divider"></div>
+                  <span class="dropdown-item text-secondary">Nenhuma mensagem nova.</span>
+                @endforelse
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <!--begin::Message-->
-                  <div class="d-flex">
-                    <div class="flex-shrink-0">
-                      <img
-                        src="{{ asset('dash/assets/img/user1-128x128.jpg') }}"
-                        alt="User Avatar"
-                        class="img-size-50 rounded-circle me-3"
-                      />
-                    </div>
-                    <div class="flex-grow-1">
-                      <h3 class="dropdown-item-title">
-                        John Pierce
-                        <span class="float-end fs-7 text-secondary">
-                          <i class="bi bi-star-fill"></i>
-                        </span>
-                      </h3>
-                      <p class="fs-7">I got your message bro</p>
-                      <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                      </p>
-                    </div>
-                  </div>
-                  <!--end::Message-->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <!--begin::Message-->
-                  <div class="d-flex">
-                    <div class="flex-shrink-0">
-                      <img
-                        src="{{ asset('dash/assets/img/user1-128x128.jpg') }}"
-                        alt="User Avatar"
-                        class="img-size-50 rounded-circle me-3"
-                      />
-                    </div>
-                    <div class="flex-grow-1">
-                      <h3 class="dropdown-item-title">
-                        Nora Silvester
-                        <span class="float-end fs-7 text-warning">
-                          <i class="bi bi-star-fill"></i>
-                        </span>
-                      </h3>
-                      <p class="fs-7">The subject goes here</p>
-                      <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                      </p>
-                    </div>
-                  </div>
-                  <!--end::Message-->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                <a href="{{ route('admin.contato') }}" class="dropdown-item dropdown-footer">Ver todas as mensagens</a>
               </div>
             </li>
             <!--end::Messages Dropdown Menu-->
 
             <!--begin::Notifications Dropdown Menu-->
             <li class="nav-item dropdown">
-              <a class="nav-link" data-bs-toggle="dropdown" href="#">
+              <a class="nav-link" data-bs-toggle="dropdown" href="#" title="Notificações">
                 <i class="bi bi-bell-fill"></i>
-                <span class="navbar-badge badge text-bg-warning">15</span>
+                @if ($totalNotificacoes > 0)
+                  <span class="navbar-badge badge text-bg-warning">{{ $totalNotificacoes }}</span>
+                @endif
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-envelope me-2"></i> 4 new messages
-                  <span class="float-end text-secondary fs-7">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                  <span class="float-end text-secondary fs-7">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                  <span class="float-end text-secondary fs-7">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
+                <span class="dropdown-item dropdown-header">{{ $totalNotificacoes }} notificação(ões)</span>
+                @forelse ($notificacoes as $notificacao)
+                  <div class="dropdown-divider"></div>
+                  <a href="{{ $notificacao['link'] }}" class="dropdown-item">
+                    <i class="bi {{ $notificacao['icone'] }} me-2"></i>
+                    {{ $notificacao['total'] }} {{ $notificacao['texto'] }}
+                  </a>
+                @empty
+                  <div class="dropdown-divider"></div>
+                  <span class="dropdown-item text-secondary">Tudo em dia por aqui. 🎉</span>
+                @endforelse
               </div>
             </li>
             <!--end::Notifications Dropdown Menu-->
