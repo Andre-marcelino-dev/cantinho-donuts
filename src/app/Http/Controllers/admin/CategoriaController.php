@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Models\Categoria;
 
 
@@ -31,7 +32,7 @@ class CategoriaController extends Controller
             'status_categoria'    => $request->status_categoria,
         ]);
 
-        return redirect()->route('admin.categoria.index')
+        return redirect()->route('admin.categoria')
                          ->with('sucesso', 'Categoria criada com sucesso!');
     }
 
@@ -54,7 +55,7 @@ class CategoriaController extends Controller
         $categoria->save();
 
         return redirect()->route('admin.categoria')
-        ->with('sucesso', 'Categoria atualizada com sucesso!');
+                         ->with('sucesso', 'Categoria atualizada com sucesso!');
     }
 
     public function alterarStatus($id)
@@ -62,6 +63,22 @@ class CategoriaController extends Controller
         $categoria = Categoria::findOrFail($id);
         $categoria->status_categoria = $categoria->status_categoria === 'ATIVO' ? 'INATIVO' : 'ATIVO';
         $categoria->save();
+
         return redirect()->back()->with('sucesso', 'Status atualizado!');
+    }
+
+    public function destroy($id)
+    {
+        $categoria = Categoria::findOrFail($id);
+
+        try {
+            $categoria->delete();
+        } catch (QueryException $e) {
+            return redirect()->route('admin.categoria')
+                             ->with('erro', 'Não foi possível excluir: existem produtos ligados a esta categoria.');
+        }
+
+        return redirect()->route('admin.categoria')
+                         ->with('sucesso', 'Categoria excluída com sucesso!');
     }
 }

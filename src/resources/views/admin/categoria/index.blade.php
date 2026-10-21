@@ -81,6 +81,19 @@
                                                 data-bs-target="#modalEditarCategoria{{ $linha->id_categoria }}">
                                                 <i class="bi bi-arrow-counterclockwise"></i>
                                             </button>
+
+                                            {{-- Botão Excluir (só aparece para categorias inativas) --}}
+                                            @if ($linha->status_categoria === 'INATIVO')
+                                                <form action="{{ route('admin.categoria.destroy', $linha->id_categoria) }}"
+                                                    method="POST" class="d-inline"
+                                                    onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
 

@@ -65,6 +65,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/categoria', [CategoriaController::class, 'store'])->name('categoria.store');
         Route::put('/categoria/{id}', [CategoriaController::class, 'update'])->name('categoria.update');
         Route::patch('/categoria/{id}/status', [CategoriaController::class, 'alterarStatus'])->name('categoria.status');
+        Route::delete('/categoria/{id}', [CategoriaController::class, 'destroy'])->name('categoria.destroy');
 
         Route::get('/produto', [ProdutoController::class, 'index'])->name('produto');
         Route::post('/produto', [ProdutoController::class, 'store'])->name('produto.store');
