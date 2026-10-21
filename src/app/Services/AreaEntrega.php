@@ -91,7 +91,7 @@ class AreaEntrega
         // Achou só o centro do bairro (não a rua): pode ser outro bairro com o mesmo nome
         // em outra parte da cidade, então não afirma que está fora da área
         if (!$zona && ($destino[2] ?? '') === 'bairro') {
-            return array_merge($resposta, ['distancia_km' => $km]); // indefinido
+            return $resposta; // indefinido (a distância não é confiável, então não mostra)
         }
 
         return array_merge($resposta, [
@@ -210,7 +210,7 @@ class AreaEntrega
         $chave = "area_entrega:coord:$cep:" . md5((string) ($endereco['logradouro'] ?? ''));
         if (Cache::has($chave)) return Cache::get($chave) ?: null;
 
-        $coordenadas = self::coordenadasNominatim($endereco);
+        $coordenadas = self::coordenadasNominatim($endereco + ['cep' => $cep]);
         if ($coordenadas === false) return null; // serviço não respondeu: tenta de novo na próxima
 
         // Se não achou o endereço no mapa, guarda por 1 dia só, para tentar de novo depois
@@ -229,16 +229,23 @@ class AreaEntrega
         // "Colônia (Zona Leste)" → "Colônia": o complemento só existe nos Correios
         $bairro = trim(preg_replace('/\(.*?\)/', '', (string) ($endereco['bairro'] ?? ''))) ?: null;
 
-        // Rua + bairro; se não achar, o centro do bairro. (Só a rua não: em SP há várias
-        // ruas com o mesmo nome e a busca pode cair do outro lado da cidade.)
-        // O segundo valor é o nome que o resultado precisa conter para ser aceito: o mapa
-        // "chuta" lugares parecidos (ex.: Parque Paulistano → Clube Paulistano, no Jardins).
+        // Começo do CEP (ex.: 0814 → região do Itaim Paulista). Usado para aceitar a busca só
+        // pela rua: em SP há várias ruas com o mesmo nome, mas não com o mesmo começo de CEP.
+        $cep = preg_replace('/\D/', '', (string) ($endereco['cep'] ?? ''));
+        $prefixoCep = strlen($cep) === 8 ? substr($cep, 0, 4) : null;
+
+        // Da mais precisa para a menos: rua + bairro, só a rua (o bairro dos Correios às vezes
+        // tem outro nome no mapa: Jardim Benfica = Santa Margarida Paulista) e o centro do bairro.
+        // [busca, nome que o resultado precisa conter, precisão, começo de CEP exigido]
+        // O nome é conferido porque o mapa "chuta" lugares parecidos
+        // (ex.: Parque Paulistano → Clube Paulistano, no Jardins).
         $tentativas = array_filter([
-            $rua && $bairro ? [implode(', ', array_filter([$rua, $bairro, ...$cidade])), $rua, 'rua'] : null,
-            $bairro ? [implode(', ', array_filter([$bairro, ...$cidade])), $bairro, 'bairro'] : null,
+            $rua && $bairro ? [implode(', ', array_filter([$rua, $bairro, ...$cidade])), $rua, 'rua', null] : null,
+            $rua && $prefixoCep ? [implode(', ', array_filter([$rua, ...$cidade])), $rua, 'rua', $prefixoCep] : null,
+            $bairro ? [implode(', ', array_filter([$bairro, ...$cidade])), $bairro, 'bairro', null] : null,
         ]);
 
-        foreach (array_values($tentativas) as $i => [$busca, $esperado, $precisao]) {
+        foreach (array_values($tentativas) as $i => [$busca, $esperado, $precisao, $exigeCep]) {
             // O Nominatim aceita no máximo 1 consulta por segundo
             if ($i > 0) usleep(1_100_000);
 
@@ -257,7 +264,8 @@ class AreaEntrega
             $cidadeNorm = self::normalizar($endereco['cidade']);
             foreach ((array) $dados as $lugar) {
                 $nome = self::normalizar($lugar['display_name'] ?? '');
-                if (str_contains($nome, $esperado) && str_contains($nome, $cidadeNorm) && isset($lugar['lat'], $lugar['lon'])) {
+                $cepOk = !$exigeCep || preg_match('/\b' . $exigeCep . '\d-?\d{3}\b/', $lugar['display_name'] ?? '');
+                if ($cepOk && str_contains($nome, $esperado) && str_contains($nome, $cidadeNorm) && isset($lugar['lat'], $lugar['lon'])) {
                     return [(float) $lugar['lat'], (float) $lugar['lon'], $precisao];
                 }
             }
