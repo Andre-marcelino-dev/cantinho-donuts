@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\V1\CupomController;
 use App\Http\Controllers\Api\V1\ConfiguracaoController;
 use App\Http\Controllers\Api\V1\ContatoController;
 use App\Http\Controllers\Api\V1\DepoimentoController;
+use App\Http\Controllers\Api\V1\EntregaController;
  
 Route::prefix('v1')->group(function () {
  
@@ -34,6 +35,10 @@ Route::prefix('v1')->group(function () {
  
     // Taxa e previsão de entrega (definidas no painel)
     Route::get('/configuracoes', [ConfiguracaoController::class, 'index']);
+
+    // Zonas de entrega e consulta de CEP
+    Route::get('/entrega/zonas', [EntregaController::class, 'zonas']);
+    Route::get('/entrega/consultar', [EntregaController::class, 'consultar'])->middleware('throttle:20,1');
 
     // LOGIN - rota pública
     Route::post('/auth/login', [AuthController::class, 'login']);
@@ -55,6 +60,8 @@ Route::prefix('v1')->group(function () {
         Route::delete('/sacola/{id}', [SacolaController::class, 'destroy']);
 
         // Pedidos do cliente logado
+        Route::get('/entrega/minha', [EntregaController::class, 'minha']);
+
         Route::get('/pedidos', [PedidoController::class, 'index']);
         Route::post('/pedidos', [PedidoController::class, 'store']);
         Route::get('/pedidos/{id}', [PedidoController::class, 'show']);

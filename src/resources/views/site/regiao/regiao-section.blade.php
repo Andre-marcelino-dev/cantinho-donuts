@@ -2,31 +2,19 @@
 @php
     /*
      | ÁREAS DE ENTREGA
-     | ⚠️ Confira os bairros, taxas e prazos com a loja antes de publicar.
-     | - bairros: nomes como aparecem nos Correios (o site compara sem acento e sem maiúsculas)
-     | - ceps: começo dos CEPs atendidos (opcional), ex.: '0816' atende 08160-000 a 08169-999
-     | - taxa: valor em reais (0 = grátis)
+     | As zonas e os bairros vêm do banco: painel → Sistema → Zonas de entrega.
+     | A consulta de CEP é feita no servidor (rota regiao.consultar / App\Services\AreaEntrega).
      */
-    $zonas = [
-        [
-            'nome' => 'Zona 1', 'apelido' => 'Pertinho da gente', 'cor' => 'rose',
-            'taxa' => 0, 'prazo' => 'até 40 min', 'raio' => 'até 3 km',
-            'bairros' => ['Parque Santa Rita', 'Itaim Paulista', 'Vila Curuçá', 'Jardim Camargo Novo'],
-            'ceps' => [],
-        ],
-        [
-            'nome' => 'Zona 2', 'apelido' => 'Logo ali', 'cor' => 'gold',
-            'taxa' => 8, 'prazo' => '40 a 60 min', 'raio' => '3 a 6 km',
-            'bairros' => ['Jardim Helena', 'Vila Jacuí', 'São Miguel Paulista', 'Lajeado', 'Guaianases'],
-            'ceps' => [],
-        ],
-        [
-            'nome' => 'Zona 3', 'apelido' => 'Vale a viagem', 'cor' => 'choco',
-            'taxa' => 15, 'prazo' => '1h a 1h30', 'raio' => '6 a 10 km',
-            'bairros' => ['Ermelino Matarazzo', 'Ponte Rasa', 'Itaquera', 'José Bonifácio', 'Cidade Tiradentes'],
-            'ceps' => [],
-        ],
-    ];
+    $zonas = collect($zonas ?? \App\Models\ZonaEntrega::ativas())->values()->map(fn ($z) => [
+        'id'      => $z->id_zona_entrega,
+        'nome'    => $z->nome_zona_entrega,
+        'apelido' => $z->apelido_zona_entrega,
+        'cor'     => $z->cor_zona_entrega,
+        'taxa'    => $z->taxa_zona_entrega,
+        'prazo'   => $z->prazo_zona_entrega,
+        'raio'    => $z->faixaKm(),
+        'bairros' => $z->bairros->pluck('nome_bairro_entrega')->all(),
+    ])->all();
 
     // Regras gerais (aparecem no topo e nas perguntas frequentes)
     $pedidoMinimo   = 30;                      // valor mínimo do pedido para entrega (0 = sem mínimo)
@@ -36,10 +24,9 @@
     $enderecoLoja = trim(($loja['endereco'] ?? '') . ', ' . ($loja['bairro'] ?? '') . ', ' . ($loja['cidade'] ?? ''), ', ');
     $linkRota = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($loja['mapa'] ?? $enderecoLoja);
     $formatar = fn ($v) => $v > 0 ? 'R$ ' . number_format($v, 2, ',', '.') : 'Grátis';
-    $coresZona = ['rose' => '#b94e5c', 'gold' => '#b8893f', 'choco' => '#4a2a1d'];
+    $coresZona = array_map(fn ($c) => $c[1], \App\Models\ZonaEntrega::CORES);
     $zonasJs = array_map(fn ($z) => [
-        'nome' => $z['nome'], 'taxa' => $formatar($z['taxa']), 'prazo' => $z['prazo'],
-        'bairros' => $z['bairros'], 'ceps' => $z['ceps'] ?? [],
+        'id' => $z['id'], 'nome' => $z['nome'], 'taxa' => $formatar($z['taxa']), 'prazo' => $z['prazo'],
     ], $zonas);
 @endphp
 
@@ -256,7 +243,7 @@
 }
 </style>
 
-<section class="frg" id="frg" data-whats="{{ $numeroWhats }}">
+<section class="frg" id="frg" data-whats="{{ $numeroWhats }}" data-consultar="{{ route('regiao.consultar') }}">
     <div class="frg__glow" aria-hidden="true"><i></i><i></i></div>
 
     <div class="frg__wrap">
@@ -313,7 +300,7 @@
 
             {{-- Radar das zonas --}}
             <div class="frg__radar" data-reveal aria-hidden="true">
-                @foreach (array_reverse($zonas, true) as $zi => $z)
+                @foreach (array_reverse(array_slice($zonas, 0, 3, true), true) as $zi => $z)
                     <span class="frg__ring frg__ring--{{ $zi + 1 }}" data-ring="{{ $zi }}" style="--hc:{{ $coresZona[$z['cor']] ?? '#b94e5c' }}"></span>
                 @endforeach
                 <span class="frg__sweep"></span>
@@ -446,13 +433,9 @@
         if (d.length === 8) consultar();
     });
 
-    function findZone(bairro, cep) {
-        var b = norm(bairro), c = (cep || '').replace(/\D/g, '');
-        for (var i = 0; i < zonas.length; i++) {
-            var z = zonas[i];
-            if (c && z.ceps.some(function (p) { p = String(p).replace(/\D/g, ''); return p && c.indexOf(p) === 0; })) return i;
-            if (b && z.bairros.some(function (x) { return norm(x) === b; })) return i;
-        }
+    // Posição da zona na página (cards e radar) a partir do id que o servidor devolve
+    function zoneIndex(id) {
+        for (var i = 0; i < zonas.length; i++) if (zonas[i].id === id) return i;
         return -1;
     }
 
@@ -484,12 +467,12 @@
     var icWa = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>';
     function waLink(msg) { return 'https://wa.me/' + whats + '?text=' + encodeURIComponent(msg); }
 
-    function resultado(bairro, cidade, cep) {
-        var zi = findZone(bairro, cep);
-        var onde = bairro ? esc(bairro) + (cidade ? ' · ' + esc(cidade) : '') : 'seu endereço';
-        highlight(zi);
-        if (zi >= 0) {
-            var z = zonas[zi];
+    // z: zona encontrada ({nome, taxa, prazo}) ou null; zi: posição dela na página; km: distância até a loja
+    function resultado(z, zi, bairro, cidade, cep, km) {
+        var onde = (bairro ? esc(bairro) + (cidade ? ' · ' + esc(cidade) : '') : 'seu endereço') +
+            (km != null ? ' · cerca de ' + String(km).replace('.', ',') + ' km da loja' : '');
+        highlight(z ? zi : -1);
+        if (z) {
             show('ok', icOk + '<div style="flex:1"><h4>Oba! Entregamos em ' + esc(bairro || 'seu endereço') + '</h4><p>' + onde + '</p>' +
                 '<div class="frg__stats"><span><small>Zona</small><b>' + esc(z.nome) + '</b></span><span><small>Taxa</small><b>' + esc(z.taxa) + '</b></span><span><small>Prazo</small><b>' + esc(z.prazo) + '</b></span></div>' +
                 (whats ? '<div class="frg__res-act"><a class="frg__btn frg__btn--wa" target="_blank" rel="noopener" href="' + waLink('Olá! Quero fazer um pedido para entrega em ' + (bairro || '') + (cep ? ' (CEP ' + cep + ')' : '') + '.') + '">' + icWa + 'Fazer meu pedido</a></div>' : '') + '</div>');
@@ -507,20 +490,27 @@
         if (busy || cep === lastCep) return;
         busy = true; lastCep = cep; go.classList.add('is-loading');
         var ctrl = 'AbortController' in window ? new AbortController() : null;
-        var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 7000);
-        fetch('https://viacep.com.br/ws/' + cep + '/json/', ctrl ? { signal: ctrl.signal } : {})
-            .then(function (r) { return r.json(); })
+        var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+        var opcoes = { headers: { Accept: 'application/json' } };
+        if (ctrl) opcoes.signal = ctrl.signal;
+        // O servidor confere faixa de CEP, bairro e distância até a loja
+        fetch(root.dataset.consultar + '?cep=' + cep, opcoes)
+            .then(function (r) { if (!r.ok) throw r.status; return r.json(); })
             .then(function (d) {
-                if (d.erro) { show('err', icErr + '<div><h4>CEP não encontrado</h4><p>Confira os números ou escolha seu bairro na lista abaixo.</p></div>'); highlight(-1); lastCep = ''; return; }
-                var fmt = cep.slice(0, 5) + '-' + cep.slice(5);
-                resultado(d.bairro || '', (d.localidade || '') + (d.uf ? '/' + d.uf : ''), fmt);
+                if (d.status === 'cep_invalido') {
+                    show('err', icErr + '<div><h4>CEP não encontrado</h4><p>Confira os números ou escolha seu bairro na lista abaixo.</p></div>');
+                    highlight(-1); lastCep = ''; return;
+                }
+                if (d.status === 'indefinido') {
+                    show('err', icErr + '<div><h4>Não conseguimos confirmar seu endereço</h4><p>Escolha seu bairro na lista abaixo ou fale com a gente pelo WhatsApp.</p></div>');
+                    highlight(-1); lastCep = ''; return;
+                }
+                resultado(d.zona, d.zona ? zoneIndex(d.zona.id) : -1, d.bairro || '', d.cidade || '', d.cep, d.distancia_km);
             })
-            .catch(function () {
-                // Sem internet ou serviço fora do ar: confere só pelo começo do CEP e oferece a lista de bairros
-                var zi = findZone('', cep);
-                if (zi >= 0) resultado('', '', cep.slice(0, 5) + '-' + cep.slice(5));
-                else show('err', icErr + '<div><h4>Não conseguimos consultar agora</h4><p>Escolha seu bairro na lista abaixo ou fale com a gente pelo WhatsApp.</p></div>');
-                lastCep = '';
+            .catch(function (erro) {
+                var msg = erro === 429 ? 'Muitas consultas seguidas. Espere um minutinho e tente de novo.' : 'Escolha seu bairro na lista abaixo ou fale com a gente pelo WhatsApp.';
+                show('err', icErr + '<div><h4>Não conseguimos consultar agora</h4><p>' + msg + '</p></div>');
+                highlight(-1); lastCep = '';
             })
             .then(function () { clearTimeout(timer); busy = false; go.classList.remove('is-loading'); });
     }
@@ -528,9 +518,9 @@
 
     select.addEventListener('change', function () {
         if (!select.value) return;
-        var p = select.value.split('|');
+        var p = select.value.split('|'), zi = Number(p[0]);
         input.value = ''; lastCep = '';
-        resultado(p.slice(1).join('|'), '', '');
+        resultado(zonas[zi], zi, p.slice(1).join('|'), '', '', null);
     });
 
     // Procurar bairro nas zonas

@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\ContatoController as AdminContatoController;
 use App\Http\Controllers\admin\BannerController as AdminBannerController;
 use App\Http\Controllers\admin\CupomController as AdminCupomController;
 use App\Http\Controllers\admin\ConfiguracaoController as AdminConfiguracaoController;
+use App\Http\Controllers\admin\ZonaEntregaController as AdminZonaEntregaController;
 use App\Http\Controllers\admin\KitController as AdminKitController;
 use App\Http\Controllers\admin\PerfilController as AdminPerfilController;
 use App\Http\Controllers\admin\FornecedorController as AdminFornecedorController;
@@ -37,6 +38,7 @@ Route::get('/cardapio/categoria/{id}', [CardapioController::class, 'show'])->nam
 Route::get('/cardapio/produto/{slug}', [CardapioController::class, 'showProduto'])->name('cardapio.produto');
 Route::get('/pedidos', [PedidosController::class, 'pedidos'])->name('pedidos');
 Route::get('/regiao', [RegiaoController::class, 'regiao'])->name('regiao.index');
+Route::get('/regiao/consultar', [RegiaoController::class, 'consultar'])->middleware('throttle:20,1')->name('regiao.consultar');
 Route::get('/regiao/area/{id}', [RegiaoController::class, 'show'])->name('regiao.area');
 Route::get('/contato', [ContatoController::class, 'contato'])->name('contato');
 // Limite de 5 envios por minuto para evitar spam
@@ -104,6 +106,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/configuracao', [AdminConfiguracaoController::class, 'index'])->name('configuracao');
         Route::put('/configuracao', [AdminConfiguracaoController::class, 'update'])->name('configuracao.update');
+
+        Route::get('/zona-entrega', [AdminZonaEntregaController::class, 'index'])->name('zona-entrega');
+        Route::post('/zona-entrega', [AdminZonaEntregaController::class, 'store'])->name('zona-entrega.store');
+        Route::put('/zona-entrega/{id}', [AdminZonaEntregaController::class, 'update'])->name('zona-entrega.update');
+        Route::patch('/zona-entrega/{id}/status', [AdminZonaEntregaController::class, 'alterarStatus'])->name('zona-entrega.status');
+        Route::delete('/zona-entrega/{id}', [AdminZonaEntregaController::class, 'destroy'])->name('zona-entrega.destroy');
 
         Route::get('/cupom', [AdminCupomController::class, 'index'])->name('cupom');
         Route::post('/cupom', [AdminCupomController::class, 'store'])->name('cupom.store');

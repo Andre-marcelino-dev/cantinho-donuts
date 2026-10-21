@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Configuracao;
 use App\Models\Cupom;
-use App\Models\EnderecoCliente;
 use App\Models\Sacola;
 use App\Models\Venda;
+use App\Services\AreaEntrega;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -64,8 +63,24 @@ class PedidoController extends Controller
         }
 
         $subtotal = $itensSacola->sum(fn ($item) => $item->produto->valor_produto * $item->qtde_sacola);
-        // Taxa definida no painel (Sistema → Configurações da loja)
-        $taxaEntrega = $dados['entrega'] ? Configuracao::taxaEntrega() : 0;
+
+        // Taxa da zona de entrega do endereço principal (Sistema → Zonas de entrega).
+        // Sem endereço ou sem conseguir localizar o CEP, usa a taxa padrão (Sistema → Configurações da loja).
+        $taxaEntrega = 0;
+        $idEndereco = null;
+        if ($dados['entrega']) {
+            $entrega = AreaEntrega::paraCliente($cliente->id_cliente);
+            if ($entrega['status'] === 'fora') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ainda não entregamos no seu endereço' .
+                        ($entrega['endereco']->bairro ? " ({$entrega['endereco']->bairro})" : '') .
+                        '. Escolha retirar na loja ou fale com a gente pelo WhatsApp.',
+                ], 422);
+            }
+            $taxaEntrega = $entrega['taxa'];
+            $idEndereco = $entrega['endereco']?->id_endereco;
+        }
 
         // Cupom: porcentagem de desconto sobre os produtos (não sobre a entrega)
         $cupom = null;
@@ -79,14 +94,6 @@ class PedidoController extends Controller
             }
         }
         $desconto = $cupom ? $cupom->descontoSobre($subtotal) : 0;
-
-        // Na entrega, usa o endereço principal do cliente (se ele tiver cadastrado algum)
-        $idEndereco = $dados['entrega']
-            ? EnderecoCliente::where('id_cliente', $cliente->id_cliente)
-                ->where('status_endereco', 'ATIVO')
-                ->where('principal_endereco', 'SIM')
-                ->value('id_endereco')
-            : null;
 
         $pedido = DB::transaction(function () use ($cliente, $dados, $itensSacola, $subtotal, $taxaEntrega, $idEndereco, $cupom, $desconto) {
             $pedido = Venda::create([

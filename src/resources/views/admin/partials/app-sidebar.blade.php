@@ -233,6 +233,13 @@
               </li>
 
               <li class="nav-item">
+                <a href="{{ route('admin.zona-entrega') }}" class="nav-link">
+                  <i class="nav-icon bi bi-geo-alt"></i>
+                  <p>Zonas de entrega</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="{{ route('admin.perfil') }}" class="nav-link">
                   <i class="nav-icon bi bi-person-circle"></i>
                   <p>Meu Perfil</p>
