@@ -1,9 +1,9 @@
-<!-- Page Title: Receitas -->
+<!-- Page Title: Região -->
 @php
-    $tituloPagina    = 'Nossas receitas';
-    $subtituloPagina = 'Segredos da nossa cozinha para você fazer em casa';
-    $migalhaPagina   = 'Receitas';
-    $fundoPagina     = asset('davilla/gallery-davilla/banner.png');
+    $tituloPagina    = 'Onde entregamos';
+    $subtituloPagina = 'Confira se o seu bairro está na nossa área de entrega';
+    $migalhaPagina   = 'Região';
+    $fundoPagina     = asset('davilla/IMG/banner3.png');
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">

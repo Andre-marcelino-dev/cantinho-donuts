@@ -4,7 +4,7 @@
 
 
 @include('site.regiao.page-title')
-@include('site.regiao.recipes')
+@include('site.regiao.regiao-section')
 
 
 

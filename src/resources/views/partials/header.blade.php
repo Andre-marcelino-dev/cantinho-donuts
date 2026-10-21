@@ -36,12 +36,10 @@
                                 <li><a href="{{ route('pedidos') }}"> Pedidos </a></li>
                                 <li class="dropdown"><a href="{{ route('regiao.index') }}">Região</a>
                                     <ul>
-                                        <li><a href="#">Região nivel 1</a></li>
-                                        <li class="dropdown"><a href="#">Região nivel 1</a>
-                                            <ul>
-                                                <li><a href="#">Região nivel 2</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="{{ route('regiao.index') }}#frg">Consultar meu CEP</a></li>
+                                        <li><a href="{{ route('regiao.index') }}#frg-zonas">Zonas de entrega</a></li>
+                                        <li><a href="{{ route('regiao.index') }}#frg-retirada">Retirar na loja</a></li>
+                                        <li><a href="{{ route('regiao.index') }}#frg-faq">Perguntas frequentes</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{{ route('contato') }}">Contato</a></li>
