@@ -1,6 +1,6 @@
 <!-- Fluid Section one (redesign animado) -->
 @php
-    $fluid = asset('davilla/IMG/there-are-many-different-types-pastries-pink-plate.jpg');
+    $fluid = conteudo_img('home.sabor.imagem');
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -133,26 +133,23 @@
     <div class="fsd__wrap">
         <!-- Texto -->
         <div class="fsd__content">
-            <span class="fsd__eyebrow" data-reveal><i></i>Confeitaria Davilla</span>
+            <span class="fsd__eyebrow" data-reveal><i></i>{{ conteudo('home.sabor.selo') }}</span>
 
-            <h2 class="fsd__title" data-split>Sabor que marca, <em>tradição que encanta.</em></h2>
+            <h2 class="fsd__title" data-split>{{ conteudo_html('home.sabor.titulo') }}</h2>
 
-            <p class="fsd__lead" data-reveal style="--d:.5s">
-                Dos clássicos bolos caseiros aos doces finos mais sofisticados. Na <b>Davilla</b>, cada receita é uma
-                celebração de sabor, pensada para tornar o seu momento ainda mais especial.
-            </p>
+            <p class="fsd__lead" data-reveal style="--d:.5s">{{ conteudo_html('home.sabor.texto') }}</p>
 
             <ul class="fsd__checks" data-reveal style="--d:.62s">
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Feito no dia</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Ingredientes selecionados</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Encomendas personalizadas</li>
+                @foreach (conteudo_lista('home.sabor.lista') as $item)
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>{{ $item }}</li>
+                @endforeach
             </ul>
 
             <div class="fsd__btns" data-reveal style="--d:.74s">
-                <a href="#" class="fsd__btn fsd__btn--primary">Confira nossa vitrine
+                <a href="{{ conteudo_link('home.sabor.botao1_link') }}" class="fsd__btn fsd__btn--primary">{{ conteudo('home.sabor.botao1_texto') }}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </a>
-                <a href="#" class="fsd__btn fsd__btn--ghost">Faça sua encomenda</a>
+                <a href="{{ conteudo_link('home.sabor.botao2_link') }}" class="fsd__btn fsd__btn--ghost">{{ conteudo('home.sabor.botao2_texto') }}</a>
             </div>
         </div>
 
@@ -173,12 +170,12 @@
 
             <div class="fsd__chip fsd__chip--1">
                 <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M5 21v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><path d="M5 17c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 2-1"/><path d="M12 13V9"/></svg></div>
-                <div><strong>Bolo do dia</strong><small>Saindo do forno</small></div>
+                <div><strong>{{ conteudo('home.sabor.selo1_titulo') }}</strong><small>{{ conteudo('home.sabor.selo1_texto') }}</small></div>
             </div>
 
             <div class="fsd__chip fsd__chip--2">
                 <div class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg></div>
-                <div><strong>Clientes apaixonados</strong><small class="fsd__stars">★★★★★</small></div>
+                <div><strong>{{ conteudo('home.sabor.selo2_titulo') }}</strong><small class="fsd__stars">★★★★★</small></div>
             </div>
         </div>
     </div>
@@ -187,12 +184,9 @@
     <div class="fsd__marquee" aria-hidden="true">
         <div class="fsd__track">
             @for ($i = 0; $i < 2; $i++)
-                <span>Bolos caseiros <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
-                <span>Doces finos <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
-                <span>Tortas <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
-                <span>Brigadeiros gourmet <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
-                <span>Bolos de festa <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
-                <span>Encomendas especiais <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
+                @foreach (conteudo_lista('home.sabor.faixa') as $item)
+                    <span>{{ $item }} <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg></span>
+                @endforeach
             @endfor
         </div>
     </div>

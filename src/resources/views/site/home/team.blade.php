@@ -1,55 +1,27 @@
 <!-- Team Section (redesign animado) -->
 @php
     /*
-     | EQUIPE
-     | ⚠️ Troque os dados de exemplo abaixo pelas pessoas reais da confeitaria.
-     | - foto: arquivo dentro de public/davilla/IMG/
-     | - instagram / whatsapp / facebook: deixe vazio ('') para esconder o ícone
-     | - whatsapp: só números com DDD, ex.: 5511999990000
+     | EQUIPE — editada no painel (Conteúdo do Site → Páginas → Home → Equipe).
+     | Pessoa sem nome não aparece. Rede social vazia esconde o ícone.
      */
-    $equipe = [
-        [
-            'nome'          => 'Nome da Confeiteira',
-            'cargo'         => 'Confeiteira-chefe e fundadora',
-            'bio'           => 'Transformou as receitas de família em negócio e cuida pessoalmente de cada bolo que sai da nossa cozinha.',
-            'especialidade' => 'Bolos de festa',
-            'foto'          => 'chefe1.jpg',
-            'instagram'     => '',
-            'whatsapp'      => '',
-            'facebook'      => '',
-        ],
-        [
-            'nome'          => 'Nome Sobrenome',
-            'cargo'         => 'Chef de doces finos',
-            'bio'           => 'Detalhista e apaixonado por técnica francesa. É quem cria os macarons, bombons e docinhos para casamentos.',
-            'especialidade' => 'Doces finos',
-            'foto'          => 'chefe1.jpg',
-            'instagram'     => '',
-            'whatsapp'      => '',
-            'facebook'      => '',
-        ],
-        [
-            'nome'          => 'Nome Sobrenome',
-            'cargo'         => 'Confeiteira',
-            'bio'           => 'Mestre das tortas e do brigadeiro perfeito. Sempre testando um sabor novo para a vitrine.',
-            'especialidade' => 'Tortas e brigadeiros',
-            'foto'          => 'chefe1.jpg',
-            'instagram'     => '',
-            'whatsapp'      => '',
-            'facebook'      => '',
-        ],
-        [
-            'nome'          => 'Nome Sobrenome',
-            'cargo'         => 'Atendimento e encomendas',
-            'bio'           => 'Ajuda você a escolher o doce ideal para a sua festa e garante que tudo chegue no dia e na hora certos.',
-            'especialidade' => 'Encomendas personalizadas',
-            'foto'          => 'chefe1.jpg',
-            'instagram'     => '',
-            'whatsapp'      => '',
-            'facebook'      => '',
-        ],
-    ];
+    $equipe = [];
+    foreach ([1, 2, 3, 4] as $n) {
+        $nome = conteudo("home.equipe.pessoa{$n}_nome");
+        if ($nome === '') continue;
+        $equipe[] = [
+            'nome'          => $nome,
+            'cargo'         => conteudo("home.equipe.pessoa{$n}_cargo"),
+            'bio'           => conteudo("home.equipe.pessoa{$n}_bio"),
+            'especialidade' => conteudo("home.equipe.pessoa{$n}_especialidade"),
+            'foto'          => conteudo_img("home.equipe.pessoa{$n}_foto"),
+            'instagram'     => conteudo("home.equipe.pessoa{$n}_instagram"),
+            'whatsapp'      => conteudo("home.equipe.pessoa{$n}_whatsapp"),
+            'facebook'      => conteudo("home.equipe.pessoa{$n}_facebook"),
+        ];
+    }
 @endphp
+
+@if (count($equipe))
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -148,9 +120,9 @@
     <div class="ftm__blob ftm__blob--2"></div>
 
     <div class="ftm__head">
-        <span class="ftm__eyebrow" data-reveal>Quem faz acontecer</span>
-        <h2 class="ftm__title" data-reveal style="--d:.1s">Nossa equipe <em>criativa</em></h2>
-        <p class="ftm__sub" data-reveal style="--d:.2s">Mãos talentosas e corações apaixonados por confeitaria. Conheça quem prepara cada doce com tanto carinho.</p>
+        <span class="ftm__eyebrow" data-reveal>{{ conteudo('home.equipe.selo') }}</span>
+        <h2 class="ftm__title" data-reveal style="--d:.1s">{{ conteudo_html('home.equipe.titulo') }}</h2>
+        <p class="ftm__sub" data-reveal style="--d:.2s">{{ conteudo_html('home.equipe.texto') }}</p>
     </div>
 
     <div class="ftm__grid">
@@ -163,7 +135,7 @@
                 <article class="ftm__card">
                     <span class="ftm__ring" aria-hidden="true"></span>
                     <div class="ftm__photo">
-                        <img src="{{ asset('davilla/IMG/' . $pessoa['foto']) }}" alt="{{ $pessoa['nome'] }}, {{ $pessoa['cargo'] }}" loading="lazy">
+                        <img src="{{ $pessoa['foto'] }}" alt="{{ $pessoa['nome'] }}, {{ $pessoa['cargo'] }}" loading="lazy">
                         <div class="ftm__over">
                             @if (!empty($pessoa['especialidade']))
                                 <span class="ftm__chip">
@@ -239,4 +211,5 @@
     }
 })();
 </script>
+@endif
 <!--End Team Section -->

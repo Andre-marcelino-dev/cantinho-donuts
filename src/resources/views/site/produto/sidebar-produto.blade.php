@@ -221,7 +221,7 @@
             <div class="fps__hero" data-watch>
                 <div class="fps__photo" role="button" tabindex="0" aria-label="Ampliar foto de {{ $produto->nome_produto }}">
                     <img src="{{ $fotoProduto }}" alt="{{ $produto->nome_produto }}">
-                    <span class="fps__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg>Passe o mouse para ampliar</span>
+                    <span class="fps__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg>{{ conteudo('produto.detalhe.zoom') }}</span>
                 </div>
 
                 <div class="fps__info">
@@ -235,7 +235,7 @@
                     @if ($valorProduto > 0)
                         <div class="fps__price" data-reveal style="--d:.14s"><small>R$</small><b>{{ number_format($valorProduto, 2, ',', '.') }}</b></div>
                     @else
-                        <span class="fps__price--ask" data-reveal style="--d:.14s">Preço sob consulta</span>
+                        <span class="fps__price--ask" data-reveal style="--d:.14s">{{ conteudo('cardapio.lista.sem_preco') }}</span>
                     @endif
 
                     @if ($produto->descricao_produto)
@@ -252,13 +252,13 @@
                             @if ($numeroWhats)
                                 <a href="#" target="_blank" rel="noopener" class="fps__wa">
                                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
-                                    Pedir pelo WhatsApp
+                                    {{ conteudo('produto.detalhe.botao_whatsapp') }}
                                 </a>
                             @endif
                         </div>
                         <button type="button" class="fps__add">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                            <span>Adicionar à sacola</span>
+                            <span>{{ conteudo('produto.detalhe.botao_sacola') }}</span>
                         </button>
                         @if ($valorProduto > 0)
                             <p class="fps__total">Total para <b class="fps__qn">1 unidade</b>: <b class="fps__qt">R$ {{ number_format($valorProduto, 2, ',', '.') }}</b></p>
@@ -266,9 +266,9 @@
                     </div>
 
                     <div class="fps__perks" data-reveal style="--d:.32s">
-                        <div class="fps__perk"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg></span>Feito à mão</div>
-                        <div class="fps__perk"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></svg></span>Ingredientes selecionados</div>
-                        <div class="fps__perk"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10l2.5 2.5L16 7"/></svg></span>Confirmação pelo WhatsApp</div>
+                        <div class="fps__perk"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg></span>{{ conteudo('produto.detalhe.vantagem1') }}</div>
+                        <div class="fps__perk"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></svg></span>{{ conteudo('produto.detalhe.vantagem2') }}</div>
+                        <div class="fps__perk"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10l2.5 2.5L16 7"/></svg></span>{{ conteudo('produto.detalhe.vantagem3') }}</div>
                     </div>
                 </div>
             </div>
@@ -277,22 +277,24 @@
             <div class="fps__tabs" data-reveal>
                 <div class="fps__tablist" role="tablist">
                     <span class="fps__tab-ink" aria-hidden="true"></span>
-                    <button type="button" class="fps__tab is-active" role="tab" aria-selected="true" data-tab="desc">Descrição</button>
-                    <button type="button" class="fps__tab" role="tab" aria-selected="false" data-tab="como">Como encomendar</button>
+                    <button type="button" class="fps__tab is-active" role="tab" aria-selected="true" data-tab="desc">{{ conteudo('produto.abas.aba_descricao') }}</button>
+                    <button type="button" class="fps__tab" role="tab" aria-selected="false" data-tab="como">{{ conteudo('produto.abas.aba_como') }}</button>
                     @if ($depoimentosLoja->count())
-                        <button type="button" class="fps__tab" role="tab" aria-selected="false" data-tab="aval">Avaliações</button>
+                        <button type="button" class="fps__tab" role="tab" aria-selected="false" data-tab="aval">{{ conteudo('produto.abas.aba_avaliacoes') }}</button>
                     @endif
                 </div>
 
                 <div class="fps__panel" data-panel="desc" role="tabpanel">
-                    <p>{{ $produto->descricao_produto ?: 'Em breve mais detalhes sobre este produto. Fale com a gente pelo WhatsApp para saber mais!' }}</p>
+                    <p>{{ $produto->descricao_produto ?: conteudo('produto.abas.sem_descricao') }}</p>
                 </div>
 
                 <div class="fps__panel" data-panel="como" role="tabpanel" hidden>
                     <ol class="fps__how">
-                        <li><b>Escolha a quantidade</b>Use os botões + e − ao lado do preço.</li>
-                        <li><b>Envie pelo WhatsApp</b>Toque em “Pedir pelo WhatsApp” ou adicione à sacola para pedir vários doces de uma vez.</li>
-                        <li><b>Confirmamos com você</b>Respondemos com a disponibilidade, a forma de pagamento e as opções de retirada ou entrega.</li>
+                        @foreach ([1, 2, 3] as $n)
+                            @if (conteudo("produto.abas.passo{$n}_titulo") !== '')
+                                <li><b>{{ conteudo("produto.abas.passo{$n}_titulo") }}</b>{{ conteudo("produto.abas.passo{$n}_texto") }}</li>
+                            @endif
+                        @endforeach
                     </ol>
                 </div>
 
@@ -317,14 +319,14 @@
                                 </div>
                             @endforeach
                         </div>
-                        <p class="fps__panel-note">Avaliações da nossa confeitaria enviadas pelos clientes no app.</p>
+                        <p class="fps__panel-note">{{ conteudo('produto.abas.nota_avaliacoes') }}</p>
                     </div>
                 @endif
             </div>
 
             {{-- Relacionados --}}
             @if (isset($produtosRelacionados) && $produtosRelacionados->count())
-                <h2 class="fps__h2" data-reveal>Você também vai <em>amar</em></h2>
+                <h2 class="fps__h2" data-reveal>{{ conteudo_html('produto.detalhe.relacionados') }}</h2>
                 <div class="fps__related">
                     @foreach ($produtosRelacionados as $relacionado)
                         <div data-reveal style="--d:{{ ($loop->index % 3) * 0.1 }}s">
@@ -350,24 +352,24 @@
         {{-- Lateral --}}
         <aside class="fps__side">
             <div class="fps__box" data-reveal>
-                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>Buscar doces</h3>
+                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>{{ conteudo('produto.lateral.busca_titulo') }}</h3>
                 <form method="get" action="{{ route('cardapio.index') }}" class="fps__search" role="search">
-                    <input type="search" name="busca" placeholder="Ex.: brigadeiro, torta..." required aria-label="Buscar no cardápio">
+                    <input type="search" name="busca" placeholder="{{ conteudo('produto.lateral.busca_exemplo') }}" required aria-label="Buscar no cardápio">
                     <button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
                 </form>
             </div>
 
             <div class="fps__box fps__bag" data-reveal style="--d:.1s">
-                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Sua sacola <span class="n">0</span></h3>
-                <p class="fps__bag-empty">Sua sacola está vazia. Adicione este doce e outros do cardápio para pedir tudo de uma vez.</p>
+                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>{{ conteudo('produto.lateral.sacola_titulo') }} <span class="n">0</span></h3>
+                <p class="fps__bag-empty">{{ conteudo('produto.lateral.sacola_vazia') }}</p>
                 <div class="fps__bag-full" hidden>
                     <ul class="fps__items"></ul>
                     <div class="fps__bag-total"><span>Total estimado</span><b class="fps__sum">R$ 0,00</b></div>
                     <button type="button" class="fps__send">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
-                        Enviar sacola pelo WhatsApp
+                        {{ conteudo('produto.lateral.sacola_enviar') }}
                     </button>
-                    <button type="button" class="fps__clear">Esvaziar sacola</button>
+                    <button type="button" class="fps__clear">{{ conteudo('produto.lateral.sacola_esvaziar') }}</button>
                 </div>
             </div>
 
@@ -501,8 +503,8 @@
         bag[P.id].q += q;
         render(true);
         var label = addBtn.querySelector('span');
-        addBtn.classList.add('is-done'); label.textContent = 'Adicionado à sacola!';
-        setTimeout(function () { addBtn.classList.remove('is-done'); label.textContent = 'Adicionar à sacola'; }, 1800);
+        addBtn.classList.add('is-done'); label.textContent = @json(conteudo('produto.detalhe.sacola_adicionado'));
+        setTimeout(function () { addBtn.classList.remove('is-done'); label.textContent = @json(conteudo('produto.detalhe.botao_sacola')); }, 1800);
     });
     root.querySelector('.fps__clear').addEventListener('click', function () { bag = {}; render(); });
     root.querySelector('.fps__send').addEventListener('click', function () {

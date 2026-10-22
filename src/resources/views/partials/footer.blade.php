@@ -7,7 +7,7 @@
         'tiktok'    => $loja['tiktok'] ?? '',
     ]);
     $enderecoMapa = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode(($loja['endereco'] ?? '') . ', ' . ($loja['bairro'] ?? '') . ', ' . ($loja['cidade'] ?? ''));
-    $mensagemWa = rawurlencode('Olá! Vim pelo site e gostaria de fazer uma encomenda.');
+    $mensagemWa = rawurlencode(conteudo('geral.rodape.mensagem_whatsapp'));
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -166,12 +166,12 @@
     <div class="ffo__cta" data-reveal>
         <div class="ffo__cta-box">
             <div class="ffo__cta-txt">
-                <small>Vamos adoçar o seu dia?</small>
-                <h3>Encomende agora o seu doce favorito</h3>
+                <small>{{ conteudo('geral.rodape.chamada_selo') }}</small>
+                <h3>{{ conteudo('geral.rodape.chamada_titulo') }}</h3>
             </div>
             <a href="https://wa.me/{{ $loja['whatsapp'] }}?text={{ $mensagemWa }}" target="_blank" rel="noopener" class="ffo__cta-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
-                Chamar no WhatsApp
+                {{ conteudo('geral.rodape.chamada_botao') }}
             </a>
         </div>
     </div>
@@ -181,9 +181,9 @@
         <div class="ffo__col" data-reveal style="--d:.05s">
             <div class="ffo__brand">
                 <span class="ffo__logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M5 21v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><path d="M5 17c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 2-1"/><path d="M12 13V9M12 6.5c-.8-.8-.8-1.8 0-3 .8 1.2.8 2.2 0 3z"/></svg></span>
-                <span><b>{{ $nomeLoja }}</b><small>Confeitaria artesanal</small></span>
+                <span><b>{{ $nomeLoja }}</b><small>{{ conteudo('geral.rodape.slogan') }}</small></span>
             </div>
-            <p class="ffo__about">Bolos, doces finos e encomendas personalizadas feitos à mão, com ingredientes selecionados e muito carinho. Cada receita é pensada para tornar o seu momento ainda mais especial.</p>
+            <p class="ffo__about">{{ conteudo_html('geral.rodape.sobre') }}</p>
             @if (count($redes))
                 <ul class="ffo__social">
                     @if (!empty($redes['instagram']))
@@ -207,7 +207,7 @@
 
         <!-- Contatos -->
         <div class="ffo__col" data-reveal style="--d:.15s">
-            <h3 class="ffo__title">Nossos contatos</h3>
+            <h3 class="ffo__title">{{ conteudo('geral.rodape.contatos_titulo') }}</h3>
             <ul class="ffo__contacts">
                 <li>
                     <a href="{{ $enderecoMapa }}" target="_blank" rel="noopener">
@@ -240,7 +240,7 @@
 
         <!-- Formulário de encomenda -->
         <div class="ffo__col ffo__col--form" data-reveal style="--d:.25s">
-            <h3 class="ffo__title">Faça sua encomenda</h3>
+            <h3 class="ffo__title">{{ conteudo('geral.rodape.form_titulo') }}</h3>
             {{-- id diferente de "email-form" para o script.js do modelo não interceptar o envio --}}
             <form action="{{ route('contato.enviar') }}#form-rodape" method="post" id="form-rodape" class="ffo__form">
                 @csrf
@@ -279,12 +279,12 @@
                 </div>
                 <div class="ffo__field">
                     <textarea id="ffo-msg" name="mensagem_contato" placeholder=" " maxlength="2000" required>{{ old('origem') === 'rodape' ? old('mensagem_contato') : '' }}</textarea>
-                    <label for="ffo-msg">O que você gostaria de encomendar? *</label>
+                    <label for="ffo-msg">{{ conteudo('geral.rodape.form_pergunta') }} *</label>
                 </div>
                 <button class="ffo__send" type="submit">
                     <span class="spin" aria-hidden="true"></span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
-                    Enviar encomenda
+                    {{ conteudo('geral.rodape.form_botao') }}
                 </button>
             </form>
         </div>
@@ -292,7 +292,7 @@
 
     <div class="ffo__bottom">
         <div class="ffo__bottom-in">
-            <p>© {{ date('Y') }} {{ $nomeLoja }}. Feito com <span class="heart">♥</span> e muito açúcar. Todos os direitos reservados.</p>
+            <p>© {{ date('Y') }} {{ $nomeLoja }}. {!! str_replace('♥', '<span class="heart">♥</span>', e(conteudo('geral.rodape.direitos'))) !!}</p>
             <button type="button" class="ffo__top" aria-label="Voltar ao topo">
                 <svg class="ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="bg" cx="26" cy="26" r="24"/><circle class="fg" cx="26" cy="26" r="24"/></svg>
                 <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>

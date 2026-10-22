@@ -173,9 +173,23 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
+                <a href="{{ route('admin.conteudo') }}" class="nav-link">
+                  <i class="nav-icon bi bi-pencil-square"></i>
+                  <p>Páginas, textos e imagens</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="{{ route('admin.banner') }}" class="nav-link">
                   <i class="nav-icon bi bi-circle"></i>
                   <p>Banners</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('admin.receita') }}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>Livro de receitas</p>
                 </a>
               </li>
 

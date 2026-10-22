@@ -1,6 +1,6 @@
 <!-- Nossos Serviços (redesign animado) -->
 @php
-    $features = asset('davilla/images/fundoServicos.png');
+    $features = conteudo_img('home.especialidades.imagem_fundo');
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -117,9 +117,9 @@
 
     <div class="fss__top">
         <div>
-            <span class="fss__eyebrow" data-reveal>O que fazemos</span>
-            <h2 class="fss__title" data-reveal style="--d:.1s">Nossas <em>especialidades</em></h2>
-            <p class="fss__sub" data-reveal style="--d:.2s">De bolos de festa a docinhos finos: conheça as delícias que saem todos os dias da nossa cozinha.</p>
+            <span class="fss__eyebrow" data-reveal>{{ conteudo('home.especialidades.selo') }}</span>
+            <h2 class="fss__title" data-reveal style="--d:.1s">{{ conteudo_html('home.especialidades.titulo') }}</h2>
+            <p class="fss__sub" data-reveal style="--d:.2s">{{ conteudo_html('home.especialidades.texto') }}</p>
         </div>
         <div class="fss__nav" data-reveal style="--d:.3s">
             <button type="button" class="fss__arrow" data-dir="-1" aria-label="Anterior">

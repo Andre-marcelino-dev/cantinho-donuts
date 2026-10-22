@@ -1,14 +1,15 @@
 <!-- Features Section: Nossa missão (redesign animado) -->
 @php
+    // Textos editados no painel (Conteúdo do Site → Páginas → Sobre → Nossa missão)
     // Palavras que se alternam na frase da missão
-    $palavrasMissao = ['alegria', 'carinho', 'sabor', 'afeto', 'doçura'];
+    $palavrasMissao = conteudo_lista('sobre.missao.palavras') ?: ['alegria'];
 
-    $valores = [
-        ['titulo' => 'Tradição',     'texto' => 'Receitas de família preservadas com respeito, que carregam o sabor das memórias afetivas.', 'icone' => 'tradicao'],
-        ['titulo' => 'Qualidade',    'texto' => 'Ingredientes selecionados e frescos, escolhidos um a um para cada receita.',              'icone' => 'qualidade'],
-        ['titulo' => 'Criatividade', 'texto' => 'Doces personalizados que transformam a sua ideia em uma peça única.',                    'icone' => 'criatividade'],
-        ['titulo' => 'Paixão',       'texto' => 'Feito à mão, sem pressa e com amor, do forno até a sua mesa.',                          'icone' => 'paixao'],
-    ];
+    $valores = [];
+    foreach (['tradicao', 'qualidade', 'criatividade', 'paixao'] as $n => $icone) {
+        $n++;
+        if (conteudo("sobre.missao.valor{$n}_titulo") === '') continue;
+        $valores[] = ['titulo' => conteudo("sobre.missao.valor{$n}_titulo"), 'texto' => conteudo("sobre.missao.valor{$n}_texto"), 'icone' => $icone];
+    }
     $iconesValores = [
         'tradicao'     => '<path d="M4 21h16M5 21v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><path d="M5 17c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 2-1"/><path d="M12 13V9M12 6.5c-.8-.8-.8-1.8 0-3 .8 1.2.8 2.2 0 3z"/>',
         'qualidade'    => '<circle cx="12" cy="9" r="6"/><path d="M8.5 13.8 7 22l5-3 5 3-1.5-8.2"/><path d="M9.8 9l1.5 1.5L14.5 7.5"/>',
@@ -102,17 +103,17 @@
     <div class="fsm__blob fsm__blob--2"></div>
 
     <div class="fsm__head">
-        <span class="fsm__eyebrow" data-reveal>Nossa missão</span>
+        <span class="fsm__eyebrow" data-reveal>{{ conteudo('sobre.missao.selo') }}</span>
         <h2 class="fsm__statement" data-reveal style="--d:.1s">
-            Levar
+            {{ conteudo('sobre.missao.frase_inicio') }}
             <span class="fsm__rotator" aria-live="polite">
                 @foreach ($palavrasMissao as $palavra)
                     <span class="{{ $loop->first ? 'is-on' : '' }}">{{ $palavra }}</span>
                 @endforeach
             </span>
-            <br>para cada momento da sua vida.
+            <br>{{ conteudo('sobre.missao.frase_fim') }}
         </h2>
-        <p class="fsm__sub" data-reveal style="--d:.2s">Acreditamos que um doce bem feito transforma um dia comum em uma lembrança especial. É por isso que colocamos o coração em cada receita.</p>
+        <p class="fsm__sub" data-reveal style="--d:.2s">{{ conteudo_html('sobre.missao.texto') }}</p>
     </div>
 
     <div class="fsm__values" data-watch>

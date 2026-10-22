@@ -11,9 +11,11 @@
     Sem parâmetros, mostra "Sobre nós".
 --}}
 @php
-    $tituloPagina    = $titulo ?? 'Sobre nós';
-    $subtituloPagina = $subtitulo ?? 'Doces feitos à mão, com carinho e ingredientes selecionados';
-    $fundoPagina     = $fundo ?? asset('davilla/IMG/banner3.png');
+    // Textos e imagem editados no painel (Conteúdo do Site → Páginas → Sobre)
+    $tituloPagina    = $titulo ?? conteudo('sobre.banner.titulo');
+    $subtituloPagina = $subtitulo ?? conteudo('sobre.banner.subtitulo');
+    $fundoPagina     = $fundo ?? conteudo_img('sobre.banner.imagem');
+    $seloPagina      = $selo ?? conteudo('sobre.banner.selo');
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -113,7 +115,7 @@
     <div class="fpt__inner">
         <span class="fpt__eyebrow fpt__fade" style="--d:.1s">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
-            Confeitaria artesanal
+            {{ $seloPagina }}
         </span>
 
         <h1 class="fpt__title">

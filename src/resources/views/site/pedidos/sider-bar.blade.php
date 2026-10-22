@@ -199,43 +199,43 @@
         <div class="fpd__main">
 
             {{-- Como pedir --}}
-            <span class="fpd__eyebrow" data-reveal>Simples e rápido</span>
-            <h2 class="fpd__h2" data-reveal style="--d:.1s">Como fazer seu <em>pedido</em></h2>
+            <span class="fpd__eyebrow" data-reveal>{{ conteudo('pedidos.como.selo') }}</span>
+            <h2 class="fpd__h2" data-reveal style="--d:.1s">{{ conteudo_html('pedidos.como.titulo') }}</h2>
 
             <div class="fpd__steps">
                 <div class="fpd__step" data-reveal style="--d:.1s">
                     <span class="fpd__badge"><b>1</b>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
                     </span>
-                    <h3>Pelo app</h3>
-                    <p>Monte sua sacola, use cupons, escolha entrega ou retirada e acompanhe o pedido.</p>
-                    <a href="{{ $linkApp }}" target="_blank" rel="noopener" class="fpd__link">Abrir o app <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                    <h3>{{ conteudo('pedidos.como.passo1_titulo') }}</h3>
+                    <p>{{ conteudo('pedidos.como.passo1_texto') }}</p>
+                    <a href="{{ $linkApp }}" target="_blank" rel="noopener" class="fpd__link">{{ conteudo('pedidos.como.passo1_botao') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
                 <div class="fpd__step" data-reveal style="--d:.22s">
                     <span class="fpd__badge"><b>2</b>
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
                     </span>
-                    <h3>Pelo WhatsApp</h3>
-                    <p>Adicione os doces abaixo na sua sacola e envie tudo de uma vez, ou fale direto com a gente.</p>
-                    <a href="{{ $linkWhatsapp('Olá! Gostaria de fazer um pedido.') }}" target="_blank" rel="noopener" class="fpd__link">Chamar no WhatsApp <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                    <h3>{{ conteudo('pedidos.como.passo2_titulo') }}</h3>
+                    <p>{{ conteudo('pedidos.como.passo2_texto') }}</p>
+                    <a href="{{ $linkWhatsapp(conteudo('pedidos.como.passo2_mensagem')) }}" target="_blank" rel="noopener" class="fpd__link">{{ conteudo('pedidos.como.passo2_botao') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
                 <div class="fpd__step" data-reveal style="--d:.34s">
                     <span class="fpd__badge"><b>3</b>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M5 21v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><path d="M5 17c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 2-1"/><path d="M12 13V9M12 6.5c-.8-.8-.8-1.8 0-3 .8 1.2.8 2.2 0 3z"/></svg>
                     </span>
-                    <h3>Encomendas</h3>
-                    <p>Bolos para festas, kits e quantidades maiores: conte o que precisa e mandamos o orçamento.</p>
-                    <a href="{{ route('contato') }}#fale-conosco" class="fpd__link">Pedir orçamento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                    <h3>{{ conteudo('pedidos.como.passo3_titulo') }}</h3>
+                    <p>{{ conteudo('pedidos.como.passo3_texto') }}</p>
+                    <a href="{{ route('contato') }}#fale-conosco" class="fpd__link">{{ conteudo('pedidos.como.passo3_botao') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
                 </div>
             </div>
 
             {{-- Produtos --}}
             <div class="fpd__shop-top">
                 <div>
-                    <span class="fpd__eyebrow" data-reveal>Os favoritos</span>
-                    <h2 class="fpd__h2" data-reveal style="--d:.1s">Mais <em>pedidos</em></h2>
+                    <span class="fpd__eyebrow" data-reveal>{{ conteudo('pedidos.produtos.selo') }}</span>
+                    <h2 class="fpd__h2" data-reveal style="--d:.1s">{{ conteudo_html('pedidos.produtos.titulo') }}</h2>
                 </div>
-                <a href="{{ route('cardapio.index') }}" class="fpd__all" data-reveal style="--d:.2s">Ver todo o cardápio
+                <a href="{{ route('cardapio.index') }}" class="fpd__all" data-reveal style="--d:.2s">{{ conteudo('pedidos.produtos.ver_todos') }}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </a>
             </div>
@@ -276,7 +276,7 @@
                         </article>
                     </div>
                 @empty
-                    <div class="fpd__empty">Nenhum produto disponível no momento.</div>
+                    <div class="fpd__empty">{{ conteudo('pedidos.produtos.vazio') }}</div>
                 @endforelse
             </div>
         </div>
@@ -296,7 +296,7 @@
                 <div class="fpd__bag-full" hidden>
                     <ul class="fpd__items"></ul>
                     <div class="fpd__total"><span>Total estimado</span><b class="fpd__sum">R$ 0,00</b></div>
-                    <small class="fpd__obs">Valores e disponibilidade confirmados pelo WhatsApp.</small>
+                    <small class="fpd__obs">{{ conteudo('pedidos.lateral.sacola_obs') }}</small>
                     <button type="button" class="fpd__send">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
                         Enviar pedido pelo WhatsApp
@@ -307,16 +307,16 @@
 
             <!-- App -->
             <div class="fpd__box" data-reveal style="--d:.1s">
-                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>Peça pelo app</h3>
-                <p>Peça em poucos toques, use cupons de desconto e acompanhe cada etapa do seu pedido.</p>
-                <a href="{{ $linkApp }}" target="_blank" rel="noopener" class="fpd__btn fpd__btn--app">Abrir o app</a>
+                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>{{ conteudo('pedidos.lateral.app_titulo') }}</h3>
+                <p>{{ conteudo('pedidos.lateral.app_texto') }}</p>
+                <a href="{{ $linkApp }}" target="_blank" rel="noopener" class="fpd__btn fpd__btn--app">{{ conteudo('pedidos.como.passo1_botao') }}</a>
             </div>
 
             <!-- WhatsApp -->
             <div class="fpd__box" data-reveal style="--d:.2s">
-                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Ficou com dúvida?</h3>
-                <p>Tire dúvidas sobre sabores, prazos e entregas.</p>
-                <a href="{{ $linkWhatsapp('Olá! Tenho uma dúvida sobre os produtos.') }}" target="_blank" rel="noopener" class="fpd__btn fpd__btn--wa">Chamar no WhatsApp</a>
+                <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>{{ conteudo('pedidos.lateral.duvida_titulo') }}</h3>
+                <p>{{ conteudo('pedidos.lateral.duvida_texto') }}</p>
+                <a href="{{ $linkWhatsapp(conteudo('pedidos.lateral.duvida_mensagem')) }}" target="_blank" rel="noopener" class="fpd__btn fpd__btn--wa">{{ conteudo('pedidos.como.passo2_botao') }}</a>
             </div>
 
             <!-- Categorias -->

@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Mail;
 
 class ContatoController extends Controller
 {
-    // Assuntos que aparecem no formulário da página de contato
-    const ASSUNTOS = ['Encomenda', 'Cardápio', 'Orçamento', 'Entrega', 'Pagamento', 'Outro'];
-
     public function contato()
     {
-        $assuntos = self::ASSUNTOS;
+        // Assuntos do formulário: editados no painel (Conteúdo do Site → Páginas → Contato), um por linha.
+        // A coluna assunto_contato aceita até 30 caracteres.
+        $assuntos = array_map(fn ($a) => mb_substr($a, 0, 30), conteudo_lista('contato.formulario.assuntos')) ?: ['Outro'];
+
         return view('site.contato.contato', compact('assuntos'));
     }
 

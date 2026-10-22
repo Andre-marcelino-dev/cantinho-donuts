@@ -146,10 +146,10 @@
     <div class="fsk__head">
         <span class="fsk__eyebrow" data-reveal>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 21V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-            Kits especiais
+            {{ conteudo('home.kits.selo') }}
         </span>
-        <h2 class="fsk__title" data-reveal style="--d:.1s">Sabores e <em>valores</em></h2>
-        <p class="fsk__sub" data-reveal style="--d:.2s">Kits montados com carinho para presentear, celebrar ou simplesmente se dar um mimo. Peça direto pelo WhatsApp.</p>
+        <h2 class="fsk__title" data-reveal style="--d:.1s">{{ conteudo_html('home.kits.titulo') }}</h2>
+        <p class="fsk__sub" data-reveal style="--d:.2s">{{ conteudo_html('home.kits.texto') }}</p>
     </div>
 
     <div class="fsk__grid {{ $kitis->count() <= 3 ? 'fsk__grid--few' : '' }}">
@@ -227,7 +227,8 @@
 
                         @if ($qtdItens > 0)
                             <div class="fsk__items">
-                                <button type="button" class="fsk__toggle" aria-expanded="false">
+                                <button type="button" class="fsk__toggle" aria-expanded="false"
+                                    data-abrir="{{ conteudo('home.kits.ver_itens') }}" data-fechar="{{ conteudo('home.kits.ocultar_itens') }}">
                                     <span class="fsk__avatars">
                                         @foreach ($itens->take(3) as $item)
                                             <img src="{{ asset('davilla/images/' . $item->produto->foto_produto) }}" alt="">
@@ -236,7 +237,7 @@
                                             <span>+{{ $qtdItens - 3 }}</span>
                                         @endif
                                     </span>
-                                    <span class="fsk__toggle-txt">Ver itens do kit</span>
+                                    <span class="fsk__toggle-txt">{{ conteudo('home.kits.ver_itens') }}</span>
                                     <svg class="fsk__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                                 </button>
                                 <div class="fsk__list-wrap">
@@ -272,7 +273,7 @@
                         @if ($linkWa)
                             <a href="{{ $linkWa }}" target="_blank" rel="noopener" class="fsk__cta">
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
-                                Peça agora
+                                {{ conteudo('home.kits.botao') }}
                             </a>
                         @endif
                     </div>
@@ -316,7 +317,7 @@
             var box = btn.closest('.fsk__items');
             var open = box.classList.toggle('is-open');
             btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-            btn.querySelector('.fsk__toggle-txt').textContent = open ? 'Ocultar itens' : 'Ver itens do kit';
+            btn.querySelector('.fsk__toggle-txt').textContent = open ? btn.dataset.fechar : btn.dataset.abrir;
         });
     });
 })();

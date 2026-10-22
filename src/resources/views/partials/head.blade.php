@@ -1,6 +1,9 @@
 <head>
 <meta charset="utf-8">
-<title>Conferia Davilla  | a melhor confeitaria da região </title>
+<title>{{ conteudo('geral.site.titulo') }}</title>
+@if (conteudo('geral.site.descricao'))
+<meta name="description" content="{{ conteudo('geral.site.descricao') }}">
+@endif
 
 <!-- Stylesheets -->
 <link href="{{asset('davilla/css/bootstrap.css')}}" rel="stylesheet">
@@ -13,8 +16,8 @@
 <link href="{{asset('xyzcode/estilo.css')}}" rel="stylesheet">
 <link href="{{asset('xyzcode/menu-mobile.css')}}" rel="stylesheet">
 
-<link rel="shortcut icon" href="{{asset('davilla/images/favicon.png')}}" type="image/x-icon">
-<link rel="icon" href="{{asset('davilla/images/favicon.png')}}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ conteudo_img('geral.site.icone') }}" type="image/x-icon">
+<link rel="icon" href="{{ conteudo_img('geral.site.icone') }}" type="image/x-icon">
 
 <!-- Responsive -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

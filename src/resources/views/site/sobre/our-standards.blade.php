@@ -1,18 +1,16 @@
 <!-- Our Standards: Nossos compromissos (redesign animado) -->
 @php
-    $ourStandards = asset('davilla/IMG/img39.png');
+    $ourStandards = conteudo_img('sobre.compromissos.imagem');
 
     /*
-     | COMPROMISSOS
-     | ⚠️ Confira se cada item corresponde ao que a confeitaria realmente faz.
+     | COMPROMISSOS — editados no painel (Conteúdo do Site → Páginas → Sobre).
+     | Compromisso sem título não aparece.
      */
-    $compromissos = [
-        ['titulo' => 'Ingredientes selecionados', 'texto' => 'Chocolate de qualidade, manteiga de verdade e frutas frescas escolhidas uma a uma.'],
-        ['titulo' => 'Feito no dia',              'texto' => 'Produzimos em pequenas fornadas para que tudo chegue fresquinho até você.'],
-        ['titulo' => 'Feito à mão',               'texto' => 'Cada doce é preparado e decorado artesanalmente, sem pressa e com atenção aos detalhes.'],
-        ['titulo' => 'Higiene e cuidado',         'texto' => 'Cozinha limpa e organizada, com cuidado em cada etapa, do preparo à embalagem.'],
-        ['titulo' => 'Atendimento com carinho',   'texto' => 'Ouvimos o que você precisa para que o seu pedido fique exatamente como sonhou.'],
-    ];
+    $compromissos = [];
+    foreach ([1, 2, 3, 4, 5] as $n) {
+        if (conteudo("sobre.compromissos.item{$n}_titulo") === '') continue;
+        $compromissos[] = ['titulo' => conteudo("sobre.compromissos.item{$n}_titulo"), 'texto' => conteudo("sobre.compromissos.item{$n}_texto")];
+    }
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -130,9 +128,9 @@
     <div class="fsc__wrap">
         <!-- Texto -->
         <div class="fsc__content">
-            <span class="fsc__eyebrow" data-reveal>Nossos padrões</span>
-            <h2 class="fsc__title" data-reveal style="--d:.1s">Nossos <em>compromissos</em></h2>
-            <p class="fsc__sub" data-reveal style="--d:.2s">Mais do que fazer doces gostosos, assumimos compromissos com você. É isso que garante a qualidade de cada pedido.</p>
+            <span class="fsc__eyebrow" data-reveal>{{ conteudo('sobre.compromissos.selo') }}</span>
+            <h2 class="fsc__title" data-reveal style="--d:.1s">{{ conteudo_html('sobre.compromissos.titulo') }}</h2>
+            <p class="fsc__sub" data-reveal style="--d:.2s">{{ conteudo_html('sobre.compromissos.texto') }}</p>
 
             <ul class="fsc__list">
                 @foreach ($compromissos as $item)

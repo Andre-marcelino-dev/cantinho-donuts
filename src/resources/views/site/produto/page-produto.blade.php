@@ -7,10 +7,10 @@
     $produtoAtual    = $produto ?? null;
     $tituloPagina    = $produtoAtual->nome_produto ?? 'Produto';
     $categoriaPagina = $produtoAtual->descricao_categoria ?? null;
-    $subtituloPagina = 'Feito à mão, com ingredientes selecionados e muito carinho';
+    $subtituloPagina = conteudo('produto.banner.subtitulo');
     $fundoPagina     = !empty($produtoAtual->foto_produto)
         ? asset('davilla/images/' . $produtoAtual->foto_produto)
-        : asset('davilla/cardapio_img/banner.png');
+        : conteudo_img('produto.banner.imagem');
 
     $linkCardapio = route('cardapio.index');
 @endphp
@@ -113,7 +113,7 @@
     <div class="fpt__inner">
         <span class="fpt__eyebrow fpt__fade" style="--d:.1s">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
-            {{ $categoriaPagina ?: 'Confeitaria artesanal' }}
+            {{ $categoriaPagina ?: conteudo('produto.banner.selo') }}
         </span>
 
         <h1 class="fpt__title">

@@ -1,6 +1,6 @@
 <!-- Features Section Two (redesign animado) -->
 @php
-    $features = asset('davilla/IMG/banner3.png');
+    $features = conteudo_img('home.porque.imagem_fundo');
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -170,11 +170,11 @@
     <div class="fsx__head">
         <span class="fsx__eyebrow" data-reveal>
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
-            Por que nos escolher
+            {{ conteudo('home.porque.selo') }}
         </span>
-        <h2 class="fsx__title" data-reveal style="--d:.12s">Feito à mão,<br><span class="fsx__shine">feito com amor</span></h2>
+        <h2 class="fsx__title" data-reveal style="--d:.12s">{{ conteudo('home.porque.titulo') }}<br><span class="fsx__shine">{{ conteudo('home.porque.titulo_brilho') }}</span></h2>
         <svg class="fsx__swash" viewBox="0 0 220 22" aria-hidden="true"><path d="M4 14 C 40 2, 80 2, 110 12 S 180 22, 216 8"/></svg>
-        <p class="fsx__sub" data-reveal style="--d:.24s">Cada doce nasce de receitas cuidadosas, ingredientes selecionados e o carinho de quem vive a confeitaria todos os dias.</p>
+        <p class="fsx__sub" data-reveal style="--d:.24s">{{ conteudo_html('home.porque.texto') }}</p>
     </div>
 
     <div class="fsx__grid">
@@ -188,17 +188,17 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M5 21v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><path d="M5 17c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 2-1"/><path d="M12 13V9M12 6.5c-.8-.8-.8-1.8 0-3 .8 1.2.8 2.2 0 3z"/></svg>
                     </div>
                 </div>
-                <h3>Tradição</h3>
+                <h3>{{ conteudo('home.porque.card1_titulo') }}</h3>
                 <div class="fsx__divider"></div>
-                <p>Receitas de família preservadas há gerações, com o sabor autêntico que desperta memórias afetivas.</p>
-                <a href="#" class="fsx__btn">Veja nossa vitrine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                <p>{{ conteudo('home.porque.card1_texto') }}</p>
+                <a href="{{ conteudo_link('home.porque.botao_link') }}" class="fsx__btn">{{ conteudo('home.porque.botao_texto') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
         </div>
 
         <!-- Card 2 (destaque) -->
         <div data-reveal style="--d:.2s">
             <div class="fsx__card fsx__card--featured">
-                <span class="fsx__badge">Mais pedido</span>
+                <span class="fsx__badge">{{ conteudo('home.porque.card2_selo') }}</span>
                 <span class="fsx__num">02</span>
                 <div class="fsx__icon">
                     <svg class="fsx__frame" viewBox="0 0 850.4 850.4"><path d="M436.7,850.4C195.9,850.4,0,659.7,0,425.2c0-10.4,8.2-18.8,18.4-18.8s18.4,8.4,18.4,18.8c0,213.7,179.4,387.6,399.9,387.6 c214.8,0,376.8-168.7,376.8-392.3c0-217.9-161.4-382.3-375.6-382.9C244.6,38.2,87.5,198.8,87.5,396.2 C87.5,594,245.2,754.9,439,754.9c10.2,0,18.4,8.4,18.4,18.8c0,10.4-8.2,18.8-18.4,18.8c-214.1,0-388.4-177.7-388.4-396.2 C50.7,178.5,223.6,1.3,436.7,0v0l2.3,0c234.7,1.2,411.4,181.5,411.4,420.5c0,115.2-41.2,222.7-116.1,302.7 C657.5,805.2,551.8,850.4,436.7,850.4z"></path></svg>
@@ -206,10 +206,10 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M19 15l.8 1.7 1.7.8-1.7.8L19 20l-.8-1.7-1.7-.8 1.7-.8zM5 15l.6 1.4 1.4.6-1.4.6L5 19l-.6-1.4L3 17l1.4-.6z"/></svg>
                     </div>
                 </div>
-                <h3>Criatividade</h3>
+                <h3>{{ conteudo('home.porque.card2_titulo') }}</h3>
                 <div class="fsx__divider"></div>
-                <p>Bolos e doces personalizados que transformam sua ideia em uma peça única para cada celebração.</p>
-                <a href="#" class="fsx__btn">Veja nossa vitrine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                <p>{{ conteudo('home.porque.card2_texto') }}</p>
+                <a href="{{ conteudo_link('home.porque.botao_link') }}" class="fsx__btn">{{ conteudo('home.porque.botao_texto') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
         </div>
 
@@ -223,21 +223,21 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
                     </div>
                 </div>
-                <h3>Paixão</h3>
+                <h3>{{ conteudo('home.porque.card3_titulo') }}</h3>
                 <div class="fsx__divider"></div>
-                <p>Ingredientes selecionados e um cuidado artesanal em cada detalhe, do forno até a sua mesa.</p>
-                <a href="#" class="fsx__btn">Veja nossa vitrine <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                <p>{{ conteudo('home.porque.card3_texto') }}</p>
+                <a href="{{ conteudo_link('home.porque.botao_link') }}" class="fsx__btn">{{ conteudo('home.porque.botao_texto') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             </div>
         </div>
     </div>
 
-    <!-- Números (ajuste para os dados reais da confeitaria) -->
+    <!-- Números (editáveis no painel: "15+" conta até 15 e mostra o "+") -->
     <div class="fsx__stats">
         <div class="fsx__stats-inner" data-reveal style="--d:.1s">
-            <div class="fsx__stat"><strong data-count="15" data-suffix="+">0</strong><span>Anos de história</span></div>
-            <div class="fsx__stat"><strong data-count="12000" data-suffix="+">0</strong><span>Clientes felizes</span></div>
-            <div class="fsx__stat"><strong data-count="180" data-suffix="">0</strong><span>Receitas exclusivas</span></div>
-            <div class="fsx__stat"><strong data-count="100" data-suffix="%">0</strong><span>Artesanal</span></div>
+            @foreach ([1, 2, 3, 4] as $n)
+                @php preg_match('/^\s*(\d+)\s*(.*)$/', conteudo("home.porque.numero{$n}"), $partes); @endphp
+                <div class="fsx__stat"><strong data-count="{{ $partes[1] ?? 0 }}" data-suffix="{{ $partes[2] ?? '' }}">0</strong><span>{{ conteudo("home.porque.numero{$n}_texto") }}</span></div>
+            @endforeach
         </div>
     </div>
 

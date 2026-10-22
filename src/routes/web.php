@@ -27,6 +27,8 @@ use App\Http\Controllers\admin\MateriaPrimaController as AdminMateriaPrimaContro
 use App\Http\Controllers\admin\MovimentacaoController as AdminMovimentacaoController;
 use App\Http\Controllers\admin\NovidadesController as AdminNovidadesController;
 use App\Http\Controllers\admin\DepoimentoController as AdminDepoimentoController;
+use App\Http\Controllers\admin\ConteudoController as AdminConteudoController;
+use App\Http\Controllers\admin\ReceitaController as AdminReceitaController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\Cliente\AuthController as ClienteAuthController;
 
@@ -128,6 +130,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/banner/{id}', [AdminBannerController::class, 'update'])->name('banner.update');
         Route::patch('/banner/{id}/status', [AdminBannerController::class, 'alterarStatus'])->name('banner.status');
         Route::delete('/banner/{id}', [AdminBannerController::class, 'destroy'])->name('banner.destroy');
+
+        // Textos e imagens das páginas do site
+        Route::get('/conteudo', [AdminConteudoController::class, 'index'])->name('conteudo');
+        Route::get('/conteudo/{pagina}', [AdminConteudoController::class, 'edit'])->name('conteudo.edit');
+        Route::put('/conteudo/{pagina}', [AdminConteudoController::class, 'update'])->name('conteudo.update');
+
+        // Livro de receitas da Home
+        Route::get('/receita', [AdminReceitaController::class, 'index'])->name('receita');
+        Route::get('/receita/nova', [AdminReceitaController::class, 'create'])->name('receita.create');
+        Route::post('/receita', [AdminReceitaController::class, 'store'])->name('receita.store');
+        Route::get('/receita/{id}/editar', [AdminReceitaController::class, 'edit'])->name('receita.edit');
+        Route::put('/receita/{id}', [AdminReceitaController::class, 'update'])->name('receita.update');
+        Route::patch('/receita/{id}/status', [AdminReceitaController::class, 'alterarStatus'])->name('receita.status');
+        Route::delete('/receita/{id}', [AdminReceitaController::class, 'destroy'])->name('receita.destroy');
 
         Route::get('/contato', [AdminContatoController::class, 'index'])->name('contato');
         Route::patch('/contato/{id}/status', [AdminContatoController::class, 'alterarStatus'])->name('contato.status');

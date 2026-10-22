@@ -18,7 +18,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // conteudo(), conteudo_html(), conteudo_img() das views do site
+        require_once app_path('Support/conteudo.php');
     }
 
     /**

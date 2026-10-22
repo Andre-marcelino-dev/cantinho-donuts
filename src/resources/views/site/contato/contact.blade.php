@@ -1,19 +1,20 @@
 <!-- Contact Section (redesign animado) -->
 @php
     /*
-     | HORÁRIOS DE FUNCIONAMENTO
-     | dia: 0 = domingo, 1 = segunda ... 6 = sábado
-     | Deixe 'abre' => null para dia fechado.
+     | HORÁRIOS DE FUNCIONAMENTO — editados no painel (Conteúdo do Site → Páginas → Contato).
+     | dia: 0 = domingo, 1 = segunda ... 6 = sábado. Horário vazio = fechado.
      */
-    $horarios = [
-        ['dia' => 1, 'nome' => 'Segunda-feira', 'abre' => '08:00', 'fecha' => '17:30'],
-        ['dia' => 2, 'nome' => 'Terça-feira',   'abre' => '08:00', 'fecha' => '17:30'],
-        ['dia' => 3, 'nome' => 'Quarta-feira',  'abre' => '08:00', 'fecha' => '17:30'],
-        ['dia' => 4, 'nome' => 'Quinta-feira',  'abre' => '08:00', 'fecha' => '17:30'],
-        ['dia' => 5, 'nome' => 'Sexta-feira',   'abre' => '08:00', 'fecha' => '17:30'],
-        ['dia' => 6, 'nome' => 'Sábado',        'abre' => '09:00', 'fecha' => '16:00'],
-        ['dia' => 0, 'nome' => 'Domingo',       'abre' => null,    'fecha' => null],
-    ];
+    $diasSemana = [1 => 'Segunda-feira', 2 => 'Terça-feira', 3 => 'Quarta-feira', 4 => 'Quinta-feira', 5 => 'Sexta-feira', 6 => 'Sábado', 0 => 'Domingo'];
+    $horarios = [];
+    foreach ($diasSemana as $dia => $nomeDia) {
+        $temHorario = preg_match('/(\d{1,2}):?(\d{2})?\D+(\d{1,2}):?(\d{2})?/', conteudo("contato.horarios.dia{$dia}"), $h);
+        $horarios[] = [
+            'dia'   => $dia,
+            'nome'  => $nomeDia,
+            'abre'  => $temHorario ? sprintf('%02d:%02d', $h[1], $h[2] ?: 0) : null,
+            'fecha' => $temHorario ? sprintf('%02d:%02d', $h[3], $h[4] ?? 0) : null,
+        ];
+    }
 
     $enderecoCompleto = trim(($loja['endereco'] ?? '') . ', ' . ($loja['bairro'] ?? '') . ', ' . ($loja['cidade'] ?? '') . ' ' . ($loja['cep'] ?? ''), ', ');
     $mapaEmbed = 'https://maps.google.com/maps?q=' . rawurlencode($enderecoCompleto) . '&z=16&output=embed';
@@ -185,10 +186,10 @@
     <div class="fct__head">
         <span class="fct__eyebrow" data-reveal>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/></svg>
-            Fale conosco
+            {{ conteudo('contato.topo.selo') }}
         </span>
-        <h2 class="fct__title" data-reveal style="--d:.1s">Vamos <em>conversar?</em></h2>
-        <p class="fct__sub" data-reveal style="--d:.2s">Tire suas dúvidas, faça encomendas, peça um orçamento ou mande sugestões. Respondemos o mais rápido possível.</p>
+        <h2 class="fct__title" data-reveal style="--d:.1s">{{ conteudo_html('contato.topo.titulo') }}</h2>
+        <p class="fct__sub" data-reveal style="--d:.2s">{{ conteudo_html('contato.topo.texto') }}</p>
     </div>
 
     <div class="fct__wrap">
@@ -197,7 +198,7 @@
             <div class="fct__card" data-reveal style="--d:.1s">
                 <h3 class="fct__h">
                     <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-                    Horários de funcionamento
+                    {{ conteudo('contato.horarios.titulo') }}
                 </h3>
                 <div class="fct__status" aria-live="polite">
                     <i></i>
@@ -220,12 +221,12 @@
             <div class="fct__card" data-reveal style="--d:.2s">
                 <h3 class="fct__h">
                     <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
-                    Nossos contatos
+                    {{ conteudo('contato.topo.contatos_titulo') }}
                 </h3>
                 {{-- Dados da loja: config/services.php ('loja') --}}
                 <ul class="fct__list">
                     <li>
-                        <a href="https://wa.me/{{ $loja['whatsapp'] }}?text={{ rawurlencode('Olá! Vim pelo site e gostaria de mais informações.') }}" target="_blank" rel="noopener" class="wa">
+                        <a href="https://wa.me/{{ $loja['whatsapp'] }}?text={{ rawurlencode(conteudo('contato.formulario.mensagem_whatsapp')) }}" target="_blank" rel="noopener" class="wa">
                             <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg></span>
                             <span><small>WhatsApp</small><span class="v">{{ $loja['telefone'] }}</span></span>
                             <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -260,7 +261,7 @@
         <div class="fct__card fct__formcard" data-reveal style="--d:.15s">
             <h3 class="fct__h">
                 <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-                Envie sua mensagem
+                {{ conteudo('contato.formulario.titulo') }}
             </h3>
 
             {{-- id diferente de "email-form" para o script.js do modelo não interceptar o envio --}}
@@ -322,15 +323,15 @@
                     <button class="fct__send" type="submit">
                         <span class="spin" aria-hidden="true"></span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
-                        Enviar mensagem
+                        {{ conteudo('contato.formulario.botao') }}
                     </button>
                     <span class="fct__or">ou</span>
-                    <a href="https://wa.me/{{ $loja['whatsapp'] }}?text={{ rawurlencode('Olá! Vim pelo site e gostaria de mais informações.') }}" target="_blank" rel="noopener" class="fct__wa">
+                    <a href="https://wa.me/{{ $loja['whatsapp'] }}?text={{ rawurlencode(conteudo('contato.formulario.mensagem_whatsapp')) }}" target="_blank" rel="noopener" class="fct__wa">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
                         Chamar no WhatsApp
                     </a>
                 </div>
-                <p class="fct__note">Campos com * são obrigatórios. Seus dados são usados apenas para responder ao seu contato.</p>
+                <p class="fct__note">{{ conteudo('contato.formulario.nota') }}</p>
             </form>
         </div>
     </div>

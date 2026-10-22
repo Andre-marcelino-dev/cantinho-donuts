@@ -105,7 +105,8 @@
 </style>
 
 <section class="fsa" id="fsa">
-    <div class="fsa__giant" aria-hidden="true">Bem-vindo · Bem-vindo · Bem-vindo · Bem-vindo</div>
+    @php $fsaGigante = conteudo('home.boas_vindas.texto_fundo'); @endphp
+    <div class="fsa__giant" aria-hidden="true">{{ $fsaGigante }} · {{ $fsaGigante }} · {{ $fsaGigante }} · {{ $fsaGigante }}</div>
 
     <!-- cupcake em traço -->
     <svg class="fsa__art fsa__art--l" viewBox="0 0 120 120" aria-hidden="true">
@@ -132,9 +133,9 @@
     </div>
 
     <div class="fsa__inner">
-        <span class="fsa__eyebrow" data-reveal>Seja bem-vindo a</span>
+        <span class="fsa__eyebrow" data-reveal>{{ conteudo('home.boas_vindas.selo') }}</span>
 
-        <h1 class="fsa__title" data-letters>Esse Doce é <em>para você</em></h1>
+        <h1 class="fsa__title" data-letters>{{ conteudo_html('home.boas_vindas.titulo') }}</h1>
 
         <div class="fsa__divider" data-watch>
             <i></i>
@@ -149,36 +150,32 @@
             <i></i>
         </div>
 
-        <p class="fsa__text" data-words>
-            Na <strong>Esse Doce é para você</strong>, cada detalhe é pensado para transformar simples momentos em experiências inesquecíveis.
-            Nossos bolos e doces são preparados com ingredientes selecionados, combinando sabor, qualidade e um toque especial de carinho em cada receita.
-        </p>
-        <p class="fsa__text" data-words>
-            Mais do que uma confeitaria, somos um lugar onde aromas encantam, sabores surpreendem e memórias são criadas.
-            Do primeiro olhar à última mordida, queremos fazer parte dos seus melhores momentos.
-        </p>
+        <p class="fsa__text" data-words>{{ conteudo_html('home.boas_vindas.texto_1') }}</p>
+        @if (conteudo('home.boas_vindas.texto_2'))
+            <p class="fsa__text" data-words>{{ conteudo_html('home.boas_vindas.texto_2') }}</p>
+        @endif
 
         <p class="fsa__closing" data-watch>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
-            Descubra o prazer de saborear o extraordinário.
+            {{ conteudo('home.boas_vindas.frase') }}
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
         </p>
 
-        <div class="fsa__signwrap" data-watch><span class="fsa__sign">com carinho, Esse Doce</span></div>
+        <div class="fsa__signwrap" data-watch><span class="fsa__sign">{{ conteudo('home.boas_vindas.assinatura') }}</span></div>
     </div>
 
     <div class="fsa__values">
         <div class="fsa__value" data-reveal style="--d:.05s">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></svg></div>
-            <div><strong>Ingredientes selecionados</strong><small>Qualidade em cada receita</small></div>
+            <div><strong>{{ conteudo('home.boas_vindas.item1_titulo') }}</strong><small>{{ conteudo('home.boas_vindas.item1_texto') }}</small></div>
         </div>
         <div class="fsa__value" data-reveal style="--d:.18s">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></div>
-            <div><strong>Feito com carinho</strong><small>Preparado à mão, sem pressa</small></div>
+            <div><strong>{{ conteudo('home.boas_vindas.item2_titulo') }}</strong><small>{{ conteudo('home.boas_vindas.item2_texto') }}</small></div>
         </div>
         <div class="fsa__value" data-reveal style="--d:.31s">
             <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 21V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
-            <div><strong>Momentos especiais</strong><small>Para celebrar quem você ama</small></div>
+            <div><strong>{{ conteudo('home.boas_vindas.item3_titulo') }}</strong><small>{{ conteudo('home.boas_vindas.item3_texto') }}</small></div>
         </div>
     </div>
 </section>

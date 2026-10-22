@@ -1,17 +1,20 @@
 <!-- About Section Two: Nossa história (redesign animado) -->
 @php
-    $sobre = asset('davilla/IMG/bannerbolocerto.png');
+    $sobre = conteudo_img('sobre.historia.imagem');
 
     /*
-     | LINHA DO TEMPO
-     | ⚠️ Troque pelos marcos reais da confeitaria (ano ou etapa + título + texto curto).
+     | LINHA DO TEMPO — editada no painel (Conteúdo do Site → Páginas → Sobre).
+     | Etapa sem título não aparece.
      */
-    $historia = [
-        ['marco' => 'O começo',  'titulo' => 'Uma receita de família',     'texto' => 'Tudo começou na cozinha de casa, com as receitas da avó e o sonho de adoçar o dia das pessoas.'],
-        ['marco' => 'O primeiro passo', 'titulo' => 'As primeiras encomendas', 'texto' => 'Os bolos conquistaram amigos e vizinhos, e as encomendas começaram a chegar pelo boca a boca.'],
-        ['marco' => 'Crescendo', 'titulo' => 'Nossa própria confeitaria', 'texto' => 'Com uma equipe apaixonada, ganhamos um espaço só nosso para criar doces ainda mais especiais.'],
-        ['marco' => 'Hoje',      'titulo' => 'Presentes nos seus momentos', 'texto' => 'Seguimos fazendo tudo à mão, com o mesmo carinho, para aniversários, casamentos e o café da tarde.'],
-    ];
+    $historia = [];
+    foreach ([1, 2, 3, 4] as $n) {
+        if (conteudo("sobre.historia.etapa{$n}_titulo") === '') continue;
+        $historia[] = [
+            'marco'  => conteudo("sobre.historia.etapa{$n}_marco"),
+            'titulo' => conteudo("sobre.historia.etapa{$n}_titulo"),
+            'texto'  => conteudo("sobre.historia.etapa{$n}_texto"),
+        ];
+    }
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -138,7 +141,7 @@
 
                 <div class="fsh__chip">
                     <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg></span>
-                    <span><strong>Feito à mão</strong><small>Receitas de família</small></span>
+                    <span><strong>{{ conteudo('sobre.historia.selo_titulo') }}</strong><small>{{ conteudo('sobre.historia.selo_texto') }}</small></span>
                 </div>
 
                 <div class="fsh__badge" aria-hidden="true">
@@ -153,12 +156,9 @@
 
         <!-- Texto -->
         <div class="fsh__content">
-            <span class="fsh__eyebrow" data-reveal>Quem somos</span>
-            <h2 class="fsh__title" data-reveal style="--d:.1s">Nossa <em>história</em></h2>
-            <p class="fsh__lead" data-reveal style="--d:.2s">
-                Somos uma confeitaria artesanal que nasceu do amor pelos doces e pelas pessoas. Cada bolo, torta e docinho é preparado
-                <b>à mão</b>, com ingredientes selecionados e o mesmo cuidado de quando tudo começou.
-            </p>
+            <span class="fsh__eyebrow" data-reveal>{{ conteudo('sobre.historia.selo') }}</span>
+            <h2 class="fsh__title" data-reveal style="--d:.1s">{{ conteudo_html('sobre.historia.titulo') }}</h2>
+            <p class="fsh__lead" data-reveal style="--d:.2s">{{ conteudo_html('sobre.historia.texto') }}</p>
 
             <div class="fsh__timeline">
                 <span class="fsh__line" aria-hidden="true"><i></i></span>
@@ -177,11 +177,10 @@
             </div>
 
             <div class="fsh__end" data-reveal>
-                {{-- Troque o "#" pelo link da sua página de cardápio/vitrine --}}
-                <a href="#" class="fsh__btn">Conheça nossos doces
+                <a href="{{ conteudo_link('sobre.historia.botao_link') }}" class="fsh__btn">{{ conteudo('sobre.historia.botao_texto') }}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </a>
-                <span class="fsh__sign">com carinho, da nossa cozinha</span>
+                <span class="fsh__sign">{{ conteudo('sobre.historia.assinatura') }}</span>
             </div>
         </div>
     </div>

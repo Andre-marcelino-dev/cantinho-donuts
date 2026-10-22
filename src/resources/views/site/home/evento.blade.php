@@ -135,10 +135,10 @@
     <div class="fse__head">
         <span class="fse__eyebrow" data-reveal>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-            Nossa agenda
+            {{ conteudo('home.agenda.selo') }}
         </span>
-        <h2 class="fse__title" data-reveal style="--d:.1s">Venha nos <em>visitar</em></h2>
-        <p class="fse__sub" data-reveal style="--d:.2s">Confira onde a nossa barraca vai estar e garanta seus doces fresquinhos, direto das nossas mãos para você.</p>
+        <h2 class="fse__title" data-reveal style="--d:.1s">{{ conteudo_html('home.agenda.titulo') }}</h2>
+        <p class="fse__sub" data-reveal style="--d:.2s">{{ conteudo_html('home.agenda.texto') }}</p>
     </div>
 
     @php
@@ -223,7 +223,7 @@
                         <div class="fse__tags-wrap">
                             <p class="fse__tags-title">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M5 13v8h14v-8"/></svg>
-                                Hoje na barraca
+                                {{ conteudo('home.agenda.tags_titulo') }}
                             </p>
                             <div class="fse__tags">
                                 @foreach ($linha->tags_array as $tag)
@@ -232,7 +232,7 @@
                             </div>
                             <p class="fse__rodape">
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg>
-                                Vem provar!
+                                {{ conteudo('home.agenda.tags_rodape') }}
                             </p>
                         </div>
                     @endif

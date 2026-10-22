@@ -1,9 +1,10 @@
 <!-- Page Title: Região -->
 @php
-    $tituloPagina    = 'Onde entregamos';
-    $subtituloPagina = 'Confira se o seu bairro está na nossa área de entrega';
+    // Editado no painel (Conteúdo do Site → Páginas → Região)
+    $tituloPagina    = conteudo('regiao.banner.titulo');
+    $subtituloPagina = conteudo('regiao.banner.subtitulo');
     $migalhaPagina   = 'Região';
-    $fundoPagina     = asset('davilla/IMG/banner3.png');
+    $fundoPagina     = conteudo_img('regiao.banner.imagem');
 @endphp
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -103,7 +104,7 @@
     <div class="fpt__inner">
         <span class="fpt__eyebrow fpt__fade" style="--d:.1s">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
-            Confeitaria artesanal
+            {{ conteudo('regiao.banner.selo') }}
         </span>
 
         <h1 class="fpt__title">

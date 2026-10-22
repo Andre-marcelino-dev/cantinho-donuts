@@ -1,165 +1,20 @@
 <!-- Recipes Section (livro de receitas animado) -->
 @php
-    $recipes = asset('davilla/gallery-davilla/fundorecipes.jpg');
+    $recipes = conteudo_img('home.receitas.imagem_fundo');
 
     /*
-     | RECEITAS DO LIVRO
-     | Para adicionar uma receita, copie um bloco [ ... ] e altere os textos.
+     | RECEITAS DO LIVRO — cadastradas no painel (Conteúdo do Site → Livro de receitas).
      | Em "ingredientes", uma linha que começa com # vira um subtítulo (ex.: "# Cobertura").
-     | "cor" muda a cor de destaque da página: rose, gold ou choco.
      | O livro abre sozinho em uma receita diferente a cada dia.
      */
-    $receitas = [
-        [
-            'titulo'      => 'Brigadeiro',
-            'destaque'    => 'tradicional',
-            'intro'       => 'O docinho mais amado do Brasil, cremoso por dentro e coberto de granulado. Simples, rápido e impossível de comer um só.',
-            'tempo'       => '30 min',
-            'rendimento'  => '25 unidades',
-            'nivel'       => 'Fácil',
-            'cor'         => 'choco',
-            'ingredientes'=> [
-                '1 lata de leite condensado (395 g)',
-                '1 colher (sopa) de manteiga',
-                '3 colheres (sopa) de chocolate em pó 50%',
-                'Chocolate granulado para enrolar',
-            ],
-            'preparo'     => [
-                'Em uma panela, junte o leite condensado, a manteiga e o chocolate em pó.',
-                'Cozinhe em fogo baixo, mexendo sem parar, por 10 a 15 minutos, até a massa desgrudar do fundo da panela.',
-                'Transfira para um prato untado com manteiga e deixe esfriar completamente.',
-                'Com as mãos untadas, faça bolinhas e passe no granulado. Coloque em forminhas.',
-            ],
-            'dica'        => 'Para saber o ponto, incline a panela: a massa deve escorregar inteira, formando uma bola.',
-        ],
-        [
-            'titulo'      => 'Bolo de cenoura',
-            'destaque'    => 'com chocolate',
-            'intro'       => 'Fofinho, úmido e com aquela cobertura brilhante que escorre pelas laterais. O clássico do café da tarde.',
-            'tempo'       => '1 hora',
-            'rendimento'  => '12 fatias',
-            'nivel'       => 'Fácil',
-            'cor'         => 'gold',
-            'ingredientes'=> [
-                '3 cenouras médias picadas',
-                '4 ovos',
-                '1 xícara (chá) de óleo',
-                '2 xícaras (chá) de açúcar',
-                '2 e 1/2 xícaras (chá) de farinha de trigo',
-                '1 colher (sopa) de fermento em pó',
-                '# Cobertura',
-                '1 colher (sopa) de manteiga',
-                '3 colheres (sopa) de chocolate em pó',
-                '1 xícara (chá) de açúcar',
-                '1 xícara (chá) de leite',
-            ],
-            'preparo'     => [
-                'Bata no liquidificador a cenoura, os ovos e o óleo até ficar bem liso.',
-                'Em uma tigela, misture o açúcar e a farinha, junte o creme batido e mexa bem. Por último, adicione o fermento.',
-                'Asse em forma untada e enfarinhada, em forno preaquecido a 180 °C, por cerca de 40 minutos.',
-                'Para a cobertura, leve todos os ingredientes ao fogo, mexendo até engrossar levemente, e espalhe sobre o bolo ainda morno.',
-            ],
-            'dica'        => 'Faça o teste do palito: se sair limpo, o bolo está pronto.',
-        ],
-        [
-            'titulo'      => 'Pudim',
-            'destaque'    => 'de leite condensado',
-            'intro'       => 'Lisinho, sem furinhos e com uma calda dourada de caramelo. A sobremesa de domingo que nunca sai de moda.',
-            'tempo'       => '2 horas + geladeira',
-            'rendimento'  => '10 fatias',
-            'nivel'       => 'Médio',
-            'cor'         => 'gold',
-            'ingredientes'=> [
-                '1 lata de leite condensado',
-                'A mesma medida da lata de leite',
-                '3 ovos',
-                '# Calda',
-                '1 xícara (chá) de açúcar',
-                '1/2 xícara (chá) de água',
-            ],
-            'preparo'     => [
-                'Derreta o açúcar em fogo baixo até ficar dourado, junte a água com cuidado e cozinhe até formar uma calda. Espalhe na forma.',
-                'Bata no liquidificador o leite condensado, o leite e os ovos por cerca de 1 minuto.',
-                'Despeje na forma caramelizada, cubra com papel-alumínio e asse em banho-maria a 180 °C por cerca de 1 hora e 30 minutos.',
-                'Deixe esfriar, leve à geladeira por pelo menos 4 horas e desenforme.',
-            ],
-            'dica'        => 'Bata pouco no liquidificador: menos ar na mistura, menos furinhos no pudim.',
-        ],
-        [
-            'titulo'      => 'Mousse',
-            'destaque'    => 'de maracujá',
-            'intro'       => 'Aerado, azedinho na medida e pronto em minutos. Perfeito para os dias quentes.',
-            'tempo'       => '15 min + geladeira',
-            'rendimento'  => '6 taças',
-            'nivel'       => 'Fácil',
-            'cor'         => 'gold',
-            'ingredientes'=> [
-                '1 lata de leite condensado',
-                '1 lata de creme de leite sem soro',
-                'A mesma medida da lata de suco concentrado de maracujá',
-                'Polpa de 1 maracujá para decorar',
-            ],
-            'preparo'     => [
-                'Bata no liquidificador o leite condensado, o creme de leite e o suco por 3 minutos.',
-                'Distribua em taças ou em um refratário.',
-                'Leve à geladeira por pelo menos 3 horas, até firmar.',
-                'Na hora de servir, cubra com a polpa do maracujá com sementes.',
-            ],
-            'dica'        => 'Quer mais firme? Bata por mais tempo: o ácido do maracujá ajuda a dar consistência.',
-        ],
-        [
-            'titulo'      => 'Beijinho',
-            'destaque'    => 'de coco',
-            'intro'       => 'O par perfeito do brigadeiro. Branquinho, perfumado e com o toque especial do cravo.',
-            'tempo'       => '30 min',
-            'rendimento'  => '25 unidades',
-            'nivel'       => 'Fácil',
-            'cor'         => 'rose',
-            'ingredientes'=> [
-                '1 lata de leite condensado',
-                '1 colher (sopa) de manteiga',
-                '50 g de coco ralado',
-                'Coco ralado para enrolar',
-                'Cravos-da-índia para decorar',
-            ],
-            'preparo'     => [
-                'Em uma panela, misture o leite condensado, a manteiga e o coco ralado.',
-                'Cozinhe em fogo baixo, mexendo sempre, até desgrudar do fundo da panela.',
-                'Passe para um prato untado e deixe esfriar.',
-                'Enrole bolinhas, passe no coco ralado e finalize com um cravo no topo.',
-            ],
-            'dica'        => 'Use coco ralado fresco ou úmido para um beijinho ainda mais macio.',
-        ],
-        [
-            'titulo'      => 'Brownie',
-            'destaque'    => 'de chocolate',
-            'intro'       => 'Casquinha crocante por cima e centro úmido e denso. Para os verdadeiros amantes de chocolate.',
-            'tempo'       => '45 min',
-            'rendimento'  => '16 quadrados',
-            'nivel'       => 'Médio',
-            'cor'         => 'choco',
-            'ingredientes'=> [
-                '200 g de chocolate meio amargo',
-                '150 g de manteiga',
-                '3 ovos',
-                '1 xícara (chá) de açúcar',
-                '1/2 xícara (chá) de farinha de trigo',
-                '1 pitada de sal',
-            ],
-            'preparo'     => [
-                'Derreta o chocolate com a manteiga em banho-maria ou no micro-ondas e misture bem.',
-                'Em outra tigela, bata os ovos com o açúcar até clarear. Junte o chocolate derretido.',
-                'Incorpore a farinha e o sal delicadamente, sem bater demais.',
-                'Asse em forma de 20 x 20 cm forrada com papel-manteiga, a 180 °C, por cerca de 25 minutos.',
-            ],
-            'dica'        => 'Tire do forno quando o centro ainda estiver levemente úmido: ele termina de firmar ao esfriar.',
-        ],
-    ];
+    $receitas = \App\Models\Receita::ativas()->map->paraLivro()->values()->all();
 
-    $coresReceita = ['rose' => '#b94e5c', 'gold' => '#b8893f', 'choco' => '#6b3a2a'];
+    $coresReceita = array_map(fn ($c) => $c[1], \App\Models\Receita::CORES);
     $totalReceitas = count($receitas);
     $receitaDoDia = $totalReceitas ? now()->dayOfYear % $totalReceitas : 0;
 @endphp
+
+@if ($totalReceitas)
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
@@ -336,9 +191,9 @@
     <div class="fsr__glow"></div>
 
     <div class="fsr__head">
-        <span class="fsr__eyebrow" data-reveal>Do nosso caderno</span>
-        <h2 class="fsr__title" data-reveal style="--d:.1s">Receitas <em>para você</em></h2>
-        <p class="fsr__sub" data-reveal style="--d:.2s">Todo dia o nosso livro abre em uma receita nova, direto do caderno da família. Vire as páginas e volte amanhã para descobrir a próxima!</p>
+        <span class="fsr__eyebrow" data-reveal>{{ conteudo('home.receitas.selo') }}</span>
+        <h2 class="fsr__title" data-reveal style="--d:.1s">{{ conteudo_html('home.receitas.titulo') }}</h2>
+        <p class="fsr__sub" data-reveal style="--d:.2s">{{ conteudo_html('home.receitas.texto') }}</p>
     </div>
 
     <div class="fsr__stage" data-reveal style="--d:.25s">
@@ -367,30 +222,30 @@
         </button>
         <button type="button" class="fsr__btn fsr__btn--main" data-today-btn>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            Receita do dia
+            {{ conteudo('home.receitas.botao_dia') }}
         </button>
         <button type="button" class="fsr__btn fsr__btn--shuffle" data-random>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
-            Surpreenda-me
+            {{ conteudo('home.receitas.botao_sorteio') }}
         </button>
     </div>
-    <p class="fsr__hint">Dica: clique no canto da página ou arraste para o lado para virar.</p>
+    <p class="fsr__hint">{{ conteudo('home.receitas.dica') }}</p>
 
     {{-- Conteúdo de cada receita (usado pelo livro) --}}
     @foreach ($receitas as $i => $r)
         <template class="fsr__tpl" data-side="l" data-i="{{ $i }}">
             <div class="fsr__rc" style="--rc:{{ $coresReceita[$r['cor']] ?? '#b94e5c' }}">
                 @if ($i === $receitaDoDia)
-                    <span class="fsr__tag fsr__tag--today"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>Receita do dia</span>
+                    <span class="fsr__tag fsr__tag--today"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>{{ conteudo('home.receitas.botao_dia') }}</span>
                 @else
-                    <span class="fsr__tag">Receita nº {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                    <span class="fsr__tag">{{ conteudo('home.receitas.numero') }} {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
                 @endif
                 <h3 class="fsr__rtitle">{{ $r['titulo'] }} <em>{{ $r['destaque'] }}</em></h3>
                 <p class="fsr__intro">{{ $r['intro'] }}</p>
                 <div class="fsr__meta">
-                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><small>Tempo</small><b>{{ $r['tempo'] }}</b></div>
-                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M5 21v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><path d="M5 17c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 2-1"/><path d="M12 13V9"/></svg><small>Rende</small><b>{{ $r['rendimento'] }}</b></div>
-                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg><small>Nível</small><b>{{ $r['nivel'] }}</b></div>
+                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><small>{{ conteudo('home.receitas.rotulo_tempo') }}</small><b>{{ $r['tempo'] }}</b></div>
+                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M5 21v-6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v6"/><path d="M5 17c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 2-1"/><path d="M12 13V9"/></svg><small>{{ conteudo('home.receitas.rotulo_rende') }}</small><b>{{ $r['rendimento'] }}</b></div>
+                    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg><small>{{ conteudo('home.receitas.rotulo_nivel') }}</small><b>{{ $r['nivel'] }}</b></div>
                 </div>
                 <svg class="fsr__illus" viewBox="0 0 160 100" aria-hidden="true">
                     <path class="steam" d="M62 30 C56 22 68 18 62 8"/>
@@ -402,7 +257,9 @@
                     <path d="M118 40 L146 6"/>
                     <path d="M140 10 C150 2 158 8 152 16 C146 22 138 18 140 10 Z"/>
                 </svg>
-                <div class="fsr__tip"><b>Dica da confeiteira</b><p>{{ $r['dica'] }}</p></div>
+                @if ($r['dica'])
+                    <div class="fsr__tip"><b>{{ conteudo('home.receitas.dica_titulo') }}</b><p>{{ $r['dica'] }}</p></div>
+                @endif
             </div>
             <span class="fsr__pnum">{{ ($i * 2) + 1 }}</span>
         </template>
@@ -410,7 +267,7 @@
         <template class="fsr__tpl" data-side="r" data-i="{{ $i }}">
             <div class="fsr__rc" style="--rc:{{ $coresReceita[$r['cor']] ?? '#b94e5c' }}">
                 <div class="fsr__scroll">
-                    <h4 class="fsr__h4">Ingredientes</h4>
+                    <h4 class="fsr__h4">{{ conteudo('home.receitas.rotulo_ingredientes') }}</h4>
                     <ul class="fsr__ing">
                         @foreach ($r['ingredientes'] as $ing)
                             @if (\Illuminate\Support\Str::startsWith($ing, '#'))
@@ -420,7 +277,7 @@
                             @endif
                         @endforeach
                     </ul>
-                    <h4 class="fsr__h4">Modo de preparo</h4>
+                    <h4 class="fsr__h4">{{ conteudo('home.receitas.rotulo_preparo') }}</h4>
                     <ol class="fsr__steps">
                         @foreach ($r['preparo'] as $passo)
                             <li>{{ $passo }}</li>
@@ -543,4 +400,5 @@
     root.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
 })();
 </script>
+@endif
 <!-- End Recipes Section -->

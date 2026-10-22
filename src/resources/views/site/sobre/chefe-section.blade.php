@@ -1,24 +1,25 @@
 <!-- Chef Section (redesign animado) -->
 @php
     /*
-     | DADOS DA CHEF
-     | ⚠️ Troque pelos dados reais antes de publicar.
-     | "numeros": deixe a lista vazia [] para esconder os contadores.
+     | DADOS DA CHEF — editados no painel (Conteúdo do Site → Páginas → Sobre → Chef).
+     | Número vazio não aparece; sem nenhum, os contadores somem.
      */
+    $numerosChef = [];
+    foreach ([1, 2, 3] as $n) {
+        if (!preg_match('/^\s*(\d+)\s*(.*)$/', conteudo("sobre.chef.numero{$n}"), $partes)) continue;
+        $numerosChef[] = ['valor' => (int) $partes[1], 'sufixo' => $partes[2], 'rotulo' => conteudo("sobre.chef.numero{$n}_texto")];
+    }
+
     $chef = [
-        'nome'       => 'Nome da Chef',
-        'cargo'      => 'Confeiteira-chefe e fundadora',
-        'frase'      => 'Cada doce que sai da minha cozinha leva um pedacinho do meu coração.',
-        'bio'        => 'Apaixonada por confeitaria desde a infância, aprendeu os primeiros segredos ao lado da avó. Hoje lidera a nossa cozinha unindo receitas de família, técnicas modernas e muito carinho para criar doces que marcam momentos.',
-        'assinatura' => 'Nome da Chef',
-        'foto'       => 'chefe.png',
-        'numeros'    => [
-            ['valor' => 15,   'sufixo' => '+', 'rotulo' => 'Anos de experiência'],
-            ['valor' => 5000, 'sufixo' => '+', 'rotulo' => 'Bolos entregues'],
-            ['valor' => 100,  'sufixo' => '%', 'rotulo' => 'Feito à mão'],
-        ],
-        'botao_texto' => 'Faça sua encomenda',
-        'botao_link'  => '#', // troque pelo link do WhatsApp ou da página de contato
+        'nome'        => conteudo('sobre.chef.nome'),
+        'cargo'       => conteudo('sobre.chef.cargo'),
+        'frase'       => conteudo('sobre.chef.frase'),
+        'bio'         => conteudo('sobre.chef.bio'),
+        'assinatura'  => conteudo('sobre.chef.assinatura'),
+        'foto'        => conteudo_img('sobre.chef.foto'),
+        'numeros'     => $numerosChef,
+        'botao_texto' => conteudo('sobre.chef.botao_texto'),
+        'botao_link'  => conteudo_link('sobre.chef.botao_link'),
     ];
 @endphp
 
@@ -140,7 +141,7 @@
                 <span class="fch__planet"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg></span>
                 <span class="fch__planet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13h12l-1.5 8h-9z"/><path d="M5 13c-1.5 0-2-2.5 0-3.5C4.5 6 8 5 9.5 7c.5-3 5.5-3 6 0 1.5-2 5-1 4.5 2.5 2 1 1.5 3.5 0 3.5"/></svg></span>
             </div>
-            <div class="fch__photo"><img src="{{ asset('davilla/IMG/' . $chef['foto']) }}" alt="{{ $chef['nome'] }}, {{ $chef['cargo'] }}"></div>
+            <div class="fch__photo"><img src="{{ $chef['foto'] }}" alt="{{ $chef['nome'] }}, {{ $chef['cargo'] }}"></div>
             <div class="fch__badge" aria-hidden="true">
                 <svg class="txt" viewBox="0 0 100 100">
                     <defs><path id="fchCircle" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
@@ -152,7 +153,7 @@
 
         <!-- Texto -->
         <div class="fch__content">
-            <span class="fch__eyebrow" data-reveal>Conheça a chef</span>
+            <span class="fch__eyebrow" data-reveal>{{ conteudo('sobre.chef.selo') }}</span>
             <h2 class="fch__name" data-reveal style="--d:.1s">{{ $chef['nome'] }}</h2>
             <span class="fch__role" data-reveal style="--d:.15s">{{ $chef['cargo'] }}</span>
 

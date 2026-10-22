@@ -17,14 +17,20 @@
     ])->all();
 
     // Regras gerais (aparecem no topo e nas perguntas frequentes)
-    $pedidoMinimo   = 30;                      // valor mínimo do pedido para entrega (0 = sem mínimo)
-    $horarioEntrega = 'Terça a sábado, das 9h às 18h';
+    // Editadas no painel (Conteúdo do Site → Páginas → Região)
+    $pedidoMinimo   = (float) str_replace(',', '.', conteudo('regiao.consulta.pedido_minimo')); // 0 = sem mínimo
+    $horarioEntrega = conteudo('regiao.consulta.horario');
 
     $numeroWhats = preg_replace('/\D/', '', $loja['whatsapp'] ?? '');
     $enderecoLoja = trim(($loja['endereco'] ?? '') . ', ' . ($loja['bairro'] ?? '') . ', ' . ($loja['cidade'] ?? ''), ', ');
     $linkRota = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurlencode($loja['mapa'] ?? $enderecoLoja);
     $formatar = fn ($v) => $v > 0 ? 'R$ ' . number_format($v, 2, ',', '.') : 'Grátis';
     $coresZona = array_map(fn ($c) => $c[1], \App\Models\ZonaEntrega::CORES);
+    // Mensagens do resultado da consulta de CEP (usadas no script do fim da página)
+    $mensagensCep = [];
+    foreach (array_keys(config('conteudo.regiao.secoes.mensagens.campos', [])) as $chave) {
+        $mensagensCep[\Illuminate\Support\Str::afterLast($chave, '.')] = conteudo($chave);
+    }
     $zonasJs = array_map(fn ($z) => [
         'id' => $z['id'], 'nome' => $z['nome'], 'taxa' => $formatar($z['taxa']), 'prazo' => $z['prazo'],
     ], $zonas);
@@ -251,13 +257,13 @@
         {{-- Verificador de CEP --}}
         <div class="frg__hero">
             <div>
-                <span class="frg__eyebrow" data-reveal>Área de entrega</span>
-                <h2 class="frg__h2" data-reveal style="--d:.08s">Será que a gente <em>chega até você?</em></h2>
-                <p class="frg__lead" data-reveal style="--d:.16s">Digite seu CEP e descubra na hora se entregamos no seu endereço, quanto custa e em quanto tempo seu pedido chega.</p>
+                <span class="frg__eyebrow" data-reveal>{{ conteudo('regiao.consulta.selo') }}</span>
+                <h2 class="frg__h2" data-reveal style="--d:.08s">{{ conteudo_html('regiao.consulta.titulo') }}</h2>
+                <p class="frg__lead" data-reveal style="--d:.16s">{{ conteudo_html('regiao.consulta.texto') }}</p>
 
                 <div class="frg__check" data-reveal style="--d:.24s">
                     <form class="frg__form" novalidate>
-                        <label for="frg-cep">Qual é o seu CEP?</label>
+                        <label for="frg-cep">{{ conteudo('regiao.consulta.pergunta_cep') }}</label>
                         <div class="frg__field">
                             <div class="frg__input">
                                 <input type="text" id="frg-cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" maxlength="9">
@@ -322,11 +328,11 @@
         {{-- Zonas --}}
         <div class="frg__zones-head" id="frg-zonas">
             <div>
-                <span class="frg__eyebrow" data-reveal>Bairros atendidos</span>
-                <h2 class="frg__h2" data-reveal style="--d:.08s">Nossas <em>zonas de entrega</em></h2>
+                <span class="frg__eyebrow" data-reveal>{{ conteudo('regiao.zonas.selo') }}</span>
+                <h2 class="frg__h2" data-reveal style="--d:.08s">{{ conteudo_html('regiao.zonas.titulo') }}</h2>
             </div>
             <label class="frg__filter" data-reveal style="--d:.16s">
-                <input type="search" placeholder="Procurar bairro..." aria-label="Procurar bairro">
+                <input type="search" placeholder="{{ conteudo('regiao.zonas.busca') }}" aria-label="Procurar bairro">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
             </label>
         </div>
@@ -356,25 +362,25 @@
         <div class="frg__alt">
             <div class="frg__card frg__card--store" id="frg-retirada" data-reveal>
                 <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0z"/><path d="M5 13v8h14v-8"/><path d="M10 21v-4h4v4"/></svg></span>
-                <h3>Prefere retirar?</h3>
-                <p>Faça seu pedido e retire na nossa loja, sem taxa de entrega. Seu doce fica separado e embalado esperando por você.</p>
+                <h3>{{ conteudo('regiao.alternativas.retirar_titulo') }}</h3>
+                <p>{{ conteudo('regiao.alternativas.retirar_texto') }}</p>
                 <div class="addr">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.8 7-13a7 7 0 0 0-14 0c0 5.2 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
                     <span>{{ $enderecoLoja }}</span>
                 </div>
                 <a href="{{ $linkRota }}" target="_blank" rel="noopener" class="frg__btn frg__btn--alt">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8z"/></svg>
-                    Como chegar
+                    {{ conteudo('regiao.alternativas.retirar_botao') }}
                 </a>
             </div>
             <div class="frg__card frg__card--far" data-reveal style="--d:.12s">
                 <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="13" height="10" rx="1"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="5.5" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg></span>
-                <h3>Mora mais longe?</h3>
-                <p>Para encomendas grandes, festas e eventos, avaliamos entregas fora das nossas zonas. Fale com a gente e conte onde é a sua celebração.</p>
+                <h3>{{ conteudo('regiao.alternativas.longe_titulo') }}</h3>
+                <p>{{ conteudo('regiao.alternativas.longe_texto') }}</p>
                 @if ($numeroWhats)
-                    <a href="https://wa.me/{{ $numeroWhats }}?text={{ rawurlencode('Olá! Gostaria de saber se vocês entregam no meu endereço.') }}" target="_blank" rel="noopener" class="frg__btn frg__btn--wa">
+                    <a href="https://wa.me/{{ $numeroWhats }}?text={{ rawurlencode(conteudo('regiao.alternativas.longe_mensagem')) }}" target="_blank" rel="noopener" class="frg__btn frg__btn--wa">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
-                        Consultar pelo WhatsApp
+                        {{ conteudo('regiao.alternativas.longe_botao') }}
                     </a>
                 @endif
             </div>
@@ -382,16 +388,16 @@
 
         {{-- Perguntas frequentes --}}
         <div class="frg__faq" id="frg-faq">
-            <span class="frg__eyebrow" data-reveal style="display:flex;justify-content:center">Dúvidas sobre a entrega</span>
-            <h2 class="frg__h2" data-reveal style="--d:.08s">Perguntas <em>frequentes</em></h2>
+            <span class="frg__eyebrow" data-reveal style="display:flex;justify-content:center">{{ conteudo('regiao.faq.selo') }}</span>
+            <h2 class="frg__h2" data-reveal style="--d:.08s">{{ conteudo_html('regiao.faq.titulo') }}</h2>
             @php
-                $perguntas = [
-                    ['Em quais dias e horários vocês entregam?', 'Entregamos ' . mb_strtolower($horarioEntrega) . '. Na hora do pedido, combinamos com você o melhor horário dentro desse período.'],
-                    ['Tem pedido mínimo para entrega?', $pedidoMinimo > 0 ? 'Sim, o pedido mínimo para entrega é de ' . $formatar($pedidoMinimo) . '. Para retirada na loja não há valor mínimo.' : 'Não, você pode pedir qualquer quantidade.'],
-                    ['Como os doces são transportados?', 'Os doces vão em embalagens próprias, bem protegidos, para chegarem bonitos e na temperatura certa. Bolos decorados são entregues com cuidado redobrado.'],
-                    ['Posso agendar a entrega para outro dia?', 'Pode, sim. Para bolos de festa e encomendas personalizadas, recomendamos pedir com antecedência para garantir a data que você precisa.'],
-                    ['Meu bairro não está na lista. E agora?', 'Fale com a gente pelo WhatsApp. Dependendo do tamanho do pedido, avaliamos a entrega. Você também pode retirar na loja sem taxa.'],
-                ];
+                // {horario} e {pedido_minimo} são trocados pelos valores da seção "Consulta de CEP"
+                $trocas = ['{horario}' => mb_strtolower($horarioEntrega), '{pedido_minimo}' => $formatar($pedidoMinimo)];
+                $perguntas = [];
+                foreach ([1, 2, 3, 4, 5] as $n) {
+                    if (conteudo("regiao.faq.pergunta{$n}") === '') continue;
+                    $perguntas[] = [conteudo("regiao.faq.pergunta{$n}"), strtr(conteudo("regiao.faq.resposta{$n}"), $trocas)];
+                }
             @endphp
             @foreach ($perguntas as $pq)
                 <div class="frg__q" data-reveal style="--d:{{ $loop->index * 0.06 }}s">
@@ -467,26 +473,33 @@
     var icWa = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.9 1.9 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>';
     function waLink(msg) { return 'https://wa.me/' + whats + '?text=' + encodeURIComponent(msg); }
 
+    // Mensagens editadas no painel (Conteúdo do Site → Páginas → Região → Mensagens da consulta)
+    var T = @json($mensagensCep);
+    // Texto do painel com {endereco} trocado (sem HTML: escapa tudo)
+    function t(chave, endereco) { return esc((T[chave] || '').split('{endereco}').join(endereco || '')); }
+    function erroMsg(titulo, texto) { return icErr + '<div><h4>' + t(titulo) + '</h4><p>' + t(texto) + '</p></div>'; }
+
     // z: zona encontrada ({nome, taxa, prazo}) ou null; zi: posição dela na página; km: distância até a loja
     function resultado(z, zi, bairro, cidade, cep, km) {
         var onde = (bairro ? esc(bairro) + (cidade ? ' · ' + esc(cidade) : '') : 'seu endereço') +
             (km != null ? ' · cerca de ' + String(km).replace('.', ',') + ' km da loja' : '');
+        var endereco = (bairro || '') + (cep ? ' (CEP ' + cep + ')' : '');
         highlight(z ? zi : -1);
         if (z) {
-            show('ok', icOk + '<div style="flex:1"><h4>Oba! Entregamos em ' + esc(bairro || 'seu endereço') + '</h4><p>' + onde + '</p>' +
+            show('ok', icOk + '<div style="flex:1"><h4>' + t('ok_titulo', bairro || 'seu endereço') + '</h4><p>' + onde + '</p>' +
                 '<div class="frg__stats"><span><small>Zona</small><b>' + esc(z.nome) + '</b></span><span><small>Taxa</small><b>' + esc(z.taxa) + '</b></span><span><small>Prazo</small><b>' + esc(z.prazo) + '</b></span></div>' +
-                (whats ? '<div class="frg__res-act"><a class="frg__btn frg__btn--wa" target="_blank" rel="noopener" href="' + waLink('Olá! Quero fazer um pedido para entrega em ' + (bairro || '') + (cep ? ' (CEP ' + cep + ')' : '') + '.') + '">' + icWa + 'Fazer meu pedido</a></div>' : '') + '</div>');
+                (whats ? '<div class="frg__res-act"><a class="frg__btn frg__btn--wa" target="_blank" rel="noopener" href="' + waLink((T.ok_whatsapp || '').split('{endereco}').join(endereco)) + '">' + icWa + t('ok_botao') + '</a></div>' : '') + '</div>');
         } else {
-            show('no', icNo + '<div style="flex:1"><h4>Ainda não entregamos aí</h4><p>' + onde + '. Mas não fique sem seu doce: você pode retirar na loja ou falar com a gente para encomendas maiores.</p>' +
-                '<div class="frg__res-act">' + (whats ? '<a class="frg__btn frg__btn--wa" target="_blank" rel="noopener" href="' + waLink('Olá! Vocês entregam em ' + (bairro || '') + (cep ? ' (CEP ' + cep + ')' : '') + '?') + '">' + icWa + 'Consultar exceção</a>' : '') +
-                '<a class="frg__btn frg__btn--alt" href="#frg-retirada">Retirar na loja</a></div></div>');
+            show('no', icNo + '<div style="flex:1"><h4>' + t('nao_titulo') + '</h4><p>' + onde + '. ' + t('nao_texto') + '</p>' +
+                '<div class="frg__res-act">' + (whats ? '<a class="frg__btn frg__btn--wa" target="_blank" rel="noopener" href="' + waLink((T.nao_whatsapp || '').split('{endereco}').join(endereco)) + '">' + icWa + t('nao_botao') + '</a>' : '') +
+                '<a class="frg__btn frg__btn--alt" href="#frg-retirada">' + t('nao_retirar') + '</a></div></div>');
         }
     }
 
     var busy = false, lastCep = '';
     function consultar() {
         var cep = input.value.replace(/\D/g, '');
-        if (cep.length !== 8) { show('err', icErr + '<div><h4>CEP incompleto</h4><p>Digite os 8 números do seu CEP.</p></div>'); highlight(-1); return; }
+        if (cep.length !== 8) { show('err', erroMsg('incompleto_titulo', 'incompleto_texto')); highlight(-1); return; }
         if (busy || cep === lastCep) return;
         busy = true; lastCep = cep; go.classList.add('is-loading');
         var ctrl = 'AbortController' in window ? new AbortController() : null;
@@ -498,18 +511,17 @@
             .then(function (r) { if (!r.ok) throw r.status; return r.json(); })
             .then(function (d) {
                 if (d.status === 'cep_invalido') {
-                    show('err', icErr + '<div><h4>CEP não encontrado</h4><p>Confira os números ou escolha seu bairro na lista abaixo.</p></div>');
+                    show('err', erroMsg('invalido_titulo', 'invalido_texto'));
                     highlight(-1); lastCep = ''; return;
                 }
                 if (d.status === 'indefinido') {
-                    show('err', icErr + '<div><h4>Não conseguimos confirmar seu endereço</h4><p>Escolha seu bairro na lista abaixo ou fale com a gente pelo WhatsApp.</p></div>');
+                    show('err', erroMsg('indefinido_titulo', 'indefinido_texto'));
                     highlight(-1); lastCep = ''; return;
                 }
                 resultado(d.zona, d.zona ? zoneIndex(d.zona.id) : -1, d.bairro || '', d.cidade || '', d.cep, d.distancia_km);
             })
             .catch(function (erro) {
-                var msg = erro === 429 ? 'Muitas consultas seguidas. Espere um minutinho e tente de novo.' : 'Escolha seu bairro na lista abaixo ou fale com a gente pelo WhatsApp.';
-                show('err', icErr + '<div><h4>Não conseguimos consultar agora</h4><p>' + msg + '</p></div>');
+                show('err', erroMsg('falha_titulo', erro === 429 ? 'falha_limite' : 'falha_texto'));
                 highlight(-1); lastCep = '';
             })
             .then(function () { clearTimeout(timer); busy = false; go.classList.remove('is-loading'); });

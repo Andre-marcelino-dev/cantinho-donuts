@@ -112,9 +112,9 @@
     <div class="fsp__blob fsp__blob--2"></div>
 
     <div class="fsp__head">
-        <span class="fsp__eyebrow" data-reveal>Nossa vitrine</span>
-        <h2 class="fsp__title" data-reveal style="--d:.1s">Nossos <em>doces trabalhos</em></h2>
-        <p class="fsp__sub" data-reveal style="--d:.2s">Cada criação é feita à mão, com carinho e ingredientes selecionados. Escolha o seu favorito.</p>
+        <span class="fsp__eyebrow" data-reveal>{{ conteudo('home.vitrine.selo') }}</span>
+        <h2 class="fsp__title" data-reveal style="--d:.1s">{{ conteudo_html('home.vitrine.titulo') }}</h2>
+        <p class="fsp__sub" data-reveal style="--d:.2s">{{ conteudo_html('home.vitrine.texto') }}</p>
     </div>
 
     @if ($categoriasVitrine->count() > 1)
@@ -145,7 +145,7 @@
                             <span class="fsp__cat">{{ $linha->descricao_categoria }}</span>
                         @endif
                         <h3 class="fsp__name">{{ $linha->nome_produto }}</h3>
-                        <span class="fsp__more">Ver detalhes
+                        <span class="fsp__more">{{ conteudo('home.vitrine.botao') }}
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                         </span>
                     </div>
@@ -153,7 +153,7 @@
             </div>
         @endforeach
     </div>
-    <p class="fsp__empty">Nenhum doce nesta categoria no momento.</p>
+    <p class="fsp__empty">{{ conteudo('home.vitrine.vazio') }}</p>
 </section>
 
 <script>

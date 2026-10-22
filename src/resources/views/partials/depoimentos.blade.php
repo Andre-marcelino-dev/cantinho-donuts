@@ -1,7 +1,7 @@
 {{-- Depoimentos aprovados no painel (Conteúdo do Site → Depoimentos).
      Usado na Home e na página Sobre. $depoimentosSite vem do AppServiceProvider. --}}
 @php
-    $fundoDepoimentos = asset('davilla/IMG/banner3.png');
+    $fundoDepoimentos = conteudo_img('geral.depoimentos.imagem_fundo');
 
     $totalDepo = $depoimentosSite->count();
     $mediaDepo = $totalDepo ? round($depoimentosSite->avg(fn ($d) => max(1, min(5, (int) $d->nota_depoimento))), 1) : 0;
@@ -128,9 +128,9 @@
     <div class="fst__blob fst__blob--2"></div>
 
     <div class="fst__head">
-        <span class="fst__eyebrow" data-reveal>Depoimentos</span>
-        <h2 class="fst__title" data-reveal style="--d:.1s">O que nossos <em>clientes dizem</em></h2>
-        <p class="fst__sub" data-reveal style="--d:.2s">Avaliações reais enviadas por quem já provou, pelo app The Gusta.</p>
+        <span class="fst__eyebrow" data-reveal>{{ conteudo('geral.depoimentos.selo') }}</span>
+        <h2 class="fst__title" data-reveal style="--d:.1s">{{ conteudo_html('geral.depoimentos.titulo') }}</h2>
+        <p class="fst__sub" data-reveal style="--d:.2s">{{ conteudo_html('geral.depoimentos.texto') }}</p>
 
         @if ($totalDepo > 0)
             <div class="fst__summary" data-reveal style="--d:.3s">
@@ -150,10 +150,10 @@
     @if ($depoimentosSite->isEmpty())
         <div class="fst__empty" data-reveal>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
-            <p>Ainda não temos depoimentos publicados. Fez um pedido com a gente? Conte como foi!</p>
+            <p>{{ conteudo('geral.depoimentos.vazio') }}</p>
             <a href="{{ $loja['app_url'] }}" target="_blank" rel="noopener" class="fst__cta">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg>
-                Avaliar pelo app
+                {{ conteudo('geral.depoimentos.botao_vazio') }}
             </a>
         </div>
     @else
@@ -187,7 +187,7 @@
                             </span>
                             <span>
                                 <span class="fst__name">{{ $nomeCurto }}</span>
-                                <span class="fst__verified">Cliente verificado · App The Gusta</span>
+                                <span class="fst__verified">{{ conteudo('geral.depoimentos.verificado') }}</span>
                             </span>
                         </div>
                     </article>
@@ -225,7 +225,7 @@
 
             <a href="{{ $loja['app_url'] }}" target="_blank" rel="noopener" class="fst__cta">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg>
-                Deixe também a sua avaliação
+                {{ conteudo('geral.depoimentos.botao') }}
             </a>
         </div>
     @endif

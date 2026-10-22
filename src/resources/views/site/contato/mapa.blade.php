@@ -113,9 +113,9 @@
         <div class="fmp__card">
             <span class="fmp__eyebrow">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-7.8 7-13a7 7 0 0 0-14 0c0 5.2 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
-                Onde estamos
+                {{ conteudo('contato.mapa.selo') }}
             </span>
-            <h2 class="fmp__title">Venha nos <em>visitar</em></h2>
+            <h2 class="fmp__title">{{ conteudo_html('contato.mapa.titulo') }}</h2>
 
             <div class="fmp__addr">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
@@ -128,7 +128,7 @@
             <div class="fmp__btns">
                 <a href="{{ $linkRota }}" target="_blank" rel="noopener" class="fmp__btn fmp__btn--main">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8z"/></svg>
-                    Traçar rota
+                    {{ conteudo('contato.mapa.botao_rota') }}
                 </a>
                 <a href="{{ $linkWaze }}" target="_blank" rel="noopener" class="fmp__btn fmp__btn--alt">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-16 0c0 2 .6 3.4 1.6 4.4-.3 1.4-1 2.3-2.1 2.6 1.6.9 3.6.6 5-.6a9 9 0 0 0 3.5.6A8 8 0 0 0 20 11z"/><circle cx="9" cy="10" r=".8" fill="currentColor"/><circle cx="15" cy="10" r=".8" fill="currentColor"/><path d="M9.5 13.5c1.4 1 3.6 1 5 0"/></svg>
@@ -142,7 +142,7 @@
 
             <p class="fmp__hint">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 1 1 4 0v5"/><path d="M13 9.5a2 2 0 1 1 4 0V11"/><path d="M17 10.5a2 2 0 1 1 4 0V15a7 7 0 0 1-7 7h-1.6a6 6 0 0 1-4.6-2.2L4.3 16a2 2 0 0 1 3-2.6L9 15"/></svg>
-                Clique no mapa para mover e dar zoom
+                {{ conteudo('contato.mapa.dica') }}
             </p>
         </div>
     </div>
