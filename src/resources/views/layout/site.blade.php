@@ -41,5 +41,6 @@
     @include('partials.script')
     @stack('plugins')
     <script src="{{asset('davilla/js/script.js')}}"></script>
+    <script src="{{asset('xyzcode/menu-mobile.js')}}"></script>
 </body>
 </html>
