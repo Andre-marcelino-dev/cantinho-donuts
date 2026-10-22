@@ -35,4 +35,4 @@ Thumbs.db
 /src/public/build/
 
 # Metadados que o Windows cria ao copiar arquivos baixados
-*:Zone.Identifier
+*Zone.Identifier
