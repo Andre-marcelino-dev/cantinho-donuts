@@ -33,3 +33,6 @@ Thumbs.db
 # Dependências e build do front (ficam só no computador; o site no ar não usa)
 /src/node_modules/
 /src/public/build/
+
+# Metadados que o Windows cria ao copiar arquivos baixados
+*:Zone.Identifier
