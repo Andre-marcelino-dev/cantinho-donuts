@@ -22,7 +22,7 @@
                                     <div class="avatar-preview d-flex align-items-center justify-content-center border rounded bg-white"
                                         style="width: 70px; height: 70px; margin: 0 auto; overflow: hidden;">
                                         @if ($linha->foto_cliente)
-                                     <img src="{{ asset('davilla/images/cliente/' . $linha->foto_cliente) }}"
+                                     <img src="{{ asset('donuts/images/cliente/' . $linha->foto_cliente) }}"
                                         @else
                                             <i class="bi bi-person text-secondary" style="font-size: 2rem;"></i>
                                         @endif

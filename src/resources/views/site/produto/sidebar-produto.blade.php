@@ -1,7 +1,7 @@
 <!-- Página do produto (redesign animado) -->
 @php
     $valorProduto   = (float) $produto->valor_produto;
-    $fotoProduto    = asset('davilla/images/' . $produto->foto_produto);
+    $fotoProduto    = asset('donuts/images/' . $produto->foto_produto);
     $categoriaNome  = $produto->CategoriaProduto->nome_categoria ?? null;
     $numeroWhats    = preg_replace('/\D/', '', $whatsapp ?? ($loja['whatsapp'] ?? ''));
     $depoimentosLoja = isset($depoimentosSite) ? $depoimentosSite->take(3) : collect();
@@ -331,7 +331,7 @@
                     @foreach ($produtosRelacionados as $relacionado)
                         <div data-reveal style="--d:{{ ($loop->index % 3) * 0.1 }}s">
                             <a href="{{ route('cardapio.produto', $relacionado->slug_produto) }}" class="fps__card">
-                                <div class="img"><img src="{{ asset('davilla/images/' . $relacionado->foto_produto) }}" alt="{{ $relacionado->nome_produto }}" loading="lazy"></div>
+                                <div class="img"><img src="{{ asset('donuts/images/' . $relacionado->foto_produto) }}" alt="{{ $relacionado->nome_produto }}" loading="lazy"></div>
                                 <div class="bd">
                                     <h3>{{ $relacionado->nome_produto }}</h3>
                                     @if ($relacionado->descricao_produto)

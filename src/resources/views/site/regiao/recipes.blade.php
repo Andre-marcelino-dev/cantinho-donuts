@@ -3,7 +3,7 @@
     /*
      | RECEITAS
      | Para adicionar uma receita, copie um bloco [ ... ] e altere os textos.
-     | - foto: arquivo dentro de public/davilla/regiao-img/
+     | - foto: arquivo dentro de public/donuts/regiao-img/
      | - minutos: tempo total aproximado (usado para ordenar "Mais rápidas")
      | - em "ingredientes", uma linha que começa com # vira subtítulo (ex.: '# Cobertura')
      */
@@ -353,7 +353,7 @@
                 data-name="{{ \Illuminate\Support\Str::lower(\Illuminate\Support\Str::ascii($r['titulo'] . ' ' . $r['categoria'] . ' ' . implode(' ', $r['ingredientes']))) }}"
                 data-title="{{ \Illuminate\Support\Str::lower(\Illuminate\Support\Str::ascii($r['titulo'])) }}">
                 <button type="button" class="frl__card" data-open="{{ $i }}" aria-label="Ver receita: {{ $r['titulo'] }}">
-                    <img src="{{ asset('davilla/regiao-img/' . $r['foto']) }}" alt="" loading="lazy">
+                    <img src="{{ asset('donuts/regiao-img/' . $r['foto']) }}" alt="" loading="lazy">
                     <span class="frl__lvl"><i>@for ($n = 1; $n <= 3; $n++)<b class="{{ $n <= $nivelN ? 'on' : '' }}"></b>@endfor</i>{{ $r['nivel'] }}</span>
                     <span class="frl__time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ $r['tempo'] }}</span>
                     <span class="frl__cap">
@@ -382,7 +382,7 @@
     @foreach ($receitas as $i => $r)
         <template class="frl__tpl" data-i="{{ $i }}" data-slug="{{ \Illuminate\Support\Str::slug($r['titulo']) }}" data-title="{{ $r['titulo'] }}">
             <div class="frl__hero">
-                <img src="{{ asset('davilla/regiao-img/' . $r['foto']) }}" alt="{{ $r['titulo'] }}">
+                <img src="{{ asset('donuts/regiao-img/' . $r['foto']) }}" alt="{{ $r['titulo'] }}">
                 <div class="frl__hero-in">
                     <span class="frl__cat">{{ $r['categoria'] }}</span>
                     <h2>{{ $r['titulo'] }}</h2>

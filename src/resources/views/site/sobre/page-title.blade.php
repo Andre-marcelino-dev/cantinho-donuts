@@ -5,7 +5,7 @@
         @include('partials.page-title', [
             'titulo'    => 'Sobre nós',
             'subtitulo' => 'Conheça a nossa história',              // opcional
-            'fundo'     => asset('davilla/IMG/banner3.png'),        // opcional
+            'fundo'     => asset('donuts/IMG/banner3.png'),        // opcional
         ])
 
     Sem parâmetros, mostra "Sobre nós".

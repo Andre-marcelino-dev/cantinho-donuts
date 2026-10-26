@@ -57,7 +57,7 @@ class ProdutoController extends Controller
         if ($request->hasFile('foto_produto')) {
             $arquivo = $request->file('foto_produto');
             $nomeFoto = $request->slug_produto . '.' . $arquivo->getClientOriginalExtension();
-            $arquivo->move(public_path('davilla/images/produto'), $nomeFoto);
+            $arquivo->move(public_path('donuts/images/produto'), $nomeFoto);
             $caminhoFoto = 'produto/' . $nomeFoto;
         }
 
@@ -99,7 +99,7 @@ class ProdutoController extends Controller
         if ($request->hasFile('foto_produto')) {
             $nomeFoto = time() . '.' . $request->foto_produto->extension();
             $request->foto_produto->move(
-                public_path('davilla/images'),
+                public_path('donuts/images'),
                 $nomeFoto
             );
             $produto->foto_produto = $nomeFoto;
@@ -121,8 +121,8 @@ class ProdutoController extends Controller
             DB::table('tbl_itens_kit')->where('id_produto', $id)->delete();
 
             // 2. Tenta remover a foto física do servidor
-            if ($produto->foto_produto && file_exists(public_path('davilla/images/' . $produto->foto_produto))) {
-                unlink(public_path('davilla/images/' . $produto->foto_produto));
+            if ($produto->foto_produto && file_exists(public_path('donuts/images/' . $produto->foto_produto))) {
+                unlink(public_path('donuts/images/' . $produto->foto_produto));
             }
 
             // 3. Deleta o produto de fato

@@ -44,7 +44,7 @@ class ClienteController extends Controller
 
         if ($request->hasFile('foto_cliente') && $request->file('foto_cliente')->isValid()) {
             $nomeArquivo = time() . '_' . $request->file('foto_cliente')->getClientOriginalName();
-            $request->file('foto_cliente')->move(public_path('davilla/images/cliente'), $nomeArquivo);
+            $request->file('foto_cliente')->move(public_path('donuts/images/cliente'), $nomeArquivo);
             $dados['foto_cliente'] = $nomeArquivo;
         }
 
@@ -81,7 +81,7 @@ class ClienteController extends Controller
 
         if ($request->hasFile('foto_cliente') && $request->file('foto_cliente')->isValid()) {
             $nomeArquivo = time() . '_' . $request->file('foto_cliente')->getClientOriginalName();
-            $request->file('foto_cliente')->move(public_path('davilla/images/cliente'), $nomeArquivo);
+            $request->file('foto_cliente')->move(public_path('donuts/images/cliente'), $nomeArquivo);
             $cliente->foto_cliente = $nomeArquivo;
         }
 

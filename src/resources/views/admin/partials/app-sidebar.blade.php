@@ -8,11 +8,11 @@
         {{--
             <img
                 src="{{ asset('dash/assets/img/AdminLTELogo.png') }}"
-        alt="DaVilla Logo"
+        alt="Cantinho Donuts Logo"
         class="brand-image opacity-75 shadow">
         --}}
 
-        <span class="brand-text fw-light">DaVilla Admin</span>
+        <span class="brand-text fw-light">Cantinho Donuts Admin</span>
       </a>
     </div>
 

@@ -52,7 +52,7 @@
 
                                         {{-- Imagem clicável --}}
                                         <td>
-                                            <img src="{{ asset('davilla/images/' . $linha->foto_produto) }}" width="80"
+                                            <img src="{{ asset('donuts/images/' . $linha->foto_produto) }}" width="80"
                                                 style="cursor:pointer; border-radius: 6px;" data-bs-toggle="modal"
                                                 data-bs-target="#modalVerProduto{{ $linha->id_produto }}">
                                         </td>
@@ -116,7 +116,7 @@
                                                 <div class="modal-body">
                                                     <div class="row align-items-center">
                                                         <div class="col-md-5 text-center">
-                                                            <img src="{{ asset('davilla/images/' . $linha->foto_produto) }}"
+                                                            <img src="{{ asset('donuts/images/' . $linha->foto_produto) }}"
                                                                 alt="{{ $linha->nome_produto }}"
                                                                 class="img-fluid rounded shadow img-modal-fade">
                                                         </div>
@@ -280,7 +280,7 @@
 
                                                             <div class="mb-3">
                                                                 <label class="form-label">Foto atual</label><br>
-                                                                <img src="{{ asset('davilla/images/' . $linha->foto_produto) }}"
+                                                                <img src="{{ asset('donuts/images/' . $linha->foto_produto) }}"
                                                                     width="80" class="mb-2 rounded">
                                                                 <input type="file" class="form-control"
                                                                     name="foto_produto" accept="image/*">
@@ -317,7 +317,7 @@
                                                 <div class="modal-body p-4 text-center">
                                                     <p class="text-muted mb-2">Você tem certeza que deseja remover o produto:</p>
                                                     <h5 class="fw-bold text-dark mb-3">{{ $linha->nome_produto }}</h5>
-                                                    <img src="{{ asset('davilla/images/' . $linha->foto_produto) }}" width="70" class="mb-4 rounded shadow-sm">
+                                                    <img src="{{ asset('donuts/images/' . $linha->foto_produto) }}" width="70" class="mb-4 rounded shadow-sm">
                                                     
                                                     <div class="alert alert-warning border-0 small text-start d-flex align-items-start mb-0" role="alert">
                                                         <i class="bi bi-info-circle-fill me-2 fs-5 mt-1 text-warning"></i>

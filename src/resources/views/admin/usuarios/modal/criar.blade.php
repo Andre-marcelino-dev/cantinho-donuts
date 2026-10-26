@@ -43,7 +43,7 @@
 
                         <div class="col-md-8">
                             <label class="form-label">E-mail <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" name="email_usuario" required maxlength="255" placeholder="email@davilla.com.br">
+                            <input type="email" class="form-control" name="email_usuario" required maxlength="255" placeholder="email@cantinhodonuts.com.br">
                         </div>
 
                         <div class="col-md-4">

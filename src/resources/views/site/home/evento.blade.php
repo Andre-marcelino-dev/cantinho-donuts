@@ -179,7 +179,7 @@
                     </div>
 
                     <div class="fse__map"
-                        @if (!$linha->link_local_evento && $linha->foto_evento) style="background-image:url('{{ asset('davilla/images/' . $linha->foto_evento) }}')" @endif>
+                        @if (!$linha->link_local_evento && $linha->foto_evento) style="background-image:url('{{ asset('donuts/images/' . $linha->foto_evento) }}')" @endif>
                         @if ($linha->link_local_evento)
                             <iframe src="{{ $linha->link_local_evento }}" title="Mapa: {{ $linha->nome_evento }}" loading="lazy"
                                 allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>

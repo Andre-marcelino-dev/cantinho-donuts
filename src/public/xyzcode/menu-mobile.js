@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Menu mobile (hambúrguer) — Confeitaria Davilla
+   Menu mobile (hambúrguer) — Cantinho Donuts
    Lê os links do menu do header (partials/header.blade.php) e monta uma barra
    fixa + gaveta lateral. Não altera o header original: só o esconde até 1199px
    (ver menu-mobile.css). Categorias novas do cardápio entram sozinhas.
@@ -63,7 +63,7 @@
         var bar = el('header', 'dvm-bar');
         bar.innerHTML =
             '<a class="dvm-logo" href="' + homeHref + '" aria-label="Página inicial">' +
-                (logoSrc ? '<img src="' + logoSrc + '" alt="Confeitaria Davilla">' : '') +
+                (logoSrc ? '<img src="' + logoSrc + '" alt="Cantinho Donuts">' : '') +
             '</a>' +
             '<div class="dvm-actions">' +
                 '<a class="dvm-cta" href="' + orderHref + '">' + ICONS.bag + '<span>Pedir</span></a>' +

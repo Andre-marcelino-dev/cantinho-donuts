@@ -132,7 +132,7 @@
         @foreach ($listaProduto as $linha)
             <div class="fsp__item" data-reveal data-cat="{{ \Illuminate\Support\Str::slug($linha->descricao_categoria) }}" style="--d:{{ ($loop->index % 4) * 0.1 }}s">
                 <a href="{{ route('cardapio.produto', $linha->slug_produto) }}" class="fsp__card">
-                    <img src="{{ asset('davilla/images/' . $linha->foto_produto) }}" alt="{{ $linha->nome_produto }}" loading="lazy">
+                    <img src="{{ asset('donuts/images/' . $linha->foto_produto) }}" alt="{{ $linha->nome_produto }}" loading="lazy">
                     <div class="fsp__veil"></div>
 
                     <div class="fsp__ring" aria-hidden="true">

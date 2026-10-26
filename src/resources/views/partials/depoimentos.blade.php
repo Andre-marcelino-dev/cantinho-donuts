@@ -180,7 +180,7 @@
                         <div class="fst__person">
                             <span class="fst__photo" style="--av:{{ $corAvatar }}">
                                 @if ($foto)
-                                    <img src="{{ asset('davilla/images/cliente/' . rawurlencode($foto)) }}" alt="{{ $nomeCurto }}" loading="lazy">
+                                    <img src="{{ asset('donuts/images/cliente/' . rawurlencode($foto)) }}" alt="{{ $nomeCurto }}" loading="lazy">
                                 @else
                                     <span>{{ mb_strtoupper(mb_substr($nomeCurto, 0, 1)) }}</span>
                                 @endif
@@ -210,7 +210,7 @@
                             <button type="button" class="fst__dot {{ $loop->first ? 'is-active' : '' }}" data-i="{{ $loop->index }}" aria-label="Depoimento de {{ $nomeCurto }}" style="--av:{{ $corAvatar }}">
                                 <svg class="fst__ring" viewBox="0 0 52 52" aria-hidden="true"><circle class="bg" cx="26" cy="26" r="24"/><circle class="fg" cx="26" cy="26" r="24"/></svg>
                                 @if ($foto)
-                                    <img src="{{ asset('davilla/images/cliente/' . rawurlencode($foto)) }}" alt="" loading="lazy">
+                                    <img src="{{ asset('donuts/images/cliente/' . rawurlencode($foto)) }}" alt="" loading="lazy">
                                 @else
                                     <span>{{ mb_strtoupper(mb_substr($nomeCurto, 0, 1)) }}</span>
                                 @endif

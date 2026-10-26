@@ -38,7 +38,7 @@ class AuthController extends Controller
         }
  
         // 5. Gerar o token
-        $nomeToken = $dados['device_name'] ?? 'app-davilla';
+        $nomeToken = $dados['device_name'] ?? 'app-donuts';
  
         $token = $cliente
             ->createToken($nomeToken)

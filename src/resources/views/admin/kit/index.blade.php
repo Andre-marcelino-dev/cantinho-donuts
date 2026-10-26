@@ -9,7 +9,7 @@
     @php
         $formatarValor = fn ($valor) => 'R$ ' . number_format((float) $valor, 2, ',', '.');
         // Foto do kit ou, se não tiver, a do primeiro produto
-        $fotoDoKit = fn ($kit) => asset('davilla/images/' . ($kit->foto_kit ?: ($kit->ProdutosKit->first()?->produto?->foto_produto ?? '')));
+        $fotoDoKit = fn ($kit) => asset('donuts/images/' . ($kit->foto_kit ?: ($kit->ProdutosKit->first()?->produto?->foto_produto ?? '')));
         $corDestaque = ['MAIS VENDIDO' => 'danger', 'PROMOCAO' => 'warning', 'NOVIDADE' => 'success'];
     @endphp
 

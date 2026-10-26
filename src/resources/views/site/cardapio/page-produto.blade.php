@@ -9,8 +9,8 @@
     $categoriaPagina = $produtoAtual->descricao_categoria ?? null;
     $subtituloPagina = 'Feito à mão, com ingredientes selecionados e muito carinho';
     $fundoPagina     = !empty($produtoAtual->foto_produto)
-        ? asset('davilla/images/' . $produtoAtual->foto_produto)
-        : asset('davilla/cardapio_img/banner.png');
+        ? asset('donuts/images/' . $produtoAtual->foto_produto)
+        : asset('donuts/cardapio_img/banner.png');
 
     // Link da página do cardápio (ajuste se a sua rota tiver outro nome)
     $linkCardapio = \Illuminate\Support\Facades\Route::has('cardapio') ? route('cardapio') : url('/cardapio');

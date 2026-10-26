@@ -157,13 +157,13 @@
         <div class="fsd__visual" data-reveal="zoom" style="--d:.2s">
             <div class="fsd__ring"></div>
             <div class="fsd__shape">
-                <img src="{{ $fluid }}" alt="Variedade de doces finos da Confeitaria Davilla">
+                <img src="{{ $fluid }}" alt="Variedade de doces finos da Cantinho Donuts">
             </div>
 
             <div class="fsd__badge" aria-hidden="true">
                 <svg class="txt" viewBox="0 0 100 100">
                     <defs><path id="fsdCircle" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
-                    <text><textPath href="#fsdCircle">Davilla • feito com amor •</textPath></text>
+                    <text><textPath href="#fsdCircle">Cantinho Donuts • feito com amor •</textPath></text>
                 </svg>
                 <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg>
             </div>

@@ -10,7 +10,7 @@ use App\Models\Banner;
 class BannerController extends Controller
 {
     // Mesma pasta que o site (slider da Home) e a API do app usam
-    const PASTA = 'davilla/images/banner';
+    const PASTA = 'donuts/images/banner';
 
     public function index()
     {

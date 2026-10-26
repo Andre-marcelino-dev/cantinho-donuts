@@ -212,7 +212,7 @@
                             </span>
                         @endif
 
-                        <img src="{{ asset('davilla/images/' . ($fotoKit ?: 'sem-foto.png')) }}" alt="{{ $linha->nome_kit }}" loading="lazy">
+                        <img src="{{ asset('donuts/images/' . ($fotoKit ?: 'sem-foto.png')) }}" alt="{{ $linha->nome_kit }}" loading="lazy">
                     </div>
 
                     <div class="fsk__body">
@@ -231,7 +231,7 @@
                                     data-abrir="{{ conteudo('home.kits.ver_itens') }}" data-fechar="{{ conteudo('home.kits.ocultar_itens') }}">
                                     <span class="fsk__avatars">
                                         @foreach ($itens->take(3) as $item)
-                                            <img src="{{ asset('davilla/images/' . $item->produto->foto_produto) }}" alt="">
+                                            <img src="{{ asset('donuts/images/' . $item->produto->foto_produto) }}" alt="">
                                         @endforeach
                                         @if ($qtdItens > 3)
                                             <span>+{{ $qtdItens - 3 }}</span>
@@ -244,7 +244,7 @@
                                     <ul class="fsk__list">
                                         @foreach ($itens as $item)
                                             <li style="--i:{{ $loop->index }}">
-                                                <img src="{{ asset('davilla/images/' . $item->produto->foto_produto) }}" alt="{{ $item->produto->nome_produto }}" loading="lazy">
+                                                <img src="{{ asset('donuts/images/' . $item->produto->foto_produto) }}" alt="{{ $item->produto->nome_produto }}" loading="lazy">
                                                 <div>
                                                     <strong>{{ $item->produto->nome_produto }}</strong>
                                                     @if ($item->produto->descricao_produto)

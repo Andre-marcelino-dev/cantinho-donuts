@@ -252,7 +252,7 @@ class AreaEntrega
             try {
                 // O Nominatim exige identificar quem está consultando
                 $dados = Http::timeout(6)
-                    ->withHeaders(['User-Agent' => 'ConfeitariaDavilla/1.0 (' . config('services.loja.email') . ')'])
+                    ->withHeaders(['User-Agent' => 'CantinhoDonuts/1.0 (' . config('services.loja.email') . ')'])
                     ->get('https://nominatim.openstreetmap.org/search', [
                         'q' => $busca, 'format' => 'json', 'limit' => 5, 'countrycodes' => 'br',
                     ])->throw()->json();

@@ -6,13 +6,13 @@
 @endif
 
 <!-- Stylesheets -->
-<link href="{{asset('davilla/css/bootstrap.css')}}" rel="stylesheet">
-<link href="{{asset('davilla/plugins/revolution/css/settings.css')}}" rel="stylesheet" type="text/css"><!-- REVOLUTION SETTINGS STYLES -->
-<link href="{{asset('davilla/plugins/revolution/css/layers.css')}}" rel="stylesheet" type="text/css"><!-- REVOLUTION LAYERS STYLES -->
-<link href="{{asset('davilla/plugins/revolution/css/navigation.css')}}" rel="stylesheet" type="text/css"><!-- REVOLUTION NAVIGATION STYLES -->
+<link href="{{asset('donuts/css/bootstrap.css')}}" rel="stylesheet">
+<link href="{{asset('donuts/plugins/revolution/css/settings.css')}}" rel="stylesheet" type="text/css"><!-- REVOLUTION SETTINGS STYLES -->
+<link href="{{asset('donuts/plugins/revolution/css/layers.css')}}" rel="stylesheet" type="text/css"><!-- REVOLUTION LAYERS STYLES -->
+<link href="{{asset('donuts/plugins/revolution/css/navigation.css')}}" rel="stylesheet" type="text/css"><!-- REVOLUTION NAVIGATION STYLES -->
 
-<link href="{{asset('davilla/css/style.css')}}" rel="stylesheet">
-<link href="{{asset('davilla/css/responsive.css')}}" rel="stylesheet">
+<link href="{{asset('donuts/css/style.css')}}" rel="stylesheet">
+<link href="{{asset('donuts/css/responsive.css')}}" rel="stylesheet">
 <link href="{{asset('xyzcode/estilo.css')}}" rel="stylesheet">
 <link href="{{asset('xyzcode/menu-mobile.css')}}" rel="stylesheet">
 

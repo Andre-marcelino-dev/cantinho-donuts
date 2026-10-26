@@ -62,7 +62,7 @@ class ClienteController extends Controller
         // Nome curto (a coluna foto_cliente aceita até 60 caracteres)
         $arquivo = $request->file('foto');
         $nomeArquivo = time() . '_cliente' . $cliente->id_cliente . '.' . $arquivo->extension();
-        $arquivo->move(public_path('davilla/images/cliente'), $nomeArquivo);
+        $arquivo->move(public_path('donuts/images/cliente'), $nomeArquivo);
 
         $cliente->foto_cliente = $nomeArquivo;
         $cliente->save();

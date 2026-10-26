@@ -169,7 +169,7 @@
                 data-reveal style="--d:{{ ($loop->index % 3) * 0.1 }}s">
                 <article class="fcd__card">
                     <a href="{{ $linkProduto }}" class="fcd__media" aria-label="Ver {{ $linha->nome_produto }}">
-                        <img src="{{ asset('davilla/images/' . $linha->foto_produto) }}" alt="{{ $linha->nome_produto }}" loading="lazy">
+                        <img src="{{ asset('donuts/images/' . $linha->foto_produto) }}" alt="{{ $linha->nome_produto }}" loading="lazy">
                         @if ($categoriaProduto)
                             <span class="fcd__cat">{{ $categoriaProduto }}</span>
                         @endif

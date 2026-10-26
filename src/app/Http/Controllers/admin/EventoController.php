@@ -36,7 +36,7 @@ class EventoController extends Controller
         if ($request->hasFile('foto_evento')) {
             $arquivo = $request->file('foto_evento');
             $nomeFoto = uniqid('evento_') . '.' . $arquivo->getClientOriginalExtension();
-            $arquivo->move(public_path('davilla/images/evento'), $nomeFoto);
+            $arquivo->move(public_path('donuts/images/evento'), $nomeFoto);
             $caminhoFoto = 'evento/' . $nomeFoto;
         }
 
@@ -67,13 +67,13 @@ class EventoController extends Controller
 
 
         if ($request->hasFile('foto_evento')) {
-            if ($evento->foto_evento && file_exists(public_path('davilla/images/' . $evento->foto_evento))) {
-                unlink(public_path('davilla/images/' . $evento->foto_evento));
+            if ($evento->foto_evento && file_exists(public_path('donuts/images/' . $evento->foto_evento))) {
+                unlink(public_path('donuts/images/' . $evento->foto_evento));
             }
 
             $arquivo = $request->file('foto_evento');
             $nomeFoto = uniqid('evento_') . '.' . $arquivo->getClientOriginalExtension();
-            $arquivo->move(public_path('davilla/images/evento'), $nomeFoto);
+            $arquivo->move(public_path('donuts/images/evento'), $nomeFoto);
             $evento->foto_evento = 'evento/' . $nomeFoto;
         }
 
@@ -113,8 +113,8 @@ class EventoController extends Controller
         $evento = Evento::findOrFail($id);
 
         try {
-            if ($evento->foto_evento && file_exists(public_path('davilla/images/' . $evento->foto_evento))) {
-                unlink(public_path('davilla/images/' . $evento->foto_evento));
+            if ($evento->foto_evento && file_exists(public_path('donuts/images/' . $evento->foto_evento))) {
+                unlink(public_path('donuts/images/' . $evento->foto_evento));
             }
 
             $evento->delete();

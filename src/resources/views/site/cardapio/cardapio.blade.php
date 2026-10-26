@@ -10,7 +10,7 @@
    
 
 @push('plugins')
-<script src="{{ asset('davilla/js/mixitup.js') }}"></script>
+<script src="{{ asset('donuts/js/mixitup.js') }}"></script>
 @endpush
 
 

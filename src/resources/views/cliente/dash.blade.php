@@ -24,7 +24,7 @@
                         <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#"
                             data-bs-toggle="dropdown">
                             @if (auth('cliente')->user()->foto_cliente)
-                                <img src="{{ asset('davilla/images/cliente/' . auth('cliente')->user()->foto_cliente) }}"
+                                <img src="{{ asset('donuts/images/cliente/' . auth('cliente')->user()->foto_cliente) }}"
                                     width="35" height="35" style="object-fit: cover; border-radius: 50%;">
                             @else
                                 <i class="bi bi-person-circle" style="font-size: 1.4rem;"></i>

@@ -19,7 +19,7 @@
                     'resposta' => <<<'JSON'
 {
     "success": true,
-    "data": { "aplicacao": "Confeitaria DaVilla", "api": "v1", "status": "online" }
+    "data": { "aplicacao": "Cantinho Donuts", "api": "v1", "status": "online" }
 }
 JSON,
                 ],
@@ -36,7 +36,7 @@ JSON,
                 ],
                 [
                     'metodo' => 'GET', 'caminho' => '/banners', 'login' => false,
-                    'descricao' => 'Banners ativos, na ordem do campo "ordem_banner". A imagem fica em /davilla/images/banner/{foto_banner}.',
+                    'descricao' => 'Banners ativos, na ordem do campo "ordem_banner". A imagem fica em /donuts/images/banner/{foto_banner}.',
                     'resposta' => <<<'JSON'
 {
     "success": true,
@@ -57,7 +57,7 @@ JSON,
                 ],
                 [
                     'metodo' => 'GET', 'caminho' => '/produtos', 'login' => false,
-                    'descricao' => 'Todos os produtos ativos, com a categoria. A foto fica em /davilla/images/{foto_produto}.',
+                    'descricao' => 'Todos os produtos ativos, com a categoria. A foto fica em /donuts/images/{foto_produto}.',
                     'resposta' => <<<'JSON'
 {
     "success": true,
@@ -112,7 +112,7 @@ JSON,
             'rotas' => [
                 [
                     'metodo' => 'GET', 'caminho' => '/cliente', 'login' => true,
-                    'descricao' => 'Dados do cliente logado (sem a senha). A foto fica em /davilla/images/cliente/{foto_cliente}.',
+                    'descricao' => 'Dados do cliente logado (sem a senha). A foto fica em /donuts/images/cliente/{foto_cliente}.',
                 ],
                 [
                     'metodo' => 'PUT', 'caminho' => '/cliente', 'login' => true,
@@ -354,7 +354,7 @@ JSON,
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>API — Confeitaria DaVilla</title>
+    <title>API — Cantinho Donuts</title>
 
     <style>
         body {
@@ -486,7 +486,7 @@ JSON,
 <body>
 
 <header>
-    <h1>API — Confeitaria DaVilla</h1>
+    <h1>API — Cantinho Donuts</h1>
 
     <p>
         Documentação da API utilizada pelo aplicativo TheGusta.

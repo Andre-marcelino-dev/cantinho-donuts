@@ -53,7 +53,7 @@
 
                                         <td>
                                             @if ($linha->foto_evento)
-                                                <img src="{{ asset('davilla/images/' . $linha->foto_evento) }}" width="80"
+                                                <img src="{{ asset('donuts/images/' . $linha->foto_evento) }}" width="80"
                                                     style="cursor:pointer; border-radius: 6px;" data-bs-toggle="modal"
                                                     data-bs-target="#modalVerEvento{{ $linha->id_evento }}">
                                             @else
@@ -127,7 +127,7 @@
                                                     <div class="row align-items-center">
                                                         <div class="col-md-5 text-center">
                                                             @if ($linha->foto_evento)
-                                                                <img src="{{ asset('davilla/images/' . $linha->foto_evento) }}"
+                                                                <img src="{{ asset('donuts/images/' . $linha->foto_evento) }}"
                                                                     alt="{{ $linha->nome_evento }}"
                                                                     class="img-fluid rounded shadow">
                                                             @endif
@@ -263,7 +263,7 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Foto atual</label><br>
                                                                 @if ($linha->foto_evento)
-                                                                    <img src="{{ asset('davilla/images/' . $linha->foto_evento) }}"
+                                                                    <img src="{{ asset('donuts/images/' . $linha->foto_evento) }}"
                                                                         width="80" class="mb-2 rounded">
                                                                 @endif
                                                                 <input type="file" class="form-control"

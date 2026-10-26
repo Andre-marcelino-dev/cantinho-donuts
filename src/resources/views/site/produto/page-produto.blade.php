@@ -9,7 +9,7 @@
     $categoriaPagina = $produtoAtual->descricao_categoria ?? null;
     $subtituloPagina = conteudo('produto.banner.subtitulo');
     $fundoPagina     = !empty($produtoAtual->foto_produto)
-        ? asset('davilla/images/' . $produtoAtual->foto_produto)
+        ? asset('donuts/images/' . $produtoAtual->foto_produto)
         : conteudo_img('produto.banner.imagem');
 
     $linkCardapio = route('cardapio.index');

@@ -98,7 +98,7 @@
                         <path d="M7 7h10"/>
                     </svg>
                 </div>
-                <div class="logo-title"><span>Confeitaria</span> Davilla</div>
+                <div class="logo-title"><span>Cantinho</span> Donuts</div>
                 <div class="logo-sub" id="subtitulo">Painel Administrativo</div>
             </div>
 
@@ -177,7 +177,7 @@
 
             </div>
 
-            <div class="footer" style="margin-top: 24px;">© {{ date('Y') }} Confeitaria Davilla · Todos os direitos reservados</div>
+            <div class="footer" style="margin-top: 24px;">© {{ date('Y') }} Cantinho Donuts · Todos os direitos reservados</div>
 
         </div>
     </div>

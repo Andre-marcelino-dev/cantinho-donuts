@@ -12,7 +12,7 @@ class StatusController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'aplicacao' => 'Confeitaria DaVilla',
+                'aplicacao' => 'Cantinho Donuts',
                 'api' => 'v1',
                 'status' => 'online',
             ]

@@ -1,7 +1,7 @@
 <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Confeitaria |  Davilla </title>
+    <title>Cantinho | Donuts </title>
 
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
@@ -79,14 +79,14 @@
     
   </head>
 
-  <title>Confeitaria | Davilla</title>
+  <title>Cantinho | Donuts</title>
 
 <script>
     const titles = [
-        '✨ Bem-vindo | Davilla',
-        '🍰 Confeitaria | Davilla',
-        '🎂 Bolos Artesanais | Davilla',
-        '🍫 Kitis Festas | Davilla',
+        '✨ Bem-vindo | Cantinho Donuts',
+        '🍰 Cantinho | Donuts',
+        '🎂 Bolos Artesanais | Cantinho Donuts',
+        '🍫 Kitis Festas | Cantinho Donuts',
         
     ];
 

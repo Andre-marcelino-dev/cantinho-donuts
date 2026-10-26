@@ -23,7 +23,7 @@ class Conteudo extends Model
     const CACHE = 'conteudos_site';
 
     // Pasta das imagens enviadas pelo painel
-    const PASTA = 'davilla/images/conteudo';
+    const PASTA = 'donuts/images/conteudo';
 
     private static ?array $alterados = null;
     private static ?array $campos = null;

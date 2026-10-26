@@ -63,15 +63,15 @@ return [
             'sabor' => [
                 'titulo' => 'Sabor que marca (imagem com selos)',
                 'campos' => [
-                    'home.sabor.selo'         => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Confeitaria Davilla'],
+                    'home.sabor.selo'         => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Cantinho Donuts'],
                     'home.sabor.titulo'       => ['rotulo' => 'Título', 'tipo' => 'texto', 'destaque' => true, 'padrao' => 'Sabor que marca, *tradição que encanta.*'],
-                    'home.sabor.texto'        => ['rotulo' => 'Texto', 'tipo' => 'textarea', 'destaque' => true, 'padrao' => 'Dos clássicos bolos caseiros aos doces finos mais sofisticados. Na **Davilla**, cada receita é uma celebração de sabor, pensada para tornar o seu momento ainda mais especial.'],
+                    'home.sabor.texto'        => ['rotulo' => 'Texto', 'tipo' => 'textarea', 'destaque' => true, 'padrao' => 'Dos clássicos bolos caseiros aos doces finos mais sofisticados. Na **Cantinho Donuts**, cada receita é uma celebração de sabor, pensada para tornar o seu momento ainda mais especial.'],
                     'home.sabor.lista'        => ['rotulo' => 'Itens com ✓ (um por linha)', 'tipo' => 'lista', 'padrao' => "Feito no dia\nIngredientes selecionados\nEncomendas personalizadas"],
                     'home.sabor.botao1_texto' => ['rotulo' => 'Botão principal — texto', 'tipo' => 'texto', 'padrao' => 'Confira nossa vitrine'],
                     'home.sabor.botao1_link'  => ['rotulo' => 'Botão principal — link', 'tipo' => 'link', 'padrao' => 'cardapio'],
                     'home.sabor.botao2_texto' => ['rotulo' => 'Botão secundário — texto', 'tipo' => 'texto', 'padrao' => 'Faça sua encomenda'],
                     'home.sabor.botao2_link'  => ['rotulo' => 'Botão secundário — link', 'tipo' => 'link', 'padrao' => 'pedidos'],
-                    'home.sabor.imagem'       => ['rotulo' => 'Imagem', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/there-are-many-different-types-pastries-pink-plate.jpg'],
+                    'home.sabor.imagem'       => ['rotulo' => 'Imagem', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/there-are-many-different-types-pastries-pink-plate.jpg'],
                     'home.sabor.selo1_titulo' => ['rotulo' => 'Selo da imagem 1 — título', 'tipo' => 'texto', 'padrao' => 'Bolo do dia'],
                     'home.sabor.selo1_texto'  => ['rotulo' => 'Selo da imagem 1 — texto', 'tipo' => 'texto', 'padrao' => 'Saindo do forno'],
                     'home.sabor.selo2_titulo' => ['rotulo' => 'Selo da imagem 2 (com estrelas)', 'tipo' => 'texto', 'padrao' => 'Clientes apaixonados'],
@@ -94,7 +94,7 @@ return [
             'porque' => [
                 'titulo' => 'Por que nos escolher (cartões e números)',
                 'campos' => [
-                    'home.porque.imagem_fundo'  => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/banner3.png'],
+                    'home.porque.imagem_fundo'  => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/banner3.png'],
                     'home.porque.selo'          => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Por que nos escolher'],
                     'home.porque.titulo'        => ['rotulo' => 'Título — primeira linha', 'tipo' => 'texto', 'padrao' => 'Feito à mão,'],
                     'home.porque.titulo_brilho' => ['rotulo' => 'Título — segunda linha (com brilho)', 'tipo' => 'texto', 'padrao' => 'feito com amor'],
@@ -123,7 +123,7 @@ return [
                 'titulo' => 'Nossas especialidades (categorias)',
                 'ajuda'  => 'Os cartões são as categorias cadastradas em Categorias (nome e descrição).',
                 'campos' => [
-                    'home.especialidades.imagem_fundo' => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/images/fundoServicos.png'],
+                    'home.especialidades.imagem_fundo' => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/images/fundoServicos.png'],
                     'home.especialidades.selo'         => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'O que fazemos'],
                     'home.especialidades.titulo'       => ['rotulo' => 'Título', 'tipo' => 'texto', 'destaque' => true, 'padrao' => 'Nossas *especialidades*'],
                     'home.especialidades.texto'        => ['rotulo' => 'Texto', 'tipo' => 'textarea', 'destaque' => true, 'padrao' => 'De bolos de festa a docinhos finos: conheça as delícias que saem todos os dias da nossa cozinha.'],
@@ -135,7 +135,7 @@ return [
                 'ajuda'  => 'As receitas (ingredientes, modo de preparo, dica) têm uma tela própria. Sem nenhuma receita ativa, a seção some.',
                 'atalho' => ['rota' => 'admin.receita', 'texto' => 'Gerenciar receitas'],
                 'campos' => [
-                    'home.receitas.imagem_fundo' => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/gallery-davilla/fundorecipes.jpg'],
+                    'home.receitas.imagem_fundo' => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/gallery-donuts/fundorecipes.jpg'],
                     'home.receitas.selo'         => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Do nosso caderno'],
                     'home.receitas.titulo'       => ['rotulo' => 'Título', 'tipo' => 'texto', 'destaque' => true, 'padrao' => 'Receitas *para você*'],
                     'home.receitas.texto'        => ['rotulo' => 'Texto', 'tipo' => 'textarea', 'destaque' => true, 'padrao' => 'Todo dia o nosso livro abre em uma receita nova, direto do caderno da família. Vire as páginas e volte amanhã para descobrir a próxima!'],
@@ -178,7 +178,7 @@ return [
                         "home.equipe.pessoa{$n}_cargo"         => ['rotulo' => "Pessoa {$n} — cargo", 'tipo' => 'texto', 'grupo' => "Pessoa {$n}", 'padrao' => $pessoa[1]],
                         "home.equipe.pessoa{$n}_especialidade" => ['rotulo' => "Pessoa {$n} — especialidade", 'tipo' => 'texto', 'grupo' => "Pessoa {$n}", 'padrao' => $pessoa[2]],
                         "home.equipe.pessoa{$n}_bio"           => ['rotulo' => "Pessoa {$n} — sobre", 'tipo' => 'textarea', 'grupo' => "Pessoa {$n}", 'padrao' => $pessoa[3]],
-                        "home.equipe.pessoa{$n}_foto"          => ['rotulo' => "Pessoa {$n} — foto", 'tipo' => 'imagem', 'grupo' => "Pessoa {$n}", 'padrao' => 'davilla/IMG/chefe1.jpg'],
+                        "home.equipe.pessoa{$n}_foto"          => ['rotulo' => "Pessoa {$n} — foto", 'tipo' => 'imagem', 'grupo' => "Pessoa {$n}", 'padrao' => 'donuts/IMG/chefe1.jpg'],
                         "home.equipe.pessoa{$n}_instagram"     => ['rotulo' => "Pessoa {$n} — link do Instagram", 'tipo' => 'link', 'grupo' => "Pessoa {$n}", 'padrao' => ''],
                         "home.equipe.pessoa{$n}_whatsapp"      => ['rotulo' => "Pessoa {$n} — WhatsApp", 'tipo' => 'texto', 'grupo' => "Pessoa {$n}", 'padrao' => ''],
                         "home.equipe.pessoa{$n}_facebook"      => ['rotulo' => "Pessoa {$n} — link do Facebook", 'tipo' => 'link', 'grupo' => "Pessoa {$n}", 'padrao' => ''],
@@ -204,7 +204,7 @@ return [
             'banner' => [
                 'titulo' => 'Banner do topo',
                 'campos' => [
-                    'sobre.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/banner3.png'],
+                    'sobre.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/banner3.png'],
                     'sobre.banner.selo'      => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Confeitaria artesanal'],
                     'sobre.banner.titulo'    => ['rotulo' => 'Título', 'tipo' => 'texto', 'padrao' => 'Sobre nós'],
                     'sobre.banner.subtitulo' => ['rotulo' => 'Subtítulo', 'tipo' => 'texto', 'padrao' => 'Doces feitos à mão, com carinho e ingredientes selecionados'],
@@ -215,7 +215,7 @@ return [
                 'titulo' => 'Nossa história (linha do tempo)',
                 'ajuda'  => 'Etapa com título vazio não aparece.',
                 'campos' => array_merge([
-                    'sobre.historia.imagem'      => ['rotulo' => 'Imagem', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/bannerbolocerto.png'],
+                    'sobre.historia.imagem'      => ['rotulo' => 'Imagem', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/bannerbolocerto.png'],
                     'sobre.historia.selo_titulo' => ['rotulo' => 'Selo da imagem — título', 'tipo' => 'texto', 'padrao' => 'Feito à mão'],
                     'sobre.historia.selo_texto'  => ['rotulo' => 'Selo da imagem — texto', 'tipo' => 'texto', 'padrao' => 'Receitas de família'],
                     'sobre.historia.selo'        => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Quem somos'],
@@ -263,7 +263,7 @@ return [
                 'titulo' => 'Conheça a chef',
                 'ajuda'  => 'Números no formato "15+" ou "100%". Número vazio não aparece.',
                 'campos' => [
-                    'sobre.chef.foto'          => ['rotulo' => 'Foto', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/chefe.png'],
+                    'sobre.chef.foto'          => ['rotulo' => 'Foto', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/chefe.png'],
                     'sobre.chef.selo'          => ['rotulo' => 'Selo acima do nome', 'tipo' => 'texto', 'padrao' => 'Conheça a chef'],
                     'sobre.chef.nome'          => ['rotulo' => 'Nome', 'tipo' => 'texto', 'padrao' => 'Nome da Chef'],
                     'sobre.chef.cargo'         => ['rotulo' => 'Cargo', 'tipo' => 'texto', 'padrao' => 'Confeiteira-chefe e fundadora'],
@@ -285,7 +285,7 @@ return [
                 'titulo' => 'Nossos compromissos',
                 'ajuda'  => 'Compromisso com título vazio não aparece.',
                 'campos' => [
-                    'sobre.compromissos.imagem'       => ['rotulo' => 'Imagem', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/img39.png'],
+                    'sobre.compromissos.imagem'       => ['rotulo' => 'Imagem', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/img39.png'],
                     'sobre.compromissos.selo'         => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Nossos padrões'],
                     'sobre.compromissos.titulo'       => ['rotulo' => 'Título', 'tipo' => 'texto', 'destaque' => true, 'padrao' => 'Nossos *compromissos*'],
                     'sobre.compromissos.texto'        => ['rotulo' => 'Texto', 'tipo' => 'textarea', 'destaque' => true, 'padrao' => 'Mais do que fazer doces gostosos, assumimos compromissos com você. É isso que garante a qualidade de cada pedido.'],
@@ -315,7 +315,7 @@ return [
             'banner' => [
                 'titulo' => 'Banner do topo',
                 'campos' => [
-                    'cardapio.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/cardapio_img/banner.png'],
+                    'cardapio.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/cardapio_img/banner.png'],
                     'cardapio.banner.selo'      => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Confeitaria artesanal'],
                     'cardapio.banner.titulo'    => ['rotulo' => 'Título', 'tipo' => 'texto', 'padrao' => 'Nosso cardápio'],
                     'cardapio.banner.subtitulo' => ['rotulo' => 'Subtítulo', 'tipo' => 'texto', 'padrao' => 'Escolha o doce perfeito para o seu momento'],
@@ -351,7 +351,7 @@ return [
                 'campos' => [
                     'produto.banner.selo'      => ['rotulo' => 'Selo (quando o doce não tem categoria)', 'tipo' => 'texto', 'padrao' => 'Confeitaria artesanal'],
                     'produto.banner.subtitulo' => ['rotulo' => 'Subtítulo', 'tipo' => 'texto', 'padrao' => 'Feito à mão, com ingredientes selecionados e muito carinho'],
-                    'produto.banner.imagem'    => ['rotulo' => 'Imagem de fundo (doce sem foto)', 'tipo' => 'imagem', 'padrao' => 'davilla/cardapio_img/banner.png'],
+                    'produto.banner.imagem'    => ['rotulo' => 'Imagem de fundo (doce sem foto)', 'tipo' => 'imagem', 'padrao' => 'donuts/cardapio_img/banner.png'],
                 ],
             ],
 
@@ -412,7 +412,7 @@ return [
             'banner' => [
                 'titulo' => 'Banner do topo',
                 'campos' => [
-                    'pedidos.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/pedidios/bannerpedidos.png'],
+                    'pedidos.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/pedidios/bannerpedidos.png'],
                     'pedidos.banner.selo'      => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Confeitaria artesanal'],
                     'pedidos.banner.titulo'    => ['rotulo' => 'Título', 'tipo' => 'texto', 'padrao' => 'Faça seu pedido'],
                     'pedidos.banner.subtitulo' => ['rotulo' => 'Subtítulo', 'tipo' => 'texto', 'padrao' => 'Escolha seus doces favoritos e receba com todo o carinho'],
@@ -472,7 +472,7 @@ return [
             'banner' => [
                 'titulo' => 'Banner do topo',
                 'campos' => [
-                    'regiao.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/banner3.png'],
+                    'regiao.banner.imagem'    => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/banner3.png'],
                     'regiao.banner.selo'      => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Confeitaria artesanal'],
                     'regiao.banner.titulo'    => ['rotulo' => 'Título', 'tipo' => 'texto', 'padrao' => 'Onde entregamos'],
                     'regiao.banner.subtitulo' => ['rotulo' => 'Subtítulo', 'tipo' => 'texto', 'padrao' => 'Confira se o seu bairro está na nossa área de entrega'],
@@ -628,9 +628,9 @@ return [
             'site' => [
                 'titulo' => 'Aba do navegador e Google',
                 'campos' => [
-                    'geral.site.titulo'    => ['rotulo' => 'Título da aba (aparece também no Google)', 'tipo' => 'texto', 'padrao' => 'Confeitaria Davilla | a melhor confeitaria da região'],
+                    'geral.site.titulo'    => ['rotulo' => 'Título da aba (aparece também no Google)', 'tipo' => 'texto', 'padrao' => 'Cantinho Donuts | a melhor confeitaria da região'],
                     'geral.site.descricao' => ['rotulo' => 'Descrição para o Google (até ~160 letras)', 'tipo' => 'textarea', 'padrao' => 'Bolos, doces finos e encomendas personalizadas feitos à mão, com ingredientes selecionados e muito carinho.'],
-                    'geral.site.icone'     => ['rotulo' => 'Ícone da aba (favicon)', 'tipo' => 'imagem', 'padrao' => 'davilla/images/favicon.png'],
+                    'geral.site.icone'     => ['rotulo' => 'Ícone da aba (favicon)', 'tipo' => 'imagem', 'padrao' => 'donuts/images/favicon.png'],
                 ],
             ],
 
@@ -638,7 +638,7 @@ return [
                 'titulo' => 'Cabeçalho',
                 'ajuda'  => 'Os itens do menu são as páginas do site; as categorias do Cardápio vêm de Categorias. O banner grande da Home fica em Banners.',
                 'campos' => [
-                    'geral.cabecalho.logo' => ['rotulo' => 'Logo (computador e celular)', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/logo-davilla.svg'],
+                    'geral.cabecalho.logo' => ['rotulo' => 'Logo (computador e celular)', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/logo-donuts.svg'],
                 ],
             ],
 
@@ -664,7 +664,7 @@ return [
                 'titulo' => 'Depoimentos (Home e Sobre)',
                 'ajuda'  => 'Os depoimentos são os aprovados em Depoimentos.',
                 'campos' => [
-                    'geral.depoimentos.imagem_fundo' => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'davilla/IMG/banner3.png'],
+                    'geral.depoimentos.imagem_fundo' => ['rotulo' => 'Imagem de fundo', 'tipo' => 'imagem', 'padrao' => 'donuts/IMG/banner3.png'],
                     'geral.depoimentos.selo'         => ['rotulo' => 'Selo acima do título', 'tipo' => 'texto', 'padrao' => 'Depoimentos'],
                     'geral.depoimentos.titulo'       => ['rotulo' => 'Título', 'tipo' => 'texto', 'destaque' => true, 'padrao' => 'O que nossos *clientes dizem*'],
                     'geral.depoimentos.texto'        => ['rotulo' => 'Texto', 'tipo' => 'textarea', 'destaque' => true, 'padrao' => 'Avaliações reais enviadas por quem já provou, pelo app The Gusta.'],

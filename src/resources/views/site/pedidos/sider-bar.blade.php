@@ -249,7 +249,7 @@
                     <div data-reveal style="--d:{{ ($loop->index % 3) * 0.1 }}s">
                         <article class="fpd__card" data-id="{{ $produto->slug_produto }}" data-name="{{ $produto->nome_produto }}" data-price="{{ $valorProduto }}">
                             <a href="{{ $linkProduto }}" class="fpd__media" aria-label="Ver {{ $produto->nome_produto }}">
-                                <img src="{{ asset('davilla/images/' . $produto->foto_produto) }}" alt="{{ $produto->nome_produto }}" loading="lazy">
+                                <img src="{{ asset('donuts/images/' . $produto->foto_produto) }}" alt="{{ $produto->nome_produto }}" loading="lazy">
                                 @if ($produto->destaque_produto === 'SIM')
                                     <span class="fpd__tag"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg>Destaque</span>
                                 @endif

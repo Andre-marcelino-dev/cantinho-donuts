@@ -8,7 +8,7 @@
 
     @php
         // Algumas fotos antigas foram gravadas com "banner/" na frente
-        $urlImagem = fn ($foto) => asset('davilla/images/banner/' . basename($foto));
+        $urlImagem = fn ($foto) => asset('donuts/images/banner/' . basename($foto));
     @endphp
 
     <div class="app-content">

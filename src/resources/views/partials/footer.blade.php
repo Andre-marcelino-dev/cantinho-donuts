@@ -1,6 +1,6 @@
 @php
     // Dados da loja: config/services.php ('loja')
-    $nomeLoja = $loja['nome'] ?? 'Davilla';
+    $nomeLoja = $loja['nome'] ?? 'Cantinho Donuts';
     $redes = array_filter([
         'instagram' => $loja['instagram'] ?? '',
         'facebook'  => $loja['facebook'] ?? '',

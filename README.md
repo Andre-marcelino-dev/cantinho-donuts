@@ -1,2 +1,2 @@
-# tipi05-davilla
-Projeto integrador Back-end da  Turma Tipi05-davilla
+# cantinho-donuts
+Projeto Cantinho Donuts

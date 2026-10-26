@@ -21,8 +21,8 @@ class KitController extends Controller
         'NOVIDADE'     => 'Novidade',
     ];
 
-    // As fotos de kit ficam em public/davilla/images/kit (foto_kit guarda "kit/arquivo")
-    const PASTA = 'davilla/images/kit';
+    // As fotos de kit ficam em public/donuts/images/kit (foto_kit guarda "kit/arquivo")
+    const PASTA = 'donuts/images/kit';
 
     public function index()
     {
@@ -187,7 +187,7 @@ class KitController extends Controller
         if (!$foto || !str_starts_with($foto, 'kit/')) return;
         if (Kits::where('foto_kit', $foto)->count() > 1) return;
 
-        $caminho = public_path('davilla/images/' . $foto);
+        $caminho = public_path('donuts/images/' . $foto);
         if (is_file($caminho)) @unlink($caminho);
     }
 }
