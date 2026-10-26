@@ -98,7 +98,7 @@
 
                     <!-- Mobile Header -->
                     <div class="mobile-header">
-                        <div class="logo"><a href="index.html"><img src="{{ asset('donuts/images/the-gusta-texto.svg') }}" alt="" title=""></a></div>
+                        <div class="logo"><a href="index.html"><img src="{{ conteudo_img('geral.cabecalho.logo') }}" alt="" title=""></a></div>
 
                         <!--Nav Box-->
                         <div class="nav-outer clearfix">
@@ -109,7 +109,7 @@
                     <!-- Mobile Menu  -->
                     <div class="mobile-menu">
                         <nav class="menu-box">
-                            <div class="nav-logo"><a href="index.html"><img src="{{ asset('donuts/images/the-gusta-texto.svg') }}" alt="" title=""></a></div>
+                            <div class="nav-logo"><a href="index.html"><img src="{{ conteudo_img('geral.cabecalho.logo') }}" alt="" title=""></a></div>
                             <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
                         </nav>
                     </div><!-- End Mobile Menu -->

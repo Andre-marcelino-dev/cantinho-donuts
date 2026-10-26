@@ -27,6 +27,13 @@
     margin: center;
 }
 
+/* Logo enviado pelo painel: cabe na caixa, seja qual for o tamanho do arquivo */
+.logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .inner-column-logo{
  /* display: flex; */
  position: relative;
