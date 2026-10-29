@@ -124,6 +124,35 @@ JSON,
 JSON,
                 ],
                 [
+                    'metodo' => 'POST', 'caminho' => '/auth/esqueci-senha', 'login' => false,
+                    'descricao' => 'Manda para o e-mail do cliente um código de 6 números para criar uma nova senha (vale 30 minutos). A resposta é a mesma se o e-mail não existir. Retorna 503 se o e-mail não puder ser enviado. Limite de 3 pedidos por minuto.',
+                    'envio' => [
+                        'email' => 'e-mail da conta (obrigatório)',
+                    ],
+                    'resposta' => <<<'JSON'
+{
+    "success": true,
+    "message": "Se este e-mail estiver cadastrado, você vai receber um código para criar uma nova senha."
+}
+JSON,
+                ],
+                [
+                    'metodo' => 'POST', 'caminho' => '/auth/redefinir-senha', 'login' => false,
+                    'descricao' => 'Troca a senha usando o código do e-mail. Depois de 5 códigos errados é preciso pedir outro. Ao trocar, os logins antigos do cliente são encerrados. Retorna 422 se o código estiver errado ou vencido.',
+                    'envio' => [
+                        'email' => 'e-mail da conta (obrigatório)',
+                        'codigo' => 'código de 6 números do e-mail (obrigatório)',
+                        'senha' => 'nova senha, mínimo 6 caracteres (obrigatório)',
+                        'senha_confirmation' => 'a mesma senha de novo (obrigatório)',
+                    ],
+                    'resposta' => <<<'JSON'
+{
+    "success": true,
+    "message": "Senha alterada! Faça login com a nova senha."
+}
+JSON,
+                ],
+                [
                     'metodo' => 'POST', 'caminho' => '/auth/logout', 'login' => true,
                     'descricao' => 'Encerra o login: apaga o token usado na requisição.',
                 ],
