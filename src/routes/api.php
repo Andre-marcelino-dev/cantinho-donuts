@@ -42,6 +42,9 @@ Route::prefix('v1')->group(function () {
 
     // LOGIN - rota pública
     Route::post('/auth/login', [AuthController::class, 'login']);
+
+    // CADASTRO - rota pública (criar conta pelo app)
+    Route::post('/auth/cadastro', [AuthController::class, 'cadastro'])->middleware('throttle:5,1');
  
     // ROTAS COM CREDENCIAL
     Route::middleware('auth:sanctum')->group(function () {

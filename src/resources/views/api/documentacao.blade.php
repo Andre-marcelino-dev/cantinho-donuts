@@ -101,6 +101,29 @@ JSON,
 JSON,
                 ],
                 [
+                    'metodo' => 'POST', 'caminho' => '/auth/cadastro', 'login' => false,
+                    'descricao' => 'Cria a conta do cliente pelo app e já devolve o token (o cliente entra logado). CPF, nascimento e endereço ficam para depois, no perfil e em Endereços. Retorna 422 se o e-mail já estiver cadastrado. Limite de 5 cadastros por minuto.',
+                    'envio' => [
+                        'nome' => 'nome completo (obrigatório)',
+                        'email' => 'e-mail (obrigatório, único)',
+                        'telefone' => 'telefone com DDD (obrigatório)',
+                        'senha' => 'senha, mínimo 6 caracteres (obrigatório)',
+                        'senha_confirmation' => 'a mesma senha de novo (obrigatório)',
+                        'device_name' => 'nome do aparelho, ex.: app-android (opcional)',
+                    ],
+                    'resposta' => <<<'JSON'
+{
+    "success": true,
+    "message": "Conta criada com sucesso.",
+    "data": {
+        "token": "13|GhIjKl...",
+        "cliente": { "id_cliente": 2, "nome_cliente": "Debora Souza",
+                     "email_cliente": "debora@exemplo.com", "telefone_cliente": "11988887777" }
+    }
+}
+JSON,
+                ],
+                [
                     'metodo' => 'POST', 'caminho' => '/auth/logout', 'login' => true,
                     'descricao' => 'Encerra o login: apaga o token usado na requisição.',
                 ],
