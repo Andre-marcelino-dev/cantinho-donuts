@@ -22,7 +22,7 @@
 
         {{-- Cartões de resumo --}}
         <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-xl-3 col-sm-6 col-12">
                 <div class="small-box text-bg-primary">
                     <div class="inner">
                         <h3>{{ $resumo['pedidosHoje'] }}</h3>
@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-6">
+            <div class="col-xl-3 col-sm-6 col-12">
                 <div class="small-box text-bg-warning">
                     <div class="inner">
                         <h3>{{ $resumo['emPreparo'] }}</h3>
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-6">
+            <div class="col-xl-3 col-sm-6 col-12">
                 <div class="small-box text-bg-success">
                     <div class="inner">
                         <h3>{{ $formatarValor($resumo['faturamentoMes']) }}</h3>
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-6">
+            <div class="col-xl-3 col-sm-6 col-12">
                 <div class="small-box text-bg-danger">
                     <div class="inner">
                         <h3>{{ $resumo['mensagensNovas'] }}</h3>
@@ -183,6 +183,21 @@
                 },
             },
             legend: { position: 'top' },
+            // No celular o gráfico fica mais baixo e sem os títulos dos eixos,
+            // para sobrar espaço para as linhas do gráfico.
+            responsive: [{
+                breakpoint: 576,
+                options: {
+                    chart: { height: 240 },
+                    yaxis: [
+                        {
+                            title: { text: undefined },
+                            labels: { formatter: (valor) => valor >= 1000 ? 'R$ ' + (valor / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'k' : 'R$ ' + Math.round(valor) },
+                        },
+                        { opposite: true, title: { text: undefined }, labels: { formatter: (valor) => Math.round(valor) } },
+                    ],
+                },
+            }],
         }).render();
     });
 </script>

@@ -28,9 +28,9 @@
                         </div>
                     @endif
 
-                    @if (session('erro'))
+                    @if (session('erro') || $errors->any())
                         <div id="alerta-erro" class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
-                            ❌ {{ session('erro') }}
+                            ❌ {{ session('erro') ?? $errors->first() }}
                         </div>
                     @endif
 
@@ -39,6 +39,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 40px">Ordem</th>
+                                    <th style="width: 60px">Imagem</th>
                                     <th>Nome</th>
                                     <th>Descrição</th>
                                     <th>Status</th>
@@ -49,6 +50,9 @@
                                 @forelse($categorias as $linha)
                                     <tr class="align-middle">
                                         <td>{{ $linha->ordem_categoria }}</td>
+                                        <td>
+                                            <img src="{{ $linha->urlFoto() }}" alt="{{ $linha->nome_categoria }}" width="44" height="44" style="object-fit: contain;">
+                                        </td>
                                         <td>{{ $linha->nome_categoria }}</td>
                                         <td>{{ $linha->descricao_categoria }}</td>
                                         <td>
@@ -106,7 +110,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="POST" action="{{ route('admin.categoria.update', $linha->id_categoria) }}">
+                                                    <form method="POST" action="{{ route('admin.categoria.update', $linha->id_categoria) }}" enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="card-body">
@@ -119,6 +123,17 @@
                                                             <div class="mb-3">
                                                                 <label class="form-label">Descrição</label>
                                                                 <textarea class="form-control" name="descricao_categoria" rows="3" required>{{ $linha->descricao_categoria }}</textarea>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Imagem</label>
+                                                                <div class="d-flex align-items-center gap-3">
+                                                                    <img src="{{ $linha->urlFoto() }}" alt="{{ $linha->nome_categoria }}" width="60" height="60" style="object-fit: contain;">
+                                                                    <input type="file" class="form-control" name="foto_categoria" accept="image/png,image/jpeg,image/webp">
+                                                                </div>
+                                                                <div class="form-text">
+                                                                    Envie uma nova só se quiser trocar (JPG, PNG ou WEBP, até 2 MB).
+                                                                </div>
                                                             </div>
 
                                                             <div class="row">
@@ -153,7 +168,7 @@
 
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Nenhuma categoria cadastrada</td>
+                                        <td colspan="6" class="text-center">Nenhuma categoria cadastrada</td>
                                     </tr>
                                 @endforelse
                             </tbody>

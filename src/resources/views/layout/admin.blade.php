@@ -3,26 +3,21 @@
 <head>
     @include('admin.partials.head')
 </head>
-    <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"></body>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
   <div class="app-wrapper">
-     
-@include('admin.partials.app-header')
 
-        
+        @include('admin.partials.app-header')
+
         @include('admin.partials.app-sidebar')
 
-        <main>
+        <main class="app-main">
         @yield('content')
-       
-        
-    </main>
+        </main>
 
-   @include('admin.partials.app-footer')
+        @include('admin.partials.app-footer')
 
-</div>
+  </div>
 
-
-    
     @include('admin.partials.script')
 
 </body>

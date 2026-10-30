@@ -1,0 +1,117 @@
+/* Ajustes do painel para celular, tablet e telas grandes */
+
+/* Cabeçalho dos cards: título e botões quebram de linha em vez de estourar */
+.app-content .card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.app-content .card-header::after {
+  display: none;
+}
+.app-content .card-header > .card-title {
+  margin-right: auto;
+}
+.app-content .card-header > .card-tools {
+  float: none;
+  margin-left: auto;
+  margin-right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+.app-content .card-tools .form-select,
+.app-content .card-tools .form-control {
+  min-width: 0;
+}
+
+/* Tabelas: sem quebra feia nas colunas de ações */
+.app-content .table td .btn {
+  margin-bottom: 0.25rem;
+}
+
+/* Paginação quebra de linha quando não cabe */
+.pagination {
+  flex-wrap: wrap;
+}
+
+/* Imagens nunca maiores que a tela */
+.app-content img {
+  max-width: 100%;
+}
+
+/* Cartões de resumo do dashboard */
+.small-box .inner h3 {
+  font-size: clamp(1.4rem, 1rem + 1.5vw, 2.2rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Telas grandes: limita a largura do conteúdo para não esticar demais */
+@media (min-width: 1800px) {
+  .app-content > .container-fluid,
+  .app-content-header > .container-fluid {
+    max-width: 1720px;
+  }
+}
+
+/* Tablet e celular */
+@media (max-width: 991.98px) {
+  .app-content-header h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Celular */
+@media (max-width: 575.98px) {
+  .app-content-header .breadcrumb {
+    display: none;
+  }
+  .app-content > .container-fluid,
+  .app-content-header > .container-fluid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .app-content .card-header > .card-tools {
+    width: 100%;
+    margin-left: 0;
+  }
+  .app-content .card-header > .card-tools > * {
+    flex: 1 1 auto;
+  }
+  .app-content .table {
+    font-size: 0.875rem;
+  }
+  .app-content .table > :not(caption) > * > * {
+    padding: 0.5rem 0.4rem;
+  }
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+  .small-box .small-box-icon {
+    height: 50px;
+  }
+  .app-footer {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  /* Dropdowns do topo (mensagens, notificações, usuário) presos às bordas
+     da tela, para não serem cortados à esquerda */
+  .app-header .navbar-nav .dropdown-menu {
+    position: fixed;
+    top: calc(3.5rem + 1px);
+    left: 0.5rem;
+    right: 0.5rem;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    max-height: calc(100vh - 4.5rem);
+    overflow-y: auto;
+  }
+  .app-header .navbar-nav .dropdown-menu .dropdown-item {
+    white-space: normal;
+  }
+}

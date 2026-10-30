@@ -60,6 +60,9 @@
     <link rel="stylesheet" href="{{ asset('dash/css/adminlte.css')}}" />
     <!--end::Required Plugin(AdminLTE)-->
 
+    <!-- Ajustes para celular, tablet e telas grandes -->
+    <link rel="stylesheet" href="{{ asset('dash/css/responsivo.css') }}" />
+
     <!-- apexcharts -->
     <link
       rel="stylesheet"

@@ -20,7 +20,7 @@
             <div class="modal-body">
 
 
-                <form method="POST" action="{{ route('admin.categoria.store') }}">
+                <form method="POST" action="{{ route('admin.categoria.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
@@ -36,6 +36,14 @@
                             <textarea class="form-control textarea-xzycode" id="descricao_categoria" rows="3" aria-describedby="alerta-descricao" name="descricao_categoria" Required></textarea>
                             <div id="alerta-descricao" class="form-text">
                                 Descrição da categoria
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="foto_categoria" class="form-label">Imagem</label>
+                            <input type="file" class="form-control" id="foto_categoria" name="foto_categoria" accept="image/png,image/jpeg,image/webp" aria-describedby="alerta-foto_categoria">
+                            <div id="alerta-foto_categoria" class="form-text">
+                                Aparece no card da categoria na página inicial (JPG, PNG ou WEBP, até 2 MB). Sem imagem, usa o cupcake padrão.
                             </div>
                         </div>
 

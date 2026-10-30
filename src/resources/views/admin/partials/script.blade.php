@@ -45,6 +45,20 @@
     </script>
     <!--end::OverlayScrollbars Configure-->
 
+    <script>
+      // Toda tabela do painel ganha rolagem horizontal em telas pequenas,
+      // sem precisar mexer em cada página.
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.app-content table.table').forEach(function (tabela) {
+          if (tabela.closest('.table-responsive')) return;
+          const envoltorio = document.createElement('div');
+          envoltorio.className = 'table-responsive';
+          tabela.parentNode.insertBefore(envoltorio, tabela);
+          envoltorio.appendChild(tabela);
+        });
+      });
+    </script>
+
     <!-- OPTIONAL SCRIPTS -->
 
     <!-- sortablejs -->

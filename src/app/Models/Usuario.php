@@ -40,6 +40,13 @@ class Usuario extends Authenticatable
         return $this->senha_usuario;
     }
 
+    // Nome da coluna da senha. Sem isso, quando o Laravel regrava a senha
+    // (hash com custo diferente do .env), procura a coluna "password" e dá erro 500.
+    public function getAuthPasswordName()
+    {
+        return 'senha_usuario';
+    }
+
     // Endereço da foto (as fotos ficam em public/dash/assets/img/usuario)
     public function urlFoto(): string
     {
